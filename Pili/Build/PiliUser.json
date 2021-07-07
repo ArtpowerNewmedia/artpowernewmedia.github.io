@@ -1,0 +1,20 @@
+{
+"companyName": "Artpower",
+"productName": "PiliDramaUser",
+"productVersion": "1",
+"dataUrl": "PiliUser.data.unityweb",
+"wasmCodeUrl": "PiliUser.wasm.code.unityweb",
+"wasmFrameworkUrl": "PiliUser.wasm.framework.unityweb",
+"asmCodeUrl": "PiliUser.asm.code.unityweb",
+"asmMemoryUrl": "PiliUser.asm.memory.unityweb",
+"asmFrameworkUrl": "PiliUser.asm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.26f1"
+}
