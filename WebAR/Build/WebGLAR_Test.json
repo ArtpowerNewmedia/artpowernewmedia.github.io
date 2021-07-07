@@ -1,0 +1,16 @@
+{
+"companyName": "Artpower",
+"productName": "WebXR",
+"productVersion": "0.1",
+"dataUrl": "WebGLAR_Test.data.unityweb",
+"wasmCodeUrl": "WebGLAR_Test.wasm.code.unityweb",
+"wasmFrameworkUrl": "WebGLAR_Test.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.26f1"
+}
