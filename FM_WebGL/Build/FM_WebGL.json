@@ -1,0 +1,15 @@
+{
+"companyName": "Artpower",
+"productName": "FM_GL",
+"productVersion": "1.383",
+"dataUrl": "FM_WebGL.data.unityweb",
+"wasmCodeUrl": "FM_WebGL.wasm.code.unityweb",
+"wasmFrameworkUrl": "FM_WebGL.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Light",
+"backgroundColor": "#FFFFFF",
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.26f1"
+}
