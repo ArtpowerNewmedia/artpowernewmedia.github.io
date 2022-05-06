@@ -1,0 +1,306 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>
+    .con {
+        background-color: floralwhite;
+        padding: 40px 80px 80px;
+    }
+  
+    #screen {
+        background-color: rgb(0, 0, 0);
+        width: 100%;
+        height: auto;
+        border: 1px solid rgb(229, 229, 229);
+        font-size: 14px;
+    }
+  
+    .content {
+        border: 1px solid rgb(204, 204, 204);
+        border-radius: 3px;
+        width: 320px;
+        height: 35px;
+        font-size: 14px;
+        margin-top: 30px;
+    }
+  
+    .send {
+        border: 1px solid rgb(230, 80, 30);
+        color: rgb(230, 80, 0);
+        border-radius: 3px;
+        text-align: center;
+        padding: 0;
+        height: 35px;
+        line-height: 35px;
+        font-size: 14px;
+        width: 159px;
+        background-color: white;
+    }
+  
+    .clear {
+        border: 1px solid;
+        color: darkgray;
+        border-radius: 3px;
+        text-align: center;
+        padding: 0;
+        height: 35px;
+        line-height: 35px;
+        font-size: 14px;
+        width: 159px;
+        background-color: white;
+    }
+  
+    .edit {
+        margin: 20px;
+        text-align: center;
+    }
+  
+    .edit .btns{
+        margin-top: 20px;
+    }
+  
+    .edit .msg input{
+        padding-left: 5px;
+    }
+  
+    .text {
+        position: absolute;
+    }
+  
+    * {
+        margin: 0;
+        padding: 0;
+    }
+  
+    .dm_show {
+        margin: 30px;
+        color: white;
+    }
+</style>
+
+</head>
+
+<body>
+  <div class="con">
+    <div id="screen">
+        <div class="dm_show">
+            <!-- <div>text message</div> -->
+            <video width="640" height="480" controls id="v" autoplay>
+              <source src="p0323_s.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+    <div class="edit">
+        <p class="msg">
+            <input placeholder="說點甚麼吧？" class="content" type="text" />
+        </p>
+        <p class="btns">
+            <input type="button" class="send" value="發送" />
+            <input type="button" class="clear" value="清除" />
+        </p>
+        <p></p>
+        <p></p>
+        <div id="q_area">
+          <div id="q_q">問題1</div>
+          <button type="button" id="q_a" onclick="clickAns('A')">答案1</button>
+          <button type="button" id="q_b" onclick="clickAns('B')">答案2</button>
+          <button type="button" id="q_c" onclick="clickAns('C')">答案3</button>
+          <button type="button" id="q_d" onclick="clickAns('D')">答案4</button>
+          <p></p>
+          <div id="q_result"></div>
+        </div>
+    </div>
+  </div>
+
+  
+  <br>
+
+  <!-- <div>輸入彈幕 <input type="text" id="say" class="content" placeholder="說點甚麼吧？"><button type="button" id="btn_say" onclick="clickSay()">發送!</button></div> -->
+  
+<!-- 
+  <video width="auto" id="cover" autoplay>
+    <source src="Pili.webm" type="video/mp4">
+  </video> -->
+  <script>
+    var say = document.getElementById('say');
+    var q_area = document.getElementById('q_area');
+    var q_q = document.getElementById('q_q');
+    var q_a = document.getElementById('q_a');
+    var q_b = document.getElementById('q_b');
+    var q_c = document.getElementById('q_c');
+    var q_d = document.getElementById('q_d');
+    var q_result = document.getElementById('q_result');
+    var q_ans = '';
+    var q_num = 0;
+
+    var v = document.getElementById('v');
+    setInterval(function(){
+        console.log(v.currentTime);
+        if(v.currentTime <= 1787){
+          q_area.style.visibility = "hidden";
+          q_num = 0;
+          return;
+        }
+        if(v.currentTime > 1787 && v.currentTime <= 1846){
+          q_area.style.visibility = "visible";
+          q_q.innerHTML = '給你一個讚，比的是哪一指？'
+          q_a.innerHTML = '大頭拇';
+          q_b.innerHTML = '尾二指';
+          q_c.innerHTML = '二指';
+          q_d.innerHTML = '尾指';
+          
+          if(q_num != 1){
+            q_result.innerHTML = '';
+            q_num = 1;
+          }
+          q_ans = 'A';
+        }
+        if(v.currentTime > 1846 && v.currentTime <= 1870){
+          q_area.style.visibility = "visible";
+          q_q.innerHTML = '哪一種食物不是屬於台灣古早味？'
+          q_a.innerHTML = '披薩';
+          q_b.innerHTML = '擔仔麵';
+          q_c.innerHTML = '滷肉飯';
+          q_d.innerHTML = '豬油攪飯';
+          
+          if(q_num != 2){
+            q_result.innerHTML = '';
+            q_num = 2;
+          }
+          q_ans = 'A';
+        }
+        if(v.currentTime > 1870 && v.currentTime <= 1932){
+          q_area.style.visibility = "visible";
+          q_q.innerHTML = '加減乘（＋－×），猜一個中文字？'
+          q_a.innerHTML = '文';
+          q_b.innerHTML = '天';
+          q_c.innerHTML = '支';
+          q_d.innerHTML = '大';
+          
+          if(q_num != 3){
+            q_result.innerHTML = '';
+            q_num = 3;
+          }
+          q_ans = 'C';
+        }
+        if(v.currentTime > 1932 && v.currentTime <= 2000){
+          q_area.style.visibility = "visible";
+          q_q.innerHTML = '哪一種水果有「大吉大利」的寓意？'
+          q_a.innerHTML = '王梨';
+          q_b.innerHTML = '弓蕉';
+          q_c.innerHTML = '刺波';
+          q_d.innerHTML = '柑仔';
+          
+          if(q_num != 4){
+            q_result.innerHTML = '';
+            q_num = 4;
+          }
+          q_ans = 'D';
+        }
+        if(v.currentTime > 2000 && v.currentTime <= 2040){
+          q_area.style.visibility = "visible";
+          q_q.innerHTML = '為什麼會產生「影子」？'
+          q_a.innerHTML = '光被物體擋住';
+          q_b.innerHTML = '光有黑色的成分';
+          q_c.innerHTML = '因為陰天才會出現影子';
+          q_d.innerHTML = '物體是活的才會有影子';
+          
+          if(q_num != 5){
+            q_result.innerHTML = '';
+            q_num = 5;
+          }
+          q_ans = 'A';
+        }
+        if(v.currentTime > 2040 && v.currentTime <= 2066){
+          q_area.style.visibility = "visible";
+          q_q.innerHTML = '掃把掃地是什麼原理？'
+          q_a.innerHTML = '齒輪原理';
+          q_b.innerHTML = '槓桿原理';
+          q_c.innerHTML = '虹吸管原理';
+          q_d.innerHTML = '折射原理';
+          
+          if(q_num != 6){
+            q_result.innerHTML = '';
+            q_num = 6;
+          }
+          q_ans = 'B';
+        }
+        if(v.currentTime > 2066 && v.currentTime <= 2090){
+          q_area.style.visibility = "visible";
+          q_q.innerHTML = '哪一種不是天然纖維？'
+          q_a.innerHTML = '棉紗';
+          q_b.innerHTML = '尼龍';
+          q_c.innerHTML = '麻紗';
+          q_d.innerHTML = '娘仔絲';
+          
+          if(q_num != 7){
+            q_result.innerHTML = '';
+            q_num = 7;
+          }
+          q_ans = 'B';
+        }
+        if(v.currentTime > 2090){
+          q_area.style.visibility = "hidden";
+        }
+    },1000);
+
+
+    q_area.style.visibility = 'hidden';
+
+
+    function clickAns(click){
+      console.log(click);
+      if(click == q_ans){
+        q_result.innerHTML = '答對了!!!';
+      } else {
+        q_result.innerHTML = '答錯了...';
+      }
+    }
+
+    function clickSay(){
+      let temp = say.value;
+      say.value = '';
+      console.log(temp);
+    }
+
+
+    $(function () {
+        //设置“发送”按钮点击事件，将弹幕体显示在弹幕墙上
+        $('.send').click(function () {
+            //获取文本输入框的内容
+            var val = $('.content').val();
+            //将文本框的内容赋值给val后，将文本框的内容清除，以便用户下一次输入
+            $('.content').val('');
+            //将文本框内容用div包裹起来，便于后续处理
+            var $content = $('<div class="text">' + val + '</div>');
+            //获取弹幕墙对象
+            $screen = $(document.getElementById("screen"));
+            //设置弹幕体出现时的上边距，为任意值
+            var top = Math.random() * $screen.height() + 40;
+            //设置弹幕体的上边距和左边距
+            $content.css({
+                top: top + "px",
+                left: 80
+            });
+            //将弹幕体添加到弹幕墙中
+            $('.dm_show').append($content);
+            //弹幕体从左端移动到最右侧，时间为8秒，然后直接删除该元素
+            $content.animate({
+                left: $screen.width() + 80 - $content.width()
+            }, 8000, function () {
+                $(this).remove();
+            });
+        });
+        //设置“清屏”点击事件，清除弹幕墙中的所有内容
+        $('.clear').click(function () {
+            $('.dm_show').empty();
+        });
+    });
+
+  </script>
+</body>
+
+</html>
