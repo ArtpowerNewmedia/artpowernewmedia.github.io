@@ -5,26 +5,44 @@
   <title>Document</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <style>
+    body {
+      background-color: #331909;
+    }
+
     .con {
         background-color: floralwhite;
-        padding: 40px 80px 80px;
+        padding: 70px 0px;
+        position: absolute;
+        background-image: url('UI/background.png');
+        /* background-size: cover; */
+        background-size: 100% 100%;
+        overflow: hidden;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 1080;
+        /* padding-left: 50%; */
     }
   
     #screen {
         background-color: rgb(0, 0, 0);
         width: 100%;
         height: auto;
-        border: 1px solid rgb(229, 229, 229);
-        font-size: 14px;
+        border: 2px solid rgb(229, 229, 229);
+        font-size: 28px;
     }
-  
+
     .content {
-        border: 1px solid rgb(204, 204, 204);
-        border-radius: 3px;
+        border: 0px solid rgb(204, 204, 204);
+        border-radius: 0px;
         width: 320px;
-        height: 35px;
-        font-size: 14px;
-        margin-top: 30px;
+        height: 45px;
+        font-size: 18px;
+        margin-top: 20px;
+        background-image: url('UI/input_field.png');
+        background-size: 100% 100%;
+        text-align: center;
     }
   
     .send {
@@ -52,10 +70,53 @@
         width: 159px;
         background-color: white;
     }
+
+    .btnsend {
+      border: 0px solid;
+      height: 35px;
+      width: 100px;
+      background-image: url('UI/btn_send.png');
+      background-size: 100% 100%;
+    }
+
+    .btnclear {
+      border: 0px solid;
+      height: 35px;
+      width: 100px;
+      background-image: url('UI/btn_clear.png');
+      background-size: 100% 100%;
+    }
   
     .edit {
-        margin: 20px;
+        margin: 0px;
         text-align: center;
+    }
+
+    .quest {
+      margin: 0px;
+      text-align: center;
+      /* -webkit-text-fill-color: rgb(0, 0, 0);
+      -webkit-text-stroke-color: rgb(0, 0, 0);
+      -webkit-text-stroke-width: 1.00px;  */
+      /* background-color: aqua; */
+      font-weight: bold;
+    }
+
+    .q_style {
+      border: 0px solid;
+      height: 50px;
+      width: 350px;
+      background-image: url('UI/btn_select.png');
+      background-size: 100% 100%;
+      -webkit-text-fill-color: rgb(0, 0, 0);
+      -webkit-text-stroke-color: rgb(0, 0, 0);
+      -webkit-text-stroke-width: 1.00px; 
+      font-size: 18;
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
     }
   
     .edit .btns{
@@ -76,19 +137,40 @@
     }
   
     .dm_show {
-        margin: 30px;
+        margin: 10px;
         color: white;
     }
+
+    .video-overlay {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        margin: 10px;
+        padding: 5px 5px;
+        font-size: 20px;
+        font-family: Helvetica;
+        color: #FFF;
+        background-color: rgba(50, 50, 50, 0.3);
+    }
+
+    .overlay {
+      position: absolute;
+      pointer-events:none;
+      width: 100%;
+      height: auto;
+      z-index: 9;
+    }
+
 </style>
 
 </head>
 
 <body>
   <div class="con">
-    <div id="screen">
+    <div id="screen"><!-- <div>text message</div> -->
         <div class="dm_show">
-            <!-- <div>text message</div> -->
-            <video width="640" height="480" controls id="v" autoplay>
+            
+            <video width="100%" height="auto" controls id="v">
               <source src="p0323_s.mp4" type="video/mp4">
             </video>
         </div>
@@ -98,22 +180,27 @@
             <input placeholder="說點甚麼吧？" class="content" type="text" />
         </p>
         <p class="btns">
-            <input type="button" class="send" value="發送" />
-            <input type="button" class="clear" value="清除" />
+            <input type="button" class="btnsend" />
+            <input type="button" class="btnclear" />
         </p>
         <p></p>
         <p></p>
-        <div id="q_area">
+        <div id="q_area" class="quest">
           <div id="q_q">問題1</div>
-          <button type="button" id="q_a" onclick="clickAns('A')">答案1</button>
-          <button type="button" id="q_b" onclick="clickAns('B')">答案2</button>
-          <button type="button" id="q_c" onclick="clickAns('C')">答案3</button>
-          <button type="button" id="q_d" onclick="clickAns('D')">答案4</button>
+          <button type="button" id="q_a" class="q_style" onclick="clickAns('A')">答案1</button><br>
+          <button type="button" id="q_b" class="q_style" onclick="clickAns('B')">答案2</button><br>
+          <button type="button" id="q_c" class="q_style" onclick="clickAns('C')">答案3</button><br>
+          <button type="button" id="q_d" class="q_style" onclick="clickAns('D')">答案4</button><br>
           <p></p>
           <div id="q_result"></div>
         </div>
+        <!-- <div id="q_img" class="quest">
+          <img src="UI/icons.png" width="auto">
+        </div> -->
     </div>
   </div>
+
+  <!-- <div class="overlay"><video width="100%" height="100%" id="player" src="失敗.webm" autoplay loop></video></div> -->
 
   
   <br>
@@ -125,6 +212,7 @@
     <source src="Pili.webm" type="video/mp4">
   </video> -->
   <script>
+    var vt_url = 'https://www.youtube.com/watch?v=vDX8XrhdPTQ';
     var say = document.getElementById('say');
     var q_area = document.getElementById('q_area');
     var q_q = document.getElementById('q_q');
@@ -140,7 +228,7 @@
     setInterval(function(){
         console.log(v.currentTime);
         if(v.currentTime <= 1787){
-          q_area.style.visibility = "hidden";
+          //q_area.style.visibility = "hidden";
           q_num = 0;
           return;
         }
@@ -248,7 +336,7 @@
     },1000);
 
 
-    q_area.style.visibility = 'hidden';
+    //q_area.style.visibility = 'hidden';
 
 
     function clickAns(click){
@@ -269,7 +357,7 @@
 
     $(function () {
         //设置“发送”按钮点击事件，将弹幕体显示在弹幕墙上
-        $('.send').click(function () {
+        $('.btnsend').click(function () {
             //获取文本输入框的内容
             var val = $('.content').val();
             //将文本框的内容赋值给val后，将文本框的内容清除，以便用户下一次输入
@@ -279,23 +367,23 @@
             //获取弹幕墙对象
             $screen = $(document.getElementById("screen"));
             //设置弹幕体出现时的上边距，为任意值
-            var top = Math.random() * $screen.height() + 40;
+            var top = Math.random() * $screen.height();
             //设置弹幕体的上边距和左边距
             $content.css({
                 top: top + "px",
-                left: 80
+                right: 10
             });
             //将弹幕体添加到弹幕墙中
             $('.dm_show').append($content);
             //弹幕体从左端移动到最右侧，时间为8秒，然后直接删除该元素
             $content.animate({
-                left: $screen.width() + 80 - $content.width()
-            }, 8000, function () {
+                right: $screen.width() + 10 - $content.width()
+            }, 8000, "linear", function () {
                 $(this).remove();
             });
         });
         //设置“清屏”点击事件，清除弹幕墙中的所有内容
-        $('.clear').click(function () {
+        $('.btnclear').click(function () {
             $('.dm_show').empty();
         });
     });
