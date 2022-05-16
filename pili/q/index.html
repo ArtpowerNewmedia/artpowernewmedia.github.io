@@ -102,6 +102,11 @@
       font-weight: bold;
     }
 
+    .quest_img {
+      margin: 0px;
+      text-align: center;
+    }
+
     .q_style {
       border: 0px solid;
       height: 50px;
@@ -112,6 +117,13 @@
       -webkit-text-stroke-color: rgb(0, 0, 0);
       -webkit-text-stroke-width: 1.00px; 
       font-size: 18;
+    }
+
+    .q_result {
+      -webkit-text-fill-color: rgb(189, 85, 1);
+      -webkit-text-stroke-color: rgb(189, 85, 1);
+      -webkit-text-stroke-width: 1.00px; 
+      font-size: 24;
     }
 
     img {
@@ -192,11 +204,11 @@
           <button type="button" id="q_c" class="q_style" onclick="clickAns('C')">答案3</button><br>
           <button type="button" id="q_d" class="q_style" onclick="clickAns('D')">答案4</button><br>
           <p></p>
-          <div id="q_result"></div>
+          <div id="q_result" class="q_result"></div>
         </div>
-        <!-- <div id="q_img" class="quest">
+        <div id="q_img" class="quest_img">
           <img src="UI/icons.png" width="auto">
-        </div> -->
+        </div>
     </div>
   </div>
 
@@ -208,6 +220,7 @@
     var vt_url = 'https://www.youtube.com/watch?v=vDX8XrhdPTQ';
     var say = document.getElementById('say');
     var q_area = document.getElementById('q_area');
+    var q_img = document.getElementById('q_img');
     var q_q = document.getElementById('q_q');
     var q_a = document.getElementById('q_a');
     var q_b = document.getElementById('q_b');
@@ -304,11 +317,15 @@
       ans: 'B',
     });
 
+    q_area.style.display = 'none';
+    q_img.style.display = 'block';
     var v = document.getElementById('v');
     setInterval(function(){
         //console.log(v.currentTime);
         if(v.currentTime <= quests[0].startTime || v.currentTime > quests[quests.length-1].endTime){
-          q_area.style.visibility = "hidden";
+          //q_area.style.visibility = "hidden";
+          q_area.style.display = 'none';
+          q_img.style.display = 'block';
           q_num = 0;
           return;
         } else {
@@ -316,7 +333,8 @@
             const element = quests[index];
             
             if(v.currentTime > element.startTime && v.currentTime <= element.endTime){
-              q_area.style.visibility = "visible";
+              q_area.style.display = "block";
+              q_img.style.display = 'none';
               q_q.innerHTML = element.q;
               q_a.innerHTML = element.a;
               q_b.innerHTML = element.b;
@@ -335,10 +353,6 @@
         }
 
     },1000);
-
-
-    q_area.style.visibility = 'hidden';
-
 
     function clickAns(click){
       console.log(click);
