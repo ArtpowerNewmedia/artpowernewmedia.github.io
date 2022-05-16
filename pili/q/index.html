@@ -24,6 +24,24 @@
         max-width: 1080;
         /* padding-left: 50%; */
     }
+
+    .con_pc {
+        background-color: floralwhite;
+        padding: 70px 0px;
+        position: relative;
+        background-image: url('UI/background.png');
+        /* background-size: cover; */
+        background-size: 100% 100%;
+        overflow: hidden;
+        /* top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: 1080; */
+        width:700px;
+        margin:0 auto;
+        /* padding-left: 50%; */
+    }
   
     #screen {
         background-color: rgb(0, 0, 0);
@@ -191,6 +209,7 @@
       height: auto;
       z-index: 9;
       visibility: hidden;
+      top: 0;
     }
 
 </style>
@@ -198,7 +217,7 @@
 </head>
 
 <body>
-  <div class="con">
+  <div class="con" id="main">
     <div id="screen"><!-- <div>text message</div> -->
         <div class="dm_show">
             
@@ -230,10 +249,10 @@
           <img src="UI/icons.png" width="auto">
         </div>
     </div>
-  </div>
 
-  <div class="score_area">
-    目前得分: <div id="score" class="score">0</div>
+    <div class="score_area">
+      目前得分: <div id="score" class="score">0</div>
+    </div>
   </div>
 
   <div class="overlay"><video width="100%" height="100%" id="overlayVideo" onended="videoEnded()" oncanplay="videoCanPlay()"></video></div>
@@ -241,6 +260,8 @@
   <br>
   
   <script>
+    conInit();
+
     var vt_url = 'https://www.youtube.com/watch?v=vDX8XrhdPTQ';
     var say = document.getElementById('say');
     var q_area = document.getElementById('q_area');
@@ -436,6 +457,24 @@
 
     function videoEnded(){
       q_ov.style.visibility = 'hidden';
+    }
+
+    function isMobileDevice(){
+        var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
+        var isMobileDevice=false
+        for(var i=0;i<mobileDevices.length;i++){
+            if(navigator.userAgent.match(mobileDevices[i])){
+                isMobileDevice=true
+            }
+        }
+        return isMobileDevice
+    }
+
+    function conInit(){
+      if(!isMobileDevice()){
+        document.getElementById('main').className = 'con_pc';
+        console.log('change to pc version');
+      }
     }
 
     $(function () {
