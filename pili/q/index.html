@@ -462,7 +462,15 @@
         });
         //设置“清屏”点击事件，清除弹幕墙中的所有内容
         $('.btnclear').click(function () {
-            $('.dm_show').empty();
+            //$('.dm_show').empty();
+            $('.content').val('');
+        });
+
+        $('.content').keyup(function(e){
+            if(e.keyCode == 13)
+            {
+              $('.btnsend').click();
+            }
         });
     });
 
