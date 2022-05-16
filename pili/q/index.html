@@ -200,17 +200,10 @@
     </div>
   </div>
 
-  <!-- <div class="overlay"><video width="100%" height="100%" id="player" src="失敗.webm" autoplay loop></video></div> -->
+  <div class="overlay"><video width="100%" height="100%" id="overlayVideo" src="失敗.webm" autoplay></video></div>
 
-  
   <br>
-
-  <!-- <div>輸入彈幕 <input type="text" id="say" class="content" placeholder="說點甚麼吧？"><button type="button" id="btn_say" onclick="clickSay()">發送!</button></div> -->
   
-<!-- 
-  <video width="auto" id="cover" autoplay>
-    <source src="Pili.webm" type="video/mp4">
-  </video> -->
   <script>
     var vt_url = 'https://www.youtube.com/watch?v=vDX8XrhdPTQ';
     var say = document.getElementById('say');
@@ -223,137 +216,142 @@
     var q_result = document.getElementById('q_result');
     var q_ans = '';
     var q_num = 0;
+    var q_ov = document.getElementById('overlayVideo');
+
+    var quests = [];
+    quests.push({
+      startTime: 1787,
+      endTime: 1846,
+      yes: 'anim/Yes01.webm',
+      no: 'anim/No01.webm',
+      q: '給你一個讚，比的是哪一指？',
+      a: '大頭拇',
+      b: '尾二指',
+      c: '二指',
+      d: '尾指',
+      ans: 'A',
+    });
+    quests.push({
+      startTime: 1846,
+      endTime: 1870,
+      yes: 'anim/Yes02.webm',
+      no: 'anim/No02.webm',
+      q: '哪一種食物不是屬於台灣古早味？',
+      a: '披薩',
+      b: '擔仔麵',
+      c: '滷肉飯',
+      d: '豬油攪飯',
+      ans: 'A',
+    });
+    quests.push({
+      startTime: 1870,
+      endTime: 1932,
+      yes: 'anim/Yes03.webm',
+      no: 'anim/No03.webm',
+      q: '加減乘（＋－×），猜一個中文字？',
+      a: '文',
+      b: '天',
+      c: '支',
+      d: '大',
+      ans: 'C',
+    });
+    quests.push({
+      startTime: 1932,
+      endTime: 2000,
+      yes: 'anim/Yes04.webm',
+      no: 'anim/No04.webm',
+      q: '哪一種水果有「大吉大利」的寓意？',
+      a: '王梨',
+      b: '弓蕉',
+      c: '刺波',
+      d: '柑仔',
+      ans: 'D',
+    });
+    quests.push({
+      startTime: 2000,
+      endTime: 2040,
+      yes: 'anim/Yes05.webm',
+      no: 'anim/No05.webm',
+      q: '為什麼會產生「影子」？',
+      a: '光被物體擋住',
+      b: '光有黑色的成分',
+      c: '因為陰天才會出現影子',
+      d: '物體是活的才會有影子',
+      ans: 'A',
+    });
+    quests.push({
+      startTime: 2040,
+      endTime: 2066,
+      yes: 'anim/Yes06.webm',
+      no: 'anim/No06.webm',
+      q: '掃把掃地是什麼原理？',
+      a: '齒輪原理',
+      b: '槓桿原理',
+      c: '虹吸管原理',
+      d: '折射原理',
+      ans: 'B',
+    });
+    quests.push({
+      startTime: 2066,
+      endTime: 2090,
+      yes: 'anim/Yes07.webm',
+      no: 'anim/No07.webm',
+      q: '哪一種不是天然纖維？',
+      a: '棉紗',
+      b: '尼龍',
+      c: '麻紗',
+      d: '娘仔絲',
+      ans: 'B',
+    });
 
     var v = document.getElementById('v');
     setInterval(function(){
-        console.log(v.currentTime);
-        if(v.currentTime <= 1787){
-          //q_area.style.visibility = "hidden";
+        //console.log(v.currentTime);
+        if(v.currentTime <= quests[0].startTime || v.currentTime > quests[quests.length-1].endTime){
+          q_area.style.visibility = "hidden";
           q_num = 0;
           return;
-        }
-        if(v.currentTime > 1787 && v.currentTime <= 1846){
-          q_area.style.visibility = "visible";
-          q_q.innerHTML = '給你一個讚，比的是哪一指？'
-          q_a.innerHTML = '大頭拇';
-          q_b.innerHTML = '尾二指';
-          q_c.innerHTML = '二指';
-          q_d.innerHTML = '尾指';
-          
-          if(q_num != 1){
-            q_result.innerHTML = '';
-            q_num = 1;
+        } else {
+          for (let index = 0; index < quests.length; index++) {
+            const element = quests[index];
+            
+            if(v.currentTime > element.startTime && v.currentTime <= element.endTime){
+              q_area.style.visibility = "visible";
+              q_q.innerHTML = element.q;
+              q_a.innerHTML = element.a;
+              q_b.innerHTML = element.b;
+              q_c.innerHTML = element.c;
+              q_d.innerHTML = element.d;
+
+              q_ans = element.ans;
+
+              if(q_num != index+1){
+                q_result.innerHTML = '';
+                q_num = index+1;
+              }
+
+            }
           }
-          q_ans = 'A';
         }
-        if(v.currentTime > 1846 && v.currentTime <= 1870){
-          q_area.style.visibility = "visible";
-          q_q.innerHTML = '哪一種食物不是屬於台灣古早味？'
-          q_a.innerHTML = '披薩';
-          q_b.innerHTML = '擔仔麵';
-          q_c.innerHTML = '滷肉飯';
-          q_d.innerHTML = '豬油攪飯';
-          
-          if(q_num != 2){
-            q_result.innerHTML = '';
-            q_num = 2;
-          }
-          q_ans = 'A';
-        }
-        if(v.currentTime > 1870 && v.currentTime <= 1932){
-          q_area.style.visibility = "visible";
-          q_q.innerHTML = '加減乘（＋－×），猜一個中文字？'
-          q_a.innerHTML = '文';
-          q_b.innerHTML = '天';
-          q_c.innerHTML = '支';
-          q_d.innerHTML = '大';
-          
-          if(q_num != 3){
-            q_result.innerHTML = '';
-            q_num = 3;
-          }
-          q_ans = 'C';
-        }
-        if(v.currentTime > 1932 && v.currentTime <= 2000){
-          q_area.style.visibility = "visible";
-          q_q.innerHTML = '哪一種水果有「大吉大利」的寓意？'
-          q_a.innerHTML = '王梨';
-          q_b.innerHTML = '弓蕉';
-          q_c.innerHTML = '刺波';
-          q_d.innerHTML = '柑仔';
-          
-          if(q_num != 4){
-            q_result.innerHTML = '';
-            q_num = 4;
-          }
-          q_ans = 'D';
-        }
-        if(v.currentTime > 2000 && v.currentTime <= 2040){
-          q_area.style.visibility = "visible";
-          q_q.innerHTML = '為什麼會產生「影子」？'
-          q_a.innerHTML = '光被物體擋住';
-          q_b.innerHTML = '光有黑色的成分';
-          q_c.innerHTML = '因為陰天才會出現影子';
-          q_d.innerHTML = '物體是活的才會有影子';
-          
-          if(q_num != 5){
-            q_result.innerHTML = '';
-            q_num = 5;
-          }
-          q_ans = 'A';
-        }
-        if(v.currentTime > 2040 && v.currentTime <= 2066){
-          q_area.style.visibility = "visible";
-          q_q.innerHTML = '掃把掃地是什麼原理？'
-          q_a.innerHTML = '齒輪原理';
-          q_b.innerHTML = '槓桿原理';
-          q_c.innerHTML = '虹吸管原理';
-          q_d.innerHTML = '折射原理';
-          
-          if(q_num != 6){
-            q_result.innerHTML = '';
-            q_num = 6;
-          }
-          q_ans = 'B';
-        }
-        if(v.currentTime > 2066 && v.currentTime <= 2090){
-          q_area.style.visibility = "visible";
-          q_q.innerHTML = '哪一種不是天然纖維？'
-          q_a.innerHTML = '棉紗';
-          q_b.innerHTML = '尼龍';
-          q_c.innerHTML = '麻紗';
-          q_d.innerHTML = '娘仔絲';
-          
-          if(q_num != 7){
-            q_result.innerHTML = '';
-            q_num = 7;
-          }
-          q_ans = 'B';
-        }
-        if(v.currentTime > 2090){
-          q_area.style.visibility = "hidden";
-        }
+
     },1000);
 
 
-    //q_area.style.visibility = 'hidden';
+    q_area.style.visibility = 'hidden';
 
 
     function clickAns(click){
       console.log(click);
       if(click == q_ans){
         q_result.innerHTML = '答對了!!!';
+        q_ov.src = quests[q_num].yes;
+        q_ov.play();
       } else {
         q_result.innerHTML = '答錯了...';
+        q_ov.src = quests[q_num].no;
+        q_ov.play();
       }
     }
-
-    function clickSay(){
-      let temp = say.value;
-      say.value = '';
-      console.log(temp);
-    }
-
 
     $(function () {
         //设置“发送”按钮点击事件，将弹幕体显示在弹幕墙上
