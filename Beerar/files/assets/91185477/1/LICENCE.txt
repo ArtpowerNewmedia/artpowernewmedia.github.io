@@ -1,0 +1,58 @@
+# SFX
+
+Music Loop:
+juskiddink - Western Themetune  - Attribution 3.0 Unported (CC BY 3.0)
+https://freesound.org/people/juskiddink/sounds/124454/
+
+Missed Hit:
+Raclure - Wrong                 - CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+https://freesound.org/people/Raclure/sounds/483598/
+
+Correct Hit:
+Qat - whack02                   - CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+https://freesound.org/people/Qat/sounds/114683/
+
+Ascent:
+mostart - mostart-tropfen       - CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+https://freesound.org/people/mostart/sounds/521816/
+
+Descent (Ascent reversed):
+mostart - mostart-tropfen       - CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+https://freesound.org/people/mostart/sounds/521816/
+
+
+# 3D Models
+
+Bush:
+Paola Valencia - Bush - CC Attribution
+http://paolavalencia.art/
+
+Low Poly Tree House:
+Dawid2K - Low Poly Tree House                   - CC Attribution
+https://sketchfab.com/3d-models/low-poly-tree-house-a4a46345a7344dc7b98f5073998769e0
+
+Tree 1:
+Purepoly - Low Poly Tree with twisting branches - CC Attribution
+https://sketchfab.com/3d-models/low-poly-tree-with-twisting-branches-4e2589134f2442bcbdab51c1f306cd58
+
+Trunk:
+ModelMode - Stump Workbench                     - CC Attribution
+https://sketchfab.com/3d-models/stump-workbench-3ab0ea8c20b8496181e2d493f297a5d6
+
+Grass:
+AlicePandaArt - Low-poly Cogon Grass            - CC Attribution
+https://sketchfab.com/3d-models/low-poly-cogon-grass-7a97ae7018b94370ab60c0e7180696c0
+
+
+Rocks:
+louis-muir - Low Poly Rock Set                   - CC Attribution
+https://sketchfab.com/3d-models/low-poly-rock-set-48f8612d1db1429d976f8d4f08ed0f0c
+
+Fence:
+dvnc.tech - Low-Poly Fence                      - CC Attribution
+https://sketchfab.com/3d-models/low-poly-fence-7af608be40ca42488843463fb8c80e4a#download
+
+Cloud:
+NoobStudios - Procedural Low Poly Cloud         - CC Attribution
+https://sketchfab.com/3d-models/procedural-low-poly-cloud-d362c3fcd56f4e1989a27f7e30a56dad#download
+
