@@ -4,91 +4,92 @@
   <meta charset="UTF-8">
   <title>小霹靂學園</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="http://counter.i2yes.com/i2yesCounter.js" type="text/javascript"></script>
   <style>
     body {
-      
+
       background-color: #331909;
     }
 
     .con {
-        background-color: floralwhite;
-        padding: 70px 0px;
-        position: absolute;
-        background-image: url('UI/background.png');
-        /* background-size: cover; */
-        background-size: 100% 100%;
-        overflow: hidden;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        max-width: 1080;
-        /* padding-left: 50%; */
+      background-color: floralwhite;
+      padding: 70px 0px;
+      position: absolute;
+      background-image: url('UI/background.png');
+      /* background-size: cover; */
+      background-size: 100% 100%;
+      overflow: hidden;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 1080;
+      /* padding-left: 50%; */
     }
 
     .con_pc {
-        background-color: floralwhite;
-        padding: 70px 0px;
-        position: relative;
-        background-image: url('UI/background.png');
-        /* background-size: cover; */
-        background-size: 100% 100%;
-        overflow: hidden;
-        /* top: 0;
+      background-color: floralwhite;
+      padding: 70px 0px;
+      position: relative;
+      background-image: url('UI/background.png');
+      /* background-size: cover; */
+      background-size: 100% 100%;
+      overflow: hidden;
+      /* top: 0;
         bottom: 0;
         left: 0;
         right: 0;
         max-width: 1080; */
-        width:700px;
-        /* height: 100%; */
-        margin:0 auto;
-        /* padding-left: 50%; */
+      width: 700px;
+      /* height: 100%; */
+      margin: 0 auto;
+      /* padding-left: 50%; */
     }
-  
+
     #screen {
-        background-color: rgb(0, 0, 0);
-        width: 100%;
-        height: auto;
-        border: 2px solid rgb(229, 229, 229);
-        font-size: 28px;
+      background-color: rgb(0, 0, 0);
+      width: 100%;
+      height: auto;
+      border: 2px solid rgb(229, 229, 229);
+      font-size: 28px;
     }
 
     .content {
-        border: 0px solid rgb(204, 204, 204);
-        border-radius: 0px;
-        width: 320px;
-        height: 45px;
-        font-size: 18px;
-        margin-top: 20px;
-        background-image: url('UI/input_field.png');
-        background-size: 100% 100%;
-        text-align: center;
+      border: 0px solid rgb(204, 204, 204);
+      border-radius: 0px;
+      width: 320px;
+      height: 45px;
+      font-size: 18px;
+      margin-top: 20px;
+      background-image: url('UI/input_field.png');
+      background-size: 100% 100%;
+      text-align: center;
     }
-  
+
     .send {
-        border: 1px solid rgb(230, 80, 30);
-        color: rgb(230, 80, 0);
-        border-radius: 3px;
-        text-align: center;
-        padding: 0;
-        height: 35px;
-        line-height: 35px;
-        font-size: 14px;
-        width: 159px;
-        background-color: white;
+      border: 1px solid rgb(230, 80, 30);
+      color: rgb(230, 80, 0);
+      border-radius: 3px;
+      text-align: center;
+      padding: 0;
+      height: 35px;
+      line-height: 35px;
+      font-size: 14px;
+      width: 159px;
+      background-color: white;
     }
-  
+
     .clear {
-        border: 1px solid;
-        color: darkgray;
-        border-radius: 3px;
-        text-align: center;
-        padding: 0;
-        height: 35px;
-        line-height: 35px;
-        font-size: 14px;
-        width: 159px;
-        background-color: white;
+      border: 1px solid;
+      color: darkgray;
+      border-radius: 3px;
+      text-align: center;
+      padding: 0;
+      height: 35px;
+      line-height: 35px;
+      font-size: 14px;
+      width: 159px;
+      background-color: white;
     }
 
     .btnsend {
@@ -106,10 +107,10 @@
       background-image: url('UI/btn_clear.png');
       background-size: 100% 100%;
     }
-  
+
     .edit {
-        margin: 0px;
-        text-align: center;
+      margin: 0px;
+      text-align: center;
     }
 
     .quest {
@@ -135,7 +136,7 @@
 
       -webkit-text-fill-color: rgb(189, 85, 1);
       -webkit-text-stroke-color: rgb(189, 85, 1);
-      -webkit-text-stroke-width: 1.00px; 
+      -webkit-text-stroke-width: 1.00px;
       font-size: 24;
 
       background-image: url('UI/bar_score.png');
@@ -150,12 +151,12 @@
 
       -webkit-text-fill-color: rgb(189, 85, 1);
       -webkit-text-stroke-color: rgb(189, 85, 1);
-      -webkit-text-stroke-width: 1.00px; 
+      -webkit-text-stroke-width: 1.00px;
       font-size: 24;
 
       background-image: url('UI/bar_score.png');
       background-size: 100% 100%;
-      
+
     }
 
     .score {
@@ -170,14 +171,14 @@
       background-size: 100% 100%;
       -webkit-text-fill-color: rgb(0, 0, 0);
       -webkit-text-stroke-color: rgb(0, 0, 0);
-      -webkit-text-stroke-width: 1.00px; 
+      -webkit-text-stroke-width: 1.00px;
       font-size: 18;
     }
 
     .q_result {
       -webkit-text-fill-color: rgb(189, 85, 1);
       -webkit-text-stroke-color: rgb(189, 85, 1);
-      -webkit-text-stroke-width: 1.00px; 
+      -webkit-text-stroke-width: 1.00px;
       font-size: 24;
     }
 
@@ -185,98 +186,107 @@
       max-width: 100%;
       max-height: 100%;
     }
-  
-    .edit .btns{
-        margin-top: 20px;
+
+    .edit .btns {
+      margin-top: 20px;
     }
-  
-    .edit .msg input{
-        padding-left: 5px;
+
+    .edit .msg input {
+      padding-left: 5px;
     }
-  
+
     .text {
-        position: absolute;
+      position: absolute;
     }
-  
+
     * {
-        margin: 0;
-        padding: 0;
+      margin: 0;
+      padding: 0;
     }
-  
+
     .dm_show {
-        margin: 10px;
-        color: white;
+      margin: 10px;
+      color: white;
     }
 
     .video-overlay {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        margin: 10px;
-        padding: 5px 5px;
-        font-size: 20px;
-        font-family: Helvetica;
-        color: #FFF;
-        background-color: rgba(50, 50, 50, 0.3);
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      margin: 10px;
+      padding: 5px 5px;
+      font-size: 20px;
+      font-family: Helvetica;
+      color: #FFF;
+      background-color: rgba(50, 50, 50, 0.3);
     }
 
     .overlay {
       position: absolute;
-      pointer-events:none;
+      pointer-events: none;
       width: 100%;
       height: auto;
       z-index: 9;
       visibility: hidden;
       top: 0;
     }
-
-</style>
+  </style>
 
 </head>
 
 <body>
   <div class="con" id="main">
     <div id="screen"><!-- <div>text message</div> -->
-        <div class="dm_show">
-            
-            <video width="100%" height="auto" controls id="v">
-              <source src="p0323_s.mp4" type="video/mp4">
-            </video>
-        </div>
+      <div class="dm_show">
+
+        <video width="100%" height="auto" controls id="v">
+          <source src="p0323_s.mp4" type="video/mp4">
+        </video>
+      </div>
     </div>
     <div class="edit">
-        <p class="msg">
-            <input placeholder="說點甚麼吧？" class="content" type="text" />
-        </p>
-        <p class="btns">
-            <input type="button" class="btnsend" />
-            <input type="button" class="btnclear" />
-        </p>
+      <p class="msg">
+        <input placeholder="說點甚麼吧？" class="content" type="text" />
+      </p>
+      <p class="btns">
+        <input type="button" class="btnsend" />
+        <input type="button" class="btnclear" />
+      </p>
+      <p></p>
+      <p></p>
+      <div id="q_area" class="quest">
+        <div id="q_q">問題1</div>
+        <button type="button" id="q_a" class="q_style" onclick="clickAns('A')">答案1</button><br>
+        <button type="button" id="q_b" class="q_style" onclick="clickAns('B')">答案2</button><br>
+        <button type="button" id="q_c" class="q_style" onclick="clickAns('C')">答案3</button><br>
+        <button type="button" id="q_d" class="q_style" onclick="clickAns('D')">答案4</button><br>
         <p></p>
-        <p></p>
-        <div id="q_area" class="quest">
-          <div id="q_q">問題1</div>
-          <button type="button" id="q_a" class="q_style" onclick="clickAns('A')">答案1</button><br>
-          <button type="button" id="q_b" class="q_style" onclick="clickAns('B')">答案2</button><br>
-          <button type="button" id="q_c" class="q_style" onclick="clickAns('C')">答案3</button><br>
-          <button type="button" id="q_d" class="q_style" onclick="clickAns('D')">答案4</button><br>
-          <p></p>
-          <div id="q_result" class="q_result"></div>
-        </div>
-        <div id="q_img" class="quest_img">
-          <img src="UI/icons.png" width="auto">
-        </div>
+        <div id="q_result" class="q_result"></div>
+      </div>
+      <div id="q_img" class="quest_img">
+        <img src="UI/icons.png" width="auto">
+      </div>
     </div>
 
     <div class="score_area">
       目前得分：<div id="score" class="score">0</div>
     </div>
     <div class="visit_area">
-      訪客人數：<img src="https://www.mfwzjsq.com/hit.php?id=zrvopqf&nd=6&style=45" border="0" alt="網頁計數器" height="22">
+      訪客人數：<script type="text/javascript">document.write(i2yesCounter.render({
+          y: 'counter',
+          p: '霹靂訪客數', //改成您專有的計數器名稱,注意別跟別人一樣
+          v: 'artpowernewmedia.github.io/pili/q/', //您的網址,不對的話無法使用,也可以用沒有 www 的網址,如 i2yes.com
+          d: 6, //數字位數
+          r: 0, //1=不接受Reload,0=Reload會+1
+          t: 'font001', //字型 font001 - font156 可用
+          s: 0,  //指定大小,只能輸入數字例;100, 0為不指定尺寸(原寸)
+          n: 56	//指定起始的數字
+        }));</script>&nbsp
     </div>
   </div>
 
-  <div class="overlay"><video width="100%" height="100%" id="overlayVideo" onended="videoEnded()" oncanplay="videoCanPlay()"></video></div>
+  <div class="overlay"><video width="100%" height="100%" id="overlayVideo" onended="videoEnded()"
+      oncanplay="videoCanPlay()"></video></div>
 
   <script>
     conInit();
@@ -387,154 +397,153 @@
     q_area.style.display = 'none';
     q_img.style.display = 'block';
     var v = document.getElementById('v');
-    setInterval(function(){
-        //console.log(v.currentTime);
-        if(v.currentTime <= quests[0].startTime){
-          //q_area.style.visibility = "hidden";
-          q_area.style.display = 'none';
-          q_img.style.display = 'block';
+    setInterval(function () {
+      //console.log(v.currentTime);
+      if (v.currentTime <= quests[0].startTime) {
+        //q_area.style.visibility = "hidden";
+        q_area.style.display = 'none';
+        q_img.style.display = 'block';
+        q_num = 0;
+        return;
+      } else {
+        for (let index = 0; index < quests.length; index++) {
+          const element = quests[index];
+
+          if (v.currentTime > element.startTime && v.currentTime <= element.endTime) {
+            q_area.style.display = "block";
+            q_img.style.display = 'none';
+            q_q.innerHTML = element.q;
+            q_a.innerHTML = element.a;
+            q_b.innerHTML = element.b;
+            q_c.innerHTML = element.c;
+            q_d.innerHTML = element.d;
+
+            q_ans = element.ans;
+
+            if (q_num != index + 1) {
+              q_result.innerHTML = '';
+              q_num = index + 1;
+            }
+
+          }
+        }
+      }
+
+      if (v.currentTime > quests[quests.length - 1].endTime) {
+        q_area.style.display = 'none';
+        q_img.style.display = 'block';
+        if (q_num != 0) {
           q_num = 0;
-          return;
-        } else {
-          for (let index = 0; index < quests.length; index++) {
-            const element = quests[index];
-            
-            if(v.currentTime > element.startTime && v.currentTime <= element.endTime){
-              q_area.style.display = "block";
-              q_img.style.display = 'none';
-              q_q.innerHTML = element.q;
-              q_a.innerHTML = element.a;
-              q_b.innerHTML = element.b;
-              q_c.innerHTML = element.c;
-              q_d.innerHTML = element.d;
-
-              q_ans = element.ans;
-
-              if(q_num != index+1){
-                q_result.innerHTML = '';
-                q_num = index+1;
-              }
-
-            }
+          if (getScore() >= 4) {
+            videoPlay('anim/win.webm');
+          } else {
+            videoPlay('anim/fail.webm');
           }
         }
+      }
 
-        if(v.currentTime > quests[quests.length-1].endTime){
-          q_area.style.display = 'none';
-          q_img.style.display = 'block';
-          if(q_num != 0){
-            q_num = 0;
-            if(getScore() >= 4){
-              videoPlay('anim/win.webm');
-            } else {
-              videoPlay('anim/fail.webm');
-            }
-          }
-        }
+    }, 1000);
 
-    },1000);
-
-    function clickAns(click){
+    function clickAns(click) {
       console.log(click);
-      user_ans[q_num-1] = click;
-      if(click == q_ans){
+      user_ans[q_num - 1] = click;
+      if (click == q_ans) {
         q_result.innerHTML = '答對了!!!';
         // q_ov.src = quests[q_num-1].yes;
         // q_ov.play();
-        videoPlay(quests[q_num-1].yes);
+        videoPlay(quests[q_num - 1].yes);
       } else {
         q_result.innerHTML = '答錯了...';
         // q_ov.src = ;
         // q_ov.play();
-        videoPlay(quests[q_num-1].no);
+        videoPlay(quests[q_num - 1].no);
       }
 
       q_score.innerHTML = getScore();
     }
 
-    function getScore(){
+    function getScore() {
       let s = 0;
       for (let index = 0; index < quests.length; index++) {
         const element = quests[index];
-        
-        if(user_ans[index] == element.ans){
+
+        if (user_ans[index] == element.ans) {
           s += 1;
         }
       }
       return s;
     }
 
-    function videoPlay(url){
+    function videoPlay(url) {
       q_ov.src = url;
       q_ov.style.visibility = 'hidden';
       q_ov.play();
     }
 
-    function videoCanPlay(){
+    function videoCanPlay() {
       q_ov.style.visibility = 'visible';
     }
 
-    function videoEnded(){
+    function videoEnded() {
       q_ov.style.visibility = 'hidden';
     }
 
-    function isMobileDevice(){
-        var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
-        var isMobileDevice=false
-        for(var i=0;i<mobileDevices.length;i++){
-            if(navigator.userAgent.match(mobileDevices[i])){
-                isMobileDevice=true
-            }
+    function isMobileDevice() {
+      var mobileDevices = ['Android', 'webOS', 'iPhone', 'iPad', 'iPod', 'BlackBerry', 'Windows Phone']
+      var isMobileDevice = false
+      for (var i = 0; i < mobileDevices.length; i++) {
+        if (navigator.userAgent.match(mobileDevices[i])) {
+          isMobileDevice = true
         }
-        return isMobileDevice
+      }
+      return isMobileDevice
     }
 
-    function conInit(){
-      if(!isMobileDevice()){
+    function conInit() {
+      if (!isMobileDevice()) {
         document.getElementById('main').className = 'con_pc';
         console.log('change to pc version');
       }
     }
 
     $(function () {
-        //设置“发送”按钮点击事件，将弹幕体显示在弹幕墙上
-        $('.btnsend').click(function () {
-            //获取文本输入框的内容
-            var val = $('.content').val();
-            //将文本框的内容赋值给val后，将文本框的内容清除，以便用户下一次输入
-            $('.content').val('');
-            //将文本框内容用div包裹起来，便于后续处理
-            var $content = $('<div class="text">' + val + '</div>');
-            //获取弹幕墙对象
-            $screen = $(document.getElementById("screen"));
-            //设置弹幕体出现时的上边距，为任意值
-            var top = Math.random() * $screen.height();
-            //设置弹幕体的上边距和左边距
-            $content.css({
-                top: top + "px",
-                right: 10
-            });
-            //将弹幕体添加到弹幕墙中
-            $('.dm_show').append($content);
-            //弹幕体从左端移动到最右侧，时间为8秒，然后直接删除该元素
-            $content.animate({
-                right: $screen.width() + 10 - $content.width()
-            }, 8000, "linear", function () {
-                $(this).remove();
-            });
+      //设置“发送”按钮点击事件，将弹幕体显示在弹幕墙上
+      $('.btnsend').click(function () {
+        //获取文本输入框的内容
+        var val = $('.content').val();
+        //将文本框的内容赋值给val后，将文本框的内容清除，以便用户下一次输入
+        $('.content').val('');
+        //将文本框内容用div包裹起来，便于后续处理
+        var $content = $('<div class="text">' + val + '</div>');
+        //获取弹幕墙对象
+        $screen = $(document.getElementById("screen"));
+        //设置弹幕体出现时的上边距，为任意值
+        var top = Math.random() * $screen.height();
+        //设置弹幕体的上边距和左边距
+        $content.css({
+          top: top + "px",
+          right: 10
         });
-        //设置“清屏”点击事件，清除弹幕墙中的所有内容
-        $('.btnclear').click(function () {
-            //$('.dm_show').empty();
-            $('.content').val('');
+        //将弹幕体添加到弹幕墙中
+        $('.dm_show').append($content);
+        //弹幕体从左端移动到最右侧，时间为8秒，然后直接删除该元素
+        $content.animate({
+          right: $screen.width() + 10 - $content.width()
+        }, 8000, "linear", function () {
+          $(this).remove();
         });
+      });
+      //设置“清屏”点击事件，清除弹幕墙中的所有内容
+      $('.btnclear').click(function () {
+        //$('.dm_show').empty();
+        $('.content').val('');
+      });
 
-        $('.content').keyup(function(e){
-            if(e.keyCode == 13)
-            {
-              $('.btnsend').click();
-            }
-        });
+      $('.content').keyup(function (e) {
+        if (e.keyCode == 13) {
+          $('.btnsend').click();
+        }
+      });
     });
 
   </script>
