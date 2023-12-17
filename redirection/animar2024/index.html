@@ -1,30 +1,40 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover' />
-    <meta charset='utf-8'>
-    <style></style>
-    <title> 2023</title>
-    <!-- <script src="html2canvas.min.js"></script> -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有電互動 - APP自動轉址</title>
     <script>
-        //document.location.href="https://playcanv.as/p/3yaLaSs1/";
-        //https://artpowernewmedia.github.io/redirection/changhuahotoke/ios
-        // function doclick(){
-        //     html2canvas(document.body).then(function(canvas) {
-        //         //document.body.appendChild(canvas);
-        //         let _image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-        //         window.location.href = _image;
-        //     });
-        // }
+        window.onload = function () {
+            var userAgent = navigator.userAgent.toLowerCase();
+
+            // 檢測是否為Android
+            var isAndroid = userAgent.indexOf("android") > -1;
+
+            // 檢測是否為iOS
+            var isiOS = /(iphone|ipad|ipod)/.test(userAgent);
+
+            // 設定轉址URL
+            var redirectURL = "";
+            if (isAndroid) {
+                redirectURL = "https://play.google.com/store/apps/details?id=com.artpower.ntmar2024";
+            } else if (isiOS) {
+                redirectURL = "https://apps.apple.com/us/app/id6474022529";
+            } else {
+                return;
+            }
+
+            // 執行轉址
+            window.location.href = redirectURL;
+        };
     </script>
 </head>
 <body>
     <div>
-        有電互動 2023
+        有電互動 - 當臺漫成為光譜<br>
+        ios : <a href="https://apps.apple.com/us/app/id6474022529">https://apps.apple.com/us/app/id6474022529</a><br>
+        android : <a href="https://play.google.com/store/apps/details?id=com.artpower.ntmar2024">https://play.google.com/store/apps/details?id=com.artpower.ntmar2024</a><br>
     </div>
-    <!-- <button onclick="doclick()">click me</button>
-    <video width="100%" height="auto" controls id="v">
-        <source src="w1.webm" type="video/mp4">
-    </video> -->
+    <!-- 可以添加一些內容，這部分內容在自動轉址時會被忽略 -->
 </body>
 </html>
