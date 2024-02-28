@@ -19,18 +19,21 @@
     <script>
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
-        const ticketid = urlParams.get('tid')
+        const ticketid = urlParams.get('tid');
+        const ttype = urlParams.get('type');
         console.log(ticketid);
+        console.log(ttype);
+
         document.getElementById('ticket').innerHTML = ticketid; 
 
-
         function clickbtn() {
-            document.getElementById('ticket').innerHTML = '兌換完畢';
+            document.getElementById('ticket').innerHTML = '兌換中...';
             let url = 'https://script.google.com/macros/s/AKfycbx4J530xzqvFrCVWEyi-Ya1zN45hhC1P2lmsvRtUCEXt7HoNDXeiCBY0j_7_I0lOxz-/exec' + 
                 '?tid=' + ticketid + 
-                '&type=' + 'A' + 
-                '&used=' + 'yes';
-            httpGetAsync(url, function(){});
+                '&type=' + ttype ;
+            
+            window.location.href = url;
+            //httpGetAsync(url, function(){});
         }
 
         function httpGetAsync(theUrl, callback)
