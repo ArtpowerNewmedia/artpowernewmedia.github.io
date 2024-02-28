@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>誠品-獎品兌換券</title>
+</head>
+<body>
+    <div>
+        你的兌換券id:
+    </div>
+    <br/>
+    <div id="ticket">
+        xxxxx
+    </div>
+    <br/>
+    <button onclick="clickbtn()">點我兌換</button>
+    
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const ticketid = urlParams.get('tid')
+        console.log(ticketid);
+        document.getElementById('ticket').innerHTML = ticketid; 
+
+
+        function clickbtn() {
+            document.getElementById('ticket').innerHTML = '兌換完畢';
+            let url = 'https://script.google.com/macros/s/AKfycbx4J530xzqvFrCVWEyi-Ya1zN45hhC1P2lmsvRtUCEXt7HoNDXeiCBY0j_7_I0lOxz-/exec' + 
+                '?tid=' + ticketid + 
+                '&type=' + 'A' + 
+                '&used=' + 'yes';
+            httpGetAsync(url, function(){});
+        }
+
+        function httpGetAsync(theUrl, callback)
+        {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                    callback(xmlHttp.responseText);
+            };
+            xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+            xmlHttp.send(null);
+        }
+        
+    </script>
+</body>
+</html>
