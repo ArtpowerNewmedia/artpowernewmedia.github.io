@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>鏡中幾何</title>
+
+  <script src="Build/UnityLoader.js"></script>
+  <script>
+    var gameInstance = UnityLoader.instantiate("gameContainer", "Build/WebDraw.json");
+
+    function ToUpload(data) {
+      // alert("send:" + data);
+      var image = new Image();
+      image.src = 'data:image/png;base64,' + data;
+      document.body.appendChild(image);
+    }
+    function ToNextImage() {
+      //alert("To Next");
+    }
+
+    function ToPreviewImage() {
+      //alert("To Pre");
+    }
+  </script>
+</head>
+
+<body style="background-color:black;">
+  <div id="gameContainer" style="width: 93vw; height: 95vh;"></div>
+
+  <script>
+    document.addEventListener('wheel', onScroll, false);
+    document.addEventListener('mousemove', onMouse, false);
+    var content = document.getElementById('gameContainer');
+    function onMouse() { content.style['pointer-events'] = 'auto'; }
+    function onScroll() { content.style['pointer-events'] = 'none'; }
+  </script>
+</body>
+
+</html>
