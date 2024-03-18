@@ -4,8 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>誠品-獎品兌換券</title>
+
+    <style type="text/css">
+        <!--
+        body {
+            font: 200% Verdana, Arial, Helvetica, sans-serif;
+            background: #ffffff;
+            margin: 0; /* 比較好的做法是將 Body 元素的邊界與欄位間隔調整為零，以處理不同的瀏覽器預設值 */
+            padding: 0;
+            text-align: center; /* 這樣會讓容器在 IE 5* 瀏覽器內置中對齊。然後，文字會在 #container 選取器中設定為靠左對齊預設值 */
+            color: #000000;
+        }
+        .preview {
+            /*background-image: url('title.jpg');*/
+            width: 100%;
+            height: 400px;
+        }
+        .preview img {
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0; /* 將圖片固定在父層的大小 */
+            width: 100%;
+            height: 100%; /* 高和寬都填滿容器 */
+            object-fit: cover; /* 和background-image設定background-size: cover一樣，圖片剛好填滿 */
+            object-position: center;
+        }
+        .tips {
+            background-color: #333333;
+            color: #ffffff;
+            font-size: 16px;
+            padding: 20px;
+            line-height: 32px;
+            
+        }
+        </style>
 </head>
 <body>
+    
+    <img src="title.jpg" width="400" height="400">
+    <br><br>
+    <img src="tipa.png" width="400" height="160">
+    <br>
+    <input type="button" onclick="clickbtn()" style="background-image:url(btn_staff.png);width:250px;height:110px;border:0px;background-size: cover;">
+    <br>
+    <img src="tipb.png" width="400" height="86">
+    <br>
+    <div class="tips">
+        【兌換流程】憑此畫面至1F服務台兌換「專屬優惠卷」，兌換按鈕須交由服務人員進行操作，若關閉活動網頁則無法兌換。【活動說明】2024.04.01至2024.04.30 憑兌換後「專屬優惠卷」至誠品生活松菸店Terry & Andris 輕珠寶專櫃，即享金工純銀戒指體驗課9折 【注意事項】※課程數量有限，兌完為止。※課程採預約制，歡迎於門市、官網或官方Line先確認日期時段。※精緻小班體驗課，每次至多3人，本券恕不退換亦不得折現。※本券恕不與專櫃優惠併用，使用本券前，需出示會員本人誠品APP兌換券，並完成核銷，如未能完成上述流程，服務人員得以拒絕服務，截圖、翻拍或列印無效。※本兌換券一經核銷，即表示已使用，恕無法退回或重複使用。※本券僅適用於誠品生活松菸店相關資訊請洽4F Terry & Andris 輕珠寶專櫃。※本活動其它未盡事宜以現場公告為主，誠品生活松菸店Terry& Andris 輕珠寶專櫃保有調整及變更之權利。
+    </div>
     <div>
         你的兌換券id:
     </div>
