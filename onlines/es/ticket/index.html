@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,59 +12,176 @@
             background: #ffffff;
             margin: 0; /* 比較好的做法是將 Body 元素的邊界與欄位間隔調整為零，以處理不同的瀏覽器預設值 */
             padding: 0;
-            text-align: center; /* 這樣會讓容器在 IE 5* 瀏覽器內置中對齊。然後，文字會在 #container 選取器中設定為靠左對齊預設值 */
+            /*text-align: center; /* 這樣會讓容器在 IE 5* 瀏覽器內置中對齊。然後，文字會在 #container 選取器中設定為靠左對齊預設值 */
             color: #000000;
+            height: 100%;
         }
-        .preview {
-            /*background-image: url('title.jpg');*/
+
+        .tpre {
+            z-index: 100;
+            visibility: visible;
+            position: fixed;
+            background-color: #000000;
             width: 100%;
-            height: 400px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .preview img {
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom: 0; /* 將圖片固定在父層的大小 */
+        .tprect{
+            background-color: #ffffff;
+            font-size: 18px;
+            padding: 20px 40px;
+            height: 38vh;
+            border-radius: 15px;
+        }
+        .tprect input[type=text] {
+            outline: 0;
+            border-width: 0 0 2px;
+            border-color: #7f4a06;
+            font-size:20px;
             width: 100%;
-            height: 100%; /* 高和寬都填滿容器 */
-            object-fit: cover; /* 和background-image設定background-size: cover一樣，圖片剛好填滿 */
-            object-position: center;
+        }
+        /*.tprect input[type=text]:focus {
+            border-color: green;
+            outline: 1px dotted #000
+        }*/
+        .tprect input[type=radio] {
+            transform: scale(1.5);
+            margin-right: 10px;
+        }
+        .tprect button {
+            float: right;
+            background-color: transparent;
+            padding: 10px;
+            width: 100px;
+            cursor: pointer;
+            color: #7f4a06;
+            border: 0px;
+            font-size: 16px;
+        }
+        .tbody {
+            /*display: none;*/
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .tbody img{
+            margin: 10px 0;
+        }
+        .tbody input[type=button]{
+            background-image:url(btn_staff.png);
+            width: 200px;
+            height: 75px;
+            border:0px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
         }
         .tips {
+            
             background-color: #333333;
             color: #ffffff;
             font-size: 16px;
             padding: 20px;
             line-height: 32px;
-            
+        }
+
+        .submitbox{
+            visibility: hidden;
+            z-index: 5;
+            width: 100%;
+            height: 100%;            
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            /*opacity: 0.8;   for demo purpose  */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            line-height: 0px;
+            font-size: 16px;
+        }
+        .submitbox input[type=button]{
+            width: 200px;
+            height: 75px;
+            border:0px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
+        }
+
+        .errorbox{
+            visibility: hidden;
+            z-index: 6;
+            width: 100%;
+            height: 100%;            
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            /*opacity: 0.8;   for demo purpose  */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            line-height: 0px;
+            font-size: 16px;
+        }
+        .errorbox input[type=button]{
+            width: 200px;
+            height: 100px;
+            border:0px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: transparent;
         }
         </style>
 </head>
 <body>
-    
-    <img src="title.jpg" width="400" height="400">
-    <br><br>
-    <img src="tipa.png" width="400" height="160">
-    <br>
-    <input type="button" onclick="clickbtn()" style="background-image:url(btn_staff.png);width:250px;height:110px;border:0px;background-size: cover;">
-    <br>
-    <img src="tipb.png" width="400" height="86">
-    <br>
-    <div class="tips">
-        【兌換流程】憑此畫面至1F服務台兌換「專屬優惠卷」，兌換按鈕須交由服務人員進行操作，若關閉活動網頁則無法兌換。【活動說明】2024.04.01至2024.04.30 憑兌換後「專屬優惠卷」至誠品生活松菸店Terry & Andris 輕珠寶專櫃，即享金工純銀戒指體驗課9折 【注意事項】※課程數量有限，兌完為止。※課程採預約制，歡迎於門市、官網或官方Line先確認日期時段。※精緻小班體驗課，每次至多3人，本券恕不退換亦不得折現。※本券恕不與專櫃優惠併用，使用本券前，需出示會員本人誠品APP兌換券，並完成核銷，如未能完成上述流程，服務人員得以拒絕服務，截圖、翻拍或列印無效。※本兌換券一經核銷，即表示已使用，恕無法退回或重複使用。※本券僅適用於誠品生活松菸店相關資訊請洽4F Terry & Andris 輕珠寶專櫃。※本活動其它未盡事宜以現場公告為主，誠品生活松菸店Terry& Andris 輕珠寶專櫃保有調整及變更之權利。
+
+    <div id="tpre" class="tpre">
+        <div class="tprect">
+            <p>請輸入你的手機號碼<br>Please Enter your phone number</p>
+            
+            <p><input type="text" id="inp_phone"></p>
+            <p><input type="radio" name="year" value="1">我已年滿18歲 I am over 18 years old</p>
+            <p><input type="radio" name="year" value="0">我還未成年 I am under 18 years old</p>
+            <p style="color: dimgray;margin: 30px 0;">*本資料僅供優惠券個人化使用<br>For personalized coupon use only.</p>
+            <p><button onclick="btn_phone_years()">確定</button></p>
+        </div>
     </div>
-    <div>
-        你的兌換券id:
+
+    <div id="tbody" class="tbody">
+        <img src="" width="100%" id="img_coupon">
+        <img src="tipa.png" width="75%">
+        <input type="button" onclick="btn_exchange()">
+        <img src="tipb.png" width="75%">
+        <div id="tips" class="tips">
+            
+        </div>
     </div>
-    <br/>
-    <div id="ticket">
-        xxxxx
+
+    <div class="submitbox" id="submitbox">
+        <input type="button" onclick="btn_conform()" style="background-image:url(btn_confirm.png);" id="btn_conform">
+        <input type="button" style="background-image:url(btn_complete.png); display: none;" id="btn_fin">
+        <p>此頁面由服務人員進行操作</p>
     </div>
-    <br/>
-    <button onclick="clickbtn()">點我兌換</button>
+
+    <div class="errorbox" id="errorbox">
+        <input type="button" style="background-image:url(btn_error.png);">
+        <p>此優惠券已經使用</p>
+    </div>
     
     <script>
+        const serverUrl = 'https://script.google.com/macros/s/AKfycbx4J530xzqvFrCVWEyi-Ya1zN45hhC1P2lmsvRtUCEXt7HoNDXeiCBY0j_7_I0lOxz-/exec';
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const ticketid = urlParams.get('tid');
@@ -72,16 +189,90 @@
         console.log(ticketid);
         console.log(ttype);
 
-        document.getElementById('ticket').innerHTML = ticketid; 
+        fetch('content.txt')
+        .then(response => response.text())
+        .then(text => {
+            document.getElementById('tips').innerHTML = text;
+        })
 
-        function clickbtn() {
-            document.getElementById('ticket').innerHTML = '兌換中...';
-            let url = 'https://script.google.com/macros/s/AKfycbx4J530xzqvFrCVWEyi-Ya1zN45hhC1P2lmsvRtUCEXt7HoNDXeiCBY0j_7_I0lOxz-/exec' + 
-                '?tid=' + ticketid + 
-                '&type=' + ttype ;
+        memoryPage();
+
+        function memoryPage(){
+            let m = localStorage.getItem(ticketid+'-'+'type');
+            if(m != null){
+                selectTicket(parseInt(m));
+                var x = document.getElementById("tpre");
+                x.style.visibility = "hidden";
+            }
+        }
+
+        function btn_phone_years(){
+            let phone = document.querySelector('#inp_phone').value;
+            if(phone == null || phone == ""){
+                return;
+            }
+            let check = document.querySelector('input[name=year]:checked');
+            if(check == null){
+                return;
+            }
             
-            window.location.href = url;
-            //httpGetAsync(url, function(){});
+            //
+            //  改這裡!!!!!有新的票的話
+            //
+            let totalTicketCount_no18 = 3;
+            let totalTicketCount_18 = 1;
+            let randomMax = totalTicketCount_no18;
+
+            if(check.value == 1){
+                randomMax = totalTicketCount_no18 + totalTicketCount_18;
+            }
+            
+            let rand = 0;
+            for (let i = 0; i < 999; i++) {
+                rand = Math.floor(Math.random() * (randomMax));
+                if(localStorage.getItem(phone+'-'+rand) == 1){
+                    continue;
+                }
+                break;
+            }
+
+            localStorage.setItem(phone+'-'+rand, 1);
+            localStorage.setItem(ticketid+'-'+'type', rand);
+
+            selectTicket(rand);
+
+            var x = document.getElementById("tpre");
+            x.style.visibility = "hidden";
+
+            console.log('phone: ' + phone + ' year: ' + check.value);
+        }
+
+        function btn_exchange() {
+            var sub = document.querySelector('#submitbox');
+            sub.style.visibility = "visible";
+        }
+
+        function btn_conform(){
+            let url = serverUrl + '?tid=' + ticketid + '&type=' + localStorage.getItem(ticketid+'-'+'type') ;
+            httpGetAsync(url, servercallback);
+
+            document.querySelector('#btn_conform').style.display = 'none';
+            console.log(url);
+        }
+
+        function servercallback(result){
+            let fin = document.querySelector('#btn_fin');
+
+            let sub = document.querySelector('#submitbox');
+            let err = document.querySelector('#errorbox');
+            if(result == 'ok'){
+                fin.style.display = 'block';
+                console.log('server: ' + result);
+            } else {
+                sub.style.visibility = "hidden";
+                err.style.visibility = "visible";
+                console.log('server: ' + result);
+            }
         }
 
         function httpGetAsync(theUrl, callback)
@@ -93,6 +284,23 @@
             };
             xmlHttp.open("GET", theUrl, true); // true for asynchronous 
             xmlHttp.send(null);
+        }
+
+        function selectTicket(tid){
+            switch (tid) {
+                case 0:
+                    document.getElementById('img_coupon').src = 'coupon/a.jpg';
+                    break;
+                case 1:
+                    document.getElementById('img_coupon').src = 'coupon/b.jpg';
+                    break;
+                case 2:
+                    document.getElementById('img_coupon').src = 'coupon/c.jpg';
+                    break;
+                case 3:
+                    document.getElementById('img_coupon').src = 'coupon/d.jpg';
+                    break;
+            }
         }
         
     </script>
