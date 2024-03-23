@@ -192,11 +192,11 @@
         console.log(ticketid);
         console.log(ticketclass);
 
-        fetch('content.txt')
-        .then(response => response.text())
-        .then(text => {
-            document.getElementById('tips').innerHTML = text;
-        })
+        // fetch('content.txt')
+        // .then(response => response.text())
+        // .then(text => {
+        //     document.getElementById('tips').innerHTML = text;
+        // })
 
         memoryPage();
 
@@ -208,6 +208,7 @@
             if(m != null){
                 let tdata = JSON.parse(m);
                 document.getElementById('img_coupon').src = 'coupon/' + tdata.tname + '.jpg';
+                document.getElementById('tips').innerHTML = tdata.ttip;
 
                 var x = document.getElementById("tpre");
                 x.style.visibility = "hidden";
@@ -284,6 +285,7 @@
             //顯示已得票券
             resultTicket = dataArray[rand];
             document.getElementById('img_coupon').src = 'coupon/' + resultTicket.tname + '.jpg';
+            document.getElementById('tips').innerHTML = resultTicket.ttip;
             
             //暫存已得票券
             localStorage.setItem(ticketid+'-'+'data', JSON.stringify(resultTicket));
