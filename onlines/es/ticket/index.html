@@ -34,7 +34,7 @@
             padding: 20px 40px;
             border-radius: 15px;
         }
-        .tprect input[type=text] {
+        .tprect input[type=tel] {
             outline: 0;
             border-width: 0 0 2px;
             border-color: #7f4a06;
@@ -48,12 +48,13 @@
         .tprect input[type=radio] {
             transform: scale(1.5);
             margin-right: 10px;
+            accent-color: #7f4a06;
         }
         .tprect button {
             float: right;
             background-color: transparent;
-            padding: 10px;
-            width: 100px;
+            padding: 5px 0px;
+            width: 110px;
             cursor: pointer;
             color: #7f4a06;
             border: 0px;
@@ -118,7 +119,7 @@
 
         .errorbox{
             visibility: hidden;
-            z-index: 6;
+            z-index: 199;
             width: 100%;
             height: 100%;            
             position: fixed;
@@ -149,13 +150,13 @@
 
     <div id="tpre" class="tpre">
         <div class="tprect">
-            <p>請輸入你的手機號碼<br>Please Enter your phone number</p>
+            <p>請輸入你的手機號碼<br>Please enter your phone number</p>
             
-            <p><input type="text" id="inp_phone"></p>
+            <p><input type="tel" id="inp_phone" maxlength="10" inputmode="tel" oninput="this.value = this.value.replace(/[^0-9]/g, '')"></p>
             <p><input type="radio" name="year" value="1">我已年滿18歲 I am over 18 years old</p>
             <p><input type="radio" name="year" value="0">我還未成年 I am under 18 years old</p>
             <p style="color: dimgray;margin: 30px 0;">*本資料僅供優惠券個人化使用<br>For personalized coupon use only.</p>
-            <p><button onclick="btn_phone_years()">確定</button></p>
+            <p><button onclick="btn_phone_years()" id="btn_quest_comfirm">確定 Comfirm</button><button onclick="btn_phone_years_skip()" id="btn_quest_skip">略過 Skip</button></p>
         </div>
     </div>
 
@@ -173,6 +174,7 @@
         <input type="button" onclick="btn_conform()" style="background-image:url(btn_confirm.png);" id="btn_conform">
         <input type="button" style="background-image:url(btn_complete.png); display: none;" id="btn_fin">
         <p>此頁面由服務人員進行操作</p>
+        <p>This page is opperated by staff.</p>
     </div>
 
     <div class="errorbox" id="errorbox">
@@ -182,12 +184,13 @@
     
     <script>
         const serverUrl = 'https://script.google.com/macros/s/AKfycbx4J530xzqvFrCVWEyi-Ya1zN45hhC1P2lmsvRtUCEXt7HoNDXeiCBY0j_7_I0lOxz-/exec';
+        const jsonUrl = 'https://script.google.com/macros/s/AKfycbyIYCcDKLRQx2gAXEQlQRs_aWby_T3U6ZQS4yc9BJi8UKdC37sJifeXBhxhC_DAAAlQyQ/exec';
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const ticketid = urlParams.get('tid');
-        const ttype = urlParams.get('type');
+        const ticketclass = urlParams.get('type');
         console.log(ticketid);
-        console.log(ttype);
+        console.log(ticketclass);
 
         fetch('content.txt')
         .then(response => response.text())
@@ -198,53 +201,98 @@
         memoryPage();
 
         function memoryPage(){
-            let m = localStorage.getItem(ticketid+'-'+'type');
+            let url = serverUrl + '?tid=' + ticketid + '&lock=1';
+            httpGetAsync(url, memoryCallback);
+
+            let m = localStorage.getItem(ticketid+'-'+'data');
             if(m != null){
-                selectTicket(parseInt(m));
+                let tdata = JSON.parse(m);
+                document.getElementById('img_coupon').src = 'coupon/' + tdata.tname + '.jpg';
+
                 var x = document.getElementById("tpre");
                 x.style.visibility = "hidden";
             }
         }
 
+        function memoryCallback(result){
+            if(result == 'ok' || localStorage.getItem(ticketid+'-'+'lock') != undefined){
+                localStorage.setItem(ticketid+'-'+'lock', 1);
+            } else {
+                let err = document.querySelector('#errorbox');
+                err.style.visibility = "visible";
+            }
+        }
+
+        function btn_phone_years_skip(){
+            check_phone_years(0, '0000');
+            document.querySelector('#btn_quest_comfirm').style.visibility = "hidden";
+            document.querySelector('#btn_quest_skip').style.visibility = "hidden";
+        }
+
         function btn_phone_years(){
             let phone = document.querySelector('#inp_phone').value;
-            if(phone == null || phone == ""){
+            if(phone == null || phone == "" || phone.length < 9){
+                alert('請輸入正確的手機號碼');
                 return;
             }
             let check = document.querySelector('input[name=year]:checked');
             if(check == null){
+                alert('請勾選年齡');
                 return;
             }
-            
-            //
-            //  改這裡!!!!!有新的票的話
-            //
-            let totalTicketCount_no18 = 3;
-            let totalTicketCount_18 = 1;
-            let randomMax = totalTicketCount_no18;
+            check_phone_years(check.value, phone);
+            document.querySelector('#btn_quest_comfirm').style.visibility = "hidden";
+            document.querySelector('#btn_quest_skip').style.visibility = "hidden";
+        }
 
-            if(check.value == 1){
-                randomMax = totalTicketCount_no18 + totalTicketCount_18;
+        function check_phone_years(check, phone){
+            let url = jsonUrl + '?tclass=' + ticketclass + '&age=' + check;
+            localStorage.setItem('memory_phone', phone);
+            localStorage.setItem('memory_age', check);
+
+            console.log(url);
+            httpGetAsync(url, jsonCallback);
+        }
+
+        function jsonCallback(result){
+            console.log(result);
+
+            var jsonObject = JSON.parse(result);
+            var dataArray = [];
+            for (var i = 0; i < jsonObject.data.length; i++) {
+                var tname = jsonObject.data[i].tname;
+                var ttip = jsonObject.data[i].ttip;
+                dataArray.push({ tname: tname, ttip: ttip });
             }
+
+            console.log(dataArray);
             
+            //取得隨機票券
+            let memory_phone = localStorage.getItem('memory_phone');
+            let randomMax = dataArray.length;
             let rand = 0;
             for (let i = 0; i < 999; i++) {
                 rand = Math.floor(Math.random() * (randomMax));
-                if(localStorage.getItem(phone+'-'+rand) == 1){
+                if(localStorage.getItem(memory_phone+'-'+rand) == 1){
                     continue;
                 }
                 break;
             }
+            //儲存已得隨機數值
+            localStorage.setItem(memory_phone+'-'+rand, 1);
 
-            localStorage.setItem(phone+'-'+rand, 1);
-            localStorage.setItem(ticketid+'-'+'type', rand);
+            //顯示已得票券
+            resultTicket = dataArray[rand];
+            document.getElementById('img_coupon').src = 'coupon/' + resultTicket.tname + '.jpg';
+            
+            //暫存已得票券
+            localStorage.setItem(ticketid+'-'+'data', JSON.stringify(resultTicket));
 
-            selectTicket(rand);
-
+            //隱藏詢問畫面
             var x = document.getElementById("tpre");
             x.style.visibility = "hidden";
 
-            console.log('phone: ' + phone + ' year: ' + check.value);
+            //console.log('phone: ' + memory_phone + ' data: ' + resultTicket);
         }
 
         function btn_exchange() {
@@ -253,7 +301,11 @@
         }
 
         function btn_conform(){
-            let url = serverUrl + '?tid=' + ticketid + '&type=' + localStorage.getItem(ticketid+'-'+'type') ;
+            let tdata = JSON.parse(localStorage.getItem(ticketid+'-'+'data'));
+            let phone = localStorage.getItem('memory_phone');
+            let age = localStorage.getItem('memory_age');
+            let url = serverUrl + '?tid=' + ticketid + '&tname=' + tdata.tname +  '&phone=' + phone + '&age=' + age;
+
             httpGetAsync(url, servercallback);
 
             document.querySelector('#btn_conform').style.display = 'none';
@@ -284,23 +336,6 @@
             };
             xmlHttp.open("GET", theUrl, true); // true for asynchronous 
             xmlHttp.send(null);
-        }
-
-        function selectTicket(tid){
-            switch (tid) {
-                case 0:
-                    document.getElementById('img_coupon').src = 'coupon/a.jpg';
-                    break;
-                case 1:
-                    document.getElementById('img_coupon').src = 'coupon/b.jpg';
-                    break;
-                case 2:
-                    document.getElementById('img_coupon').src = 'coupon/c.jpg';
-                    break;
-                case 3:
-                    document.getElementById('img_coupon').src = 'coupon/d.jpg';
-                    break;
-            }
         }
         
     </script>
