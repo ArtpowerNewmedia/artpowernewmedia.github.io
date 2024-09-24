@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台灣甜 - 圖片下載</title>
+
+    <style type="text/css">
+        body {
+            font: 100% Verdana, Arial, Helvetica, sans-serif;
+            background: #13100f;
+            margin: 0; /* 比較好的做法是將 Body 元素的邊界與欄位間隔調整為零，以處理不同的瀏覽器預設值 */
+            padding: 0;
+            /*text-align: center; /* 這樣會讓容器在 IE 5* 瀏覽器內置中對齊。然後，文字會在 #container 選取器中設定為靠左對齊預設值 */
+            color: #ffffff;
+            height: 100%;
+        }
+
+        .tiptext{
+            width: 100%;
+            height: 100%;            
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="tiptext">
+        <p>下載請長按圖片後另存圖片</p>
+        <img src="" width="100%" id="img_iii" referrerpolicy="no-referrer">
+    </div>
+
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const imgurl = urlParams.get('img');
+
+        document.getElementById('img_iii').src = imgurl;
+
+    </script>
+</body>
+</html>
