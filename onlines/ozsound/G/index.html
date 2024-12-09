@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>複合式空品感測器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background-image-url.jpg') no-repeat center center fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+
+        @media (min-width: 62vh) {
+            body {
+                background-size: contain;
+                -webkit-background-size: contain;
+                -moz-background-size: contain;
+                -o-background-size: contain;
+            }
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            width: 62vh;
+            /* background-color: aquamarine; */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            background: url('header-background-url.jpg') no-repeat left center;
+            background-size: contain;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 30px 50px 0 0;
+            text-align: center;
+        }
+
+        .audio-button {
+            width: 125px;
+            height: 34px;
+            border: none;
+            background: url('button-background-url1.png') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .audio-button:hover {
+            background: url('button-hover-background.png') no-repeat center center;
+            background-size: contain;
+            transform: scale(1.05);
+        }
+
+        .content {
+            text-align: justify;
+        }
+
+        .content p {
+            line-height: 1.8;
+            color: #333333;
+            margin: 10px 0;
+        }
+
+        .indented {
+            padding-left: 1em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>複合式空品感測器</h1>
+        </div>
+        <button class="audio-button" id="audio-button" onclick="toggleAudio()">
+        </button>
+        <div class="content">
+            <p>　　環境保護最重要的基礎工作在於環境品質資訊的蒐集與研判，近幾年細懸浮微粒(PM2.5)等空氣污染影響國人健康議題受到各界重視，為提供國人更高空間解析度及更即時空品資訊，行政院環境保護署自2017年積極發展感測器、物聯網及大數據分析等技術，成功建立空品感測物聯網，透過空氣品質感測數據上傳至雲端平台，再配合無人機等智慧稽查工具及AI演算法，有效輔助稽查單位決策及提升管理效能。</p>
+            <p>　　目前與18個地方政府合作，於全國布建約1萬個感測器，利用高時間及空間解析度特性，提供每分鐘一筆感測資料，並發展「空氣污染潛勢熱區分析」技術，提供限縮污染潛勢熱區、空污事件自動告警及空污足跡重現地圖等，協助地方政府應用於智慧環境稽查治理，並提供稽查人員及民眾最即時空品資訊。</p>
+            <p>　　統計至2022年，已裁罰超過1,100件，罰款超過2.17億元，追繳空污費2.8億元，有效嚇阻不肖業者，並協助改善空氣品質，PM2.5平均濃度降低了約20%，同時民眾陳情空氣污染數量也下降超過15%。透過建構空品感測物聯網，協助環境治理創造價值，為人們守護美好的生活環境。</p>
+        </div>
+    </div>
+
+    <script>
+        let audio = new Audio('audio.mp3');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                audio.currentTime = 0; // 重置播放時間
+            } else {
+                audio.play();
+            }
+            isPlaying = !isPlaying;
+
+            // 監測播放結束事件，重置按鈕狀態
+            audio.onended = () => {
+                isPlaying = false;
+            };
+        }
+    </script>
+</body>
+</html>

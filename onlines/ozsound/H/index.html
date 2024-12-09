@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>客製化複合式地震預警系統</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background-image-url.jpg') no-repeat center center fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+
+        @media (min-width: 62vh) {
+            body {
+                background-size: contain;
+                -webkit-background-size: contain;
+                -moz-background-size: contain;
+                -o-background-size: contain;
+            }
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            width: 62vh;
+            /* background-color: aquamarine; */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            background: url('header-background-url.jpg') no-repeat left center;
+            background-size: contain;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 30px 50px 0 0;
+            text-align: center;
+        }
+
+        .audio-button {
+            width: 125px;
+            height: 34px;
+            border: none;
+            background: url('button-background-url1.png') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .audio-button:hover {
+            background: url('button-hover-background.png') no-repeat center center;
+            background-size: contain;
+            transform: scale(1.05);
+        }
+
+        .content {
+            text-align: justify;
+        }
+
+        .content p {
+            line-height: 1.8;
+            color: #333333;
+            margin: 10px 0;
+        }
+
+        .indented {
+            padding-left: 1em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>客製化複合式地震預警系統</h1>
+        </div>
+        <button class="audio-button" id="audio-button" onclick="toggleAudio()">
+        </button>
+        <div class="content">
+            <p>客製化複合式地震預警系統，還可以運用在以下的結構安全監測應用服務。</p>
+            <ol>
+                <li class="indented">築物結構安全監測服務：<p>建築物上在三個不同高度位置裝設地震儀，當地震來襲時透過三軸向加速度地震儀同步量測與紀錄。震度3級以上震動會自動記錄地震事件，後續自動進行結構安全評估、分析層間變位比。震後評估結果LINE會自動回傳、並將報告儲存於雲端平台，讓住戶安心。</p></li>
+                <li class="indented">橋梁結構監測服務：<p>針對監管單位橋梁安全管理及維護需求，運用民生公共物聯網資料服務平台的地震、氣象等資料，搭配客戶現地蒐集的資料，發展橋梁結構物數位分身，能評估橋梁損傷及預測橋體劣化趨勢，提供橋梁結構監測服務。三聯科技股份有限公司能協助客戶即時監管橋梁的各項數值，確保結構物的安全性，若橋梁有損傷或退化超過警戒值，可以預警通知緊急應變小組進行交通管制、維修補強，保障人民生命財產安全。</p></li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        let audio = new Audio('audio.mp3');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                audio.currentTime = 0; // 重置播放時間
+            } else {
+                audio.play();
+            }
+            isPlaying = !isPlaying;
+
+            // 監測播放結束事件，重置按鈕狀態
+            audio.onended = () => {
+                isPlaying = false;
+            };
+        }
+    </script>
+</body>
+</html>

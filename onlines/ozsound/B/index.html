@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>空氣品質領域</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background-image-url.jpg') no-repeat center center fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+
+        @media (min-width: 62vh) {
+            body {
+                background-size: contain;
+                -webkit-background-size: contain;
+                -moz-background-size: contain;
+                -o-background-size: contain;
+            }
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            width: 62vh;
+            /* background-color: aquamarine; */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            background: url('header-background-url.jpg') no-repeat left center;
+            background-size: contain;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 30px 50px 0 0;
+            text-align: center;
+        }
+
+        .audio-button {
+            width: 125px;
+            height: 34px;
+            border: none;
+            background: url('button-background-url1.png') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .audio-button:hover {
+            background: url('button-hover-background.png') no-repeat center center;
+            background-size: contain;
+            transform: scale(1.05);
+        }
+
+        .content {
+            text-align: justify;
+        }
+
+        .content p {
+            line-height: 1.8;
+            color: #333333;
+            margin: 10px 0;
+        }
+
+        .indented {
+            padding-left: 1em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>空氣品質領域</h1>
+        </div>
+        <button class="audio-button" id="audio-button" onclick="toggleAudio()">
+        </button>
+        <div class="content">
+            <p>民生公共物聯網計畫在空氣品質領域的推動重點，在於透過物聯網、大數據與AI人工智慧等技術，建立更精準的空氣品質監測網絡，提供即時可靠的空氣品質資訊，協助政府部門制定更有效的空氣污染防治政策，並提升民眾對空氣品質的認知。</p>
+            <p>本計畫具體的實施推動做法包含:</p>
+            <ol>
+                <li class="indented">高密度感測器佈建：<p>在傳統監測站之外，廣泛佈建低成本、高密度的微型感測器，涵蓋城市、鄉村、工業區等不同區域。除了PM2.5、PM10等傳統污染物，還監測臭氧、二氧化氮、揮發性有機化合物等多種污染物。並將感測數據即時傳輸至雲端平台，進行集中管理與分析。</p></li>
+                <li class="indented">大數據分析與空氣品質預測模型建構：<p>透過大數據分析，結合氣象數據、交通數據等，解析污染物的來源與傳輸路徑。並建立精準的空氣品質預測模型，利用AI技術，快速識別感測器數據中的異常值，追蹤移動污染源，提前預警空氣污染事件。</p></li>
+                <li class="indented">資訊公開與產業應用：<p>建立空氣品質資訊公開平台，提供民眾即時準確的空氣品質資訊。並開發手機APP，讓民眾隨時隨地查詢空氣品質。進而鼓勵企業利用空氣品質數據，開發創新產品與服務。</p></li>
+            </ol>
+            <p>本計畫具體的成果案例包含:</p>
+            <ol>
+                <li class="indented">高空間解析度的空氣品質監測：<p>透過高密度感測器網絡，提供更精細的空氣品質空間分佈圖。</p></li>
+                <li class="indented">空氣品質預警系統：<p>當空氣品質惡化時，系統自動發布預警訊息，提醒民眾減少戶外活動。</p></li>
+                <li class="indented">污染源精準定位：<p>協助政府部門精準定位污染源，採取針對性的管控措施。</p></li>
+            </ol>
+            <p>民生公共物聯網計畫在空氣品質領域的推動成效，為改善我國空氣品質提供了強有力的技術支持。未來，隨著技術的進步和歷史數據的積累，我們將能夠更精準地預測和控制空氣污染，為民眾創造一個更健康的呼吸環境。</p>
+        </div>
+    </div>
+
+    <script>
+        let audio = new Audio('audio.mp3');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                audio.currentTime = 0; // 重置播放時間
+            } else {
+                audio.play();
+            }
+            isPlaying = !isPlaying;
+
+            // 監測播放結束事件，重置按鈕狀態
+            audio.onended = () => {
+                isPlaying = false;
+            };
+        }
+    </script>
+</body>
+</html>

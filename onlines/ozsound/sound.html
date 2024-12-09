@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>複合式空品感測器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #008080;
+            margin: 0;
+        }
+
+        .audio-button {
+            display: flex;
+            align-items: center;
+            background-color: #444444;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+
+        .audio-button:hover {
+            background-color: #666666;
+        }
+
+        .content p {
+            line-height: 1.8;
+            color: #333333;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>複合式空品感測器</h1>
+        </div>
+        <button class="audio-button" onclick="playAudio()">🎧 聆聽語音</button>
+        <div class="content">
+            <p>環境保護最重要的基礎工作在於環境品質資訊的蒐集與研判，近幾年細懸浮微粒（PM2.5）等空氣污染影響國人健康議題受到各界重視，為提供國人更高空間解析度及更即時空品資訊，行政院環境保護署自2017年積極發展感測器、物聯網及大數據分析等技術，成功建立空品感測物聯網，透過空氣品質感測數據上傳至雲端平台，再配合無人機等智慧稽查工具及AI演算法，有效輔助稽查單位決策及提升管理效能。</p>
+            <p>目前與18個地方政府合作，於全國布建約1萬個感測器，利用高時間及空間解析度特性，提供每分鐘一筆感測資料，並發展「空氣污染溯源熱區分析」技術，提供既縮污染溯源熱區、空污事件自動告警及空污足跡重現地圖等，協助地方政府應用於智慧環境稽查治理，並提供稽查人員及民眾最即時空品資訊。</p>
+            <p>統計至2022年，已裁罰超過1,100件，罰款超過2.17億元，追繳空污費2.8億元，有效嚇阻不肖業者，並協助改善空氣品質，PM2.5平均濃度降低了約20%，同時民眾陳情空氣污染數量也下降超過15%。透過建構空品感測物聯網，協助環境治理創造價值，為人們守護美好的生活環境。</p>
+        </div>
+    </div>
+    <script>
+        function playAudio() {
+            const audio = new Audio('audio-file-url.mp3');
+            audio.play();
+        }
+    </script>
+</body>
+</html>

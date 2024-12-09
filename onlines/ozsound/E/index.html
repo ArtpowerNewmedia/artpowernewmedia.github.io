@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>長效複合式水質感測系統</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background-image-url.jpg') no-repeat center center fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+
+        @media (min-width: 62vh) {
+            body {
+                background-size: contain;
+                -webkit-background-size: contain;
+                -moz-background-size: contain;
+                -o-background-size: contain;
+            }
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            width: 62vh;
+            /* background-color: aquamarine; */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            background: url('header-background-url.jpg') no-repeat left center;
+            background-size: contain;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 30px 50px 0 0;
+            text-align: center;
+        }
+
+        .audio-button {
+            width: 125px;
+            height: 34px;
+            border: none;
+            background: url('button-background-url1.png') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .audio-button:hover {
+            background: url('button-hover-background.png') no-repeat center center;
+            background-size: contain;
+            transform: scale(1.05);
+        }
+
+        .content {
+            text-align: justify;
+        }
+
+        .content p {
+            line-height: 1.8;
+            color: #333333;
+            margin: 10px 0;
+        }
+
+        .indented {
+            padding-left: 1em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>長效複合式水質感測系統</h1>
+        </div>
+        <button class="audio-button" id="audio-button" onclick="toggleAudio()">
+        </button>
+        <div class="content">
+            <p>　　傳統的水質監測方法耗時費力，為解決這個問題，行政院環境保護署推動水質感測物聯網，提供即時長時間的環境水體監測，並且在污染發生時能夠快速掌握單點水質及上下游變化狀況，以協助環保機關快速定位污染來源，提升環境水體品質。</p>
+            <p>　　行政院環境保護署研發多樣化的水質感測器，並以國產化技術為優先，提供分鐘級即時監測數據，使用AI演算法進行自動化預警。透過中央引導，結合地方稽查力量，至2022年底，總計水質感測器已與18個地方政府合作，共針對異常水質事件累計裁處48件，對稽查異常的單位裁決逾新台幣3,600萬元。</p>
+            <p>　　根據不同場域的應用需求，固定式感測器的應用範圍包括工業區、污水廠、淨水廠等監控、偷排稽查或民生用水管控等，提供高品質的即時水質感測資訊。</p>
+            <p>　　移動式感測器的應用範圍涉及低溶氧易死魚河川、工廠放流口、排水道等，因具高機動性，可快速移動安裝鑑定污染熱區。</p>
+            <p>手持式感測器主要提供河川巡守隊進行環境教育應用。</p>
+        </div>
+    </div>
+
+    <script>
+        let audio = new Audio('audio.mp3');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                audio.currentTime = 0; // 重置播放時間
+            } else {
+                audio.play();
+            }
+            isPlaying = !isPlaying;
+
+            // 監測播放結束事件，重置按鈕狀態
+            audio.onended = () => {
+                isPlaying = false;
+            };
+        }
+    </script>
+</body>
+</html>

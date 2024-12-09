@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水資源領域</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background-image-url.jpg') no-repeat center center fixed;
+            background-size: contain;
+            -webkit-background-size: contain;
+            -moz-background-size: contain;
+            -o-background-size: contain;
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            width: 62vh;
+            /* background-color: aquamarine; */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            background: url('header-background-url.jpg') no-repeat left center;
+            background-size: contain;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 30px 50px 0 0;
+            text-align: center;
+        }
+
+        .audio-button {
+            width: 125px;
+            height: 34px;
+            border: none;
+            background: url('button-background-url1.png') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .audio-button:hover {
+            background: url('button-hover-background.png') no-repeat center center;
+            background-size: contain;
+            transform: scale(1.05);
+        }
+
+        .content {
+            text-align: justify;
+        }
+
+        .content p {
+            line-height: 1.8;
+            color: #333333;
+            margin: 10px 0;
+        }
+
+        .indented {
+            padding-left: 2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>水資源領域</h1>
+        </div>
+        <button class="audio-button" id="audio-button" onclick="toggleAudio()">
+        </button>
+        <div class="content">
+            <p>
+                民生公共物聯網計畫在水資源領域的推動重點，在於透過物聯網、大數據與AI人工智慧等技術，提升水資源管理的效率與精準度，以達到節水、防洪、改善水質等目標。
+            </p>
+            <p>
+                此計畫具體的實施推動做法包含:
+            </p>
+            <p class="indented">
+                1.	水資源物聯網建置：<br>
+                透過在水庫、河川、管線等關鍵節點佈設各式感測器，即時監測水位、流量、水質等數據，將感測數據即時傳輸至中央資料庫。並建立雲端平台，整合來自各地的水資源數據，以提供大數據分析與應用服務。
+            </p>
+            <p class="indented">
+                2.	大數據分析與水情預測模型建構：<br>
+                透過歷史數據與機器學習，建立精準的水情預測模型，提前預警旱災或水患。利用AI技術，快速識別水資源系統中的異常狀況，如管線破裂、水泵故障等，優化水資源調度，提高供水效率，降低漏水率。
+            </p>
+            <p>
+                本計畫具體的成果案例包含:
+            </p>
+            <p class="indented">
+                1.	智慧水表：透過智慧水表，監測用戶用水量，發現異常用水行為，並提供用水建議。
+            </p>
+            <p class="indented">
+                2.	漏水偵測：利用聲學感測器等技術，精準定位漏水點，減少漏水造成的經濟損失。
+            </p>
+            <p class="indented">
+                3.	水庫放水模擬：透過數值模擬，預測不同放水方案對下游水位、流量的影響，為決策提供參考。
+            </p>
+            <p>
+                民生公共物聯網計畫在水資源領域取得了顯著的成果，為我國水資源管理注入了新的活力。未來，隨著技術的進步和應用場景的拓展，水資源管理將變得更加智慧化、精細化，為人們提供更加安全、可靠、高效的水資源服務。                
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let audio = new Audio('audio.mp3');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                audio.currentTime = 0; // 重置播放時間
+            } else {
+                audio.play();
+            }
+            isPlaying = !isPlaying;
+
+            // 監測播放結束事件，重置按鈕狀態
+            audio.onended = () => {
+                isPlaying = false;
+            };
+        }
+    </script>
+</body>
+</html>

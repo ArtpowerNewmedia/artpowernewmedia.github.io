@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>換圖片與播放聲音</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background: url('background-image-url.jpg') no-repeat center center fixed;
+      background-size: cover;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+    }
+    img {
+      width: 300px;
+      height: auto;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>按按鈕更換圖片並播放聲音</h1>
+  <button id="actionButton">點擊我</button>
+  <br>
+  <img id="displayImage" src="image1.jpg" alt="圖片">
+  <audio id="audioPlayer" src="sound1.mp3"></audio>
+
+  <script>
+    const images = ["image1.jpg", "image2.jpg", "image3.jpg"];
+    const sounds = ["sound1.mp3", "sound2.mp3", "sound3.mp3"];
+    let currentIndex = 0;
+
+    document.getElementById("actionButton").addEventListener("click", () => {
+      // 更換圖片
+      currentIndex = (currentIndex + 1) % images.length;
+      document.getElementById("displayImage").src = images[currentIndex];
+      
+      // 撥放聲音
+      const audio = document.getElementById("audioPlayer");
+      audio.src = sounds[currentIndex];
+      audio.play();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>地震領域</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background-image-url.jpg') no-repeat center center fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+
+        @media (min-width: 62vh) {
+            body {
+                background-size: contain;
+                -webkit-background-size: contain;
+                -moz-background-size: contain;
+                -o-background-size: contain;
+            }
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            width: 62vh;
+            /* background-color: aquamarine; */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            background: url('header-background-url.jpg') no-repeat left center;
+            background-size: contain;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 30px 50px 0 0;
+            text-align: center;
+        }
+
+        .audio-button {
+            width: 125px;
+            height: 34px;
+            border: none;
+            background: url('button-background-url1.png') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .audio-button:hover {
+            background: url('button-hover-background.png') no-repeat center center;
+            background-size: contain;
+            transform: scale(1.05);
+        }
+
+        .content {
+            text-align: justify;
+        }
+
+        .content p {
+            line-height: 1.8;
+            color: #333333;
+            margin: 10px 0;
+        }
+
+        .indented {
+            padding-left: 1em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>地震領域</h1>
+        </div>
+        <button class="audio-button" id="audio-button" onclick="toggleAudio()">
+        </button>
+        <div class="content">
+            <p>民生公共物聯網計畫在地震領域的推動重點，在於透過物聯網、大數據與AI人工智慧等技術，提升地震監測的精準度與時效性，縮短地震預警時間，以降低災害造成的損失。</p>
+            <p>本計畫具體的實施推動做法包含:</p>
+            <ol>
+                <li class="indented">地震監測網絡建置：<p>在全台各地佈設高密度的地震儀，形成密集的監測網絡，提高地震波的偵測能力。除了傳統的地震儀，還整合GPS、傾斜儀等多種感測器，提供更全面的地震資訊。</p></li>
+                <li class="indented">大數據分析與地震預警模型建構：<p>利用大數據分析技術，對地震波形進行快速分析，準確判斷地震的震源、震級和震源深度。並建立基於歷史地震數據與地質模型的地震預警模型，實現快速、準確的地震預警。更透過建築物損害評估模型的建置，依據地震動參數，快速評估建築物的損害程度。</p></li>
+                <li class="indented">地震預警系統建置：<p>透過高速的資料傳輸網路，將地震觀測數據快速傳輸至中央處理中心，並透過手機、廣播、電視等多種管道發布地震預警訊息。並整合了地震預警系統與交通控制、防災設施等系統，實現了快速連動回應的預警機制。</p></li>
+            </ol>
+            <p>本計畫具體的成果案例包含:</p>
+            <ol>
+                <li class="indented">地震速報系統：<p>在地震發生後，快速計算地震參數，並向地震影響區域發布地震預警訊息。</p></li>
+                <li class="indented">建築物安全監測：<p>利用感測器監測建築物的振動情況，評估建築物的安全性。</p></li>
+                <li class="indented">海嘯預警：<p>對於發生於海域的地震，能夠快速判斷是否會引發海嘯，並發布海嘯預警。</p></li>
+            </ol>
+            <p>民生公共物聯網計畫在地震領域的推動成效，為提升我國的地震防災能力提供了有力的支持。未來，隨著技術的進步和歷史數據的積累，我們將能夠建立更完善的地震監測與預警系統，有效降低地震災害造成的損失。</p>
+        </div>
+    </div>
+
+    <script>
+        let audio = new Audio('audio.mp3');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                audio.currentTime = 0; // 重置播放時間
+            } else {
+                audio.play();
+            }
+            isPlaying = !isPlaying;
+
+            // 監測播放結束事件，重置按鈕狀態
+            audio.onended = () => {
+                isPlaying = false;
+            };
+        }
+    </script>
+</body>
+</html>

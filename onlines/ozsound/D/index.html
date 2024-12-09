@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>防救災領域</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background-image-url.jpg') no-repeat center center fixed;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+
+        @media (min-width: 62vh) {
+            body {
+                background-size: contain;
+                -webkit-background-size: contain;
+                -moz-background-size: contain;
+                -o-background-size: contain;
+            }
+        }
+
+        .container {
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            width: 62vh;
+            /* background-color: aquamarine; */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            background: url('header-background-url.jpg') no-repeat left center;
+            background-size: contain;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 30px 50px 0 0;
+            text-align: center;
+        }
+
+        .audio-button {
+            width: 125px;
+            height: 34px;
+            border: none;
+            background: url('button-background-url1.png') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .audio-button:hover {
+            background: url('button-hover-background.png') no-repeat center center;
+            background-size: contain;
+            transform: scale(1.05);
+        }
+
+        .content {
+            text-align: justify;
+        }
+
+        .content p {
+            line-height: 1.8;
+            color: #333333;
+            margin: 10px 0;
+        }
+
+        .indented {
+            padding-left: 1em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>防救災領域</h1>
+        </div>
+        <button class="audio-button" id="audio-button" onclick="toggleAudio()">
+        </button>
+        <div class="content">
+            <p>民生公共物聯網計畫在防救災領域的推動重點，在於透過物聯網、大數據與AI人工智慧等技術，建立更完善的災害監測與災害預警系統，提升防災應變能力，減少災害造成的損失。</p>
+            <p>本計畫具體的實施推動做法包含:</p>
+            <ol>
+                <li class="indented">災害監測網絡建置：<p>除了地震感測器外，還佈署了水位、雨量、風速、土壤濕度等多種感測器，以全面監測災害相關數據。有效將監測範圍擴大至山區、河川、海岸等災害易發地區。</p></li>
+                <li class="indented">大數據分析與災害預警模型建構：<p>整合過去的災害歷史數據與地理資訊，建立災害風險評估模型。透過大數據分析，快速分析來自各類感測器的即時數據，判斷災害發生可能性及嚴重程度，劃分出高風險區域。並建立災害演變預測模型，預測災害發展趨勢，為應急決策提供科學依據。</p></li>
+                <li class="indented">AI人工智慧應用：<p>利用影像辨識技術，分析衛星影像、空拍影像，監測災害現場的變化。並透過AI技術，快速識別異常的感測數據，及早發現潛在的災害。透過機器學習，自動辨識不同類型的災害，例如土石流、洪水、火災等。並依據大數據分析與AI技術，為決策者提供最佳的應急方案。</p></li>
+            </ol>
+            <p>本計畫具體的成果案例包含:</p>
+            <ol>
+                <li class="indented">洪水預警：<p>透過水位、雨量等數據的即時監測，結合水文模型，提前預警洪水災害。</p></li>
+                <li class="indented">土石流預警：<p>透過土壤濕度、雨量等數據的監測，結合地質資訊，提前預警土石流災害。</p></li>
+                <li class="indented">災害資訊平台：<p>建立統一的災害資訊平台，提供民眾即時的災害資訊、避難路線等資訊。</p></li>
+            </ol>
+            <p>民生公共物聯網計畫在防救災領域的推動成效，為提升我國防災能力提供了強有力的技術支持。未來，隨著技術的進步和歷史數據的積累，我們將能夠建立更完善的災害監測與預警系統，有效降低災害造成的損失，保障人民生命財產安全。</p>
+        </div>
+    </div>
+
+    <script>
+        let audio = new Audio('audio.mp3');
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                audio.currentTime = 0; // 重置播放時間
+            } else {
+                audio.play();
+            }
+            isPlaying = !isPlaying;
+
+            // 監測播放結束事件，重置按鈕狀態
+            audio.onended = () => {
+                isPlaying = false;
+            };
+        }
+    </script>
+</body>
+</html>
