@@ -25,6 +25,12 @@
             }
         }
 
+        .container-header {
+            margin: 0 auto;
+            padding: 0;
+            width: 68vh;
+        }
+
         .container {
             margin: 0 auto;
             padding: 20px;
@@ -39,7 +45,6 @@
             justify-content: center;
             gap: 10px;
             padding: 20px;
-            border-radius: 5px;
             color: white;
             text-align: center;
             background: url('header-background-url.jpg') no-repeat left center;
@@ -92,10 +97,12 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container-header">
         <div class="header">
             <h1>複合式空品感測器</h1>
         </div>
+    </div>
+    <div class="container">
         <button class="audio-button" id="audio-button" onclick="toggleAudio()">
         </button>
         <div class="content">
