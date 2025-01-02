@@ -33,6 +33,21 @@
     <div class="container">
         <h1>籌備中</h1>
         <p>敬請期待...</p>
+        <p id="indexValue"></p>
     </div>
+
+    <script>
+        // 獲取 URL 參數的函數
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // 獲取並顯示 index 參數
+        const indexParam = getUrlParameter('index');
+        if (indexParam) {
+            document.getElementById('indexValue').textContent = `索引值：${indexParam}`;
+        }
+    </script>
 </body>
 </html>
