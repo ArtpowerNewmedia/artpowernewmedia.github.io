@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>有電互動 - APP自動轉址</title>
+    <script>
+        window.onload = function () {
+            // 獲取 URL 參數
+            var urlParams = new URLSearchParams(window.location.search);
+            var index = urlParams.get('index') || ''; // 如果沒有參數則為空字串
+
+            var userAgent = navigator.userAgent.toLowerCase();
+            var isAndroid = userAgent.indexOf("android") > -1;
+            var isiOS = /(iphone|ipad|ipod)/.test(userAgent);
+
+            // 設定轉址URL，加入參數
+            var redirectURL = "/onlines/ylf/index.html";
+            if (index) {
+                redirectURL += "?index=" + index;
+            }
+
+            // 執行轉址
+            window.location.href = redirectURL;
+        };
+    </script>
+</head>
+<body>
+    <div>
+        此為中間網址，將導入目標網址....<br>
+    </div>
+    <!-- 可以添加一些內容，這部分內容在自動轉址時會被忽略 -->
+</body>
+</html>
