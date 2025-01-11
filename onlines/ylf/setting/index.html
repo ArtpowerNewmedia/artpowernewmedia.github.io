@@ -264,7 +264,102 @@
                 //place global settings here
                 INTERNAL_SMOOTHFACTOR_POS: .075,
             }
+    
+        // POST 請求函數
+        async function postSignal2() {
+            const API_URL = 'https://ylf2025.iottalk.tw/signal';
+            const TOKEN = 'fa1a4509915146fdb07ae71645b561cf';
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${TOKEN}`,
+                        'Content-Type': 'text/plain'
+                    },
+                    body: '1'
+                });
+
+                if (response.ok) {
+                    console.log('發送成功');
+                } else {
+                    const errorText = await response.text();
+                    console.log(`發送失敗: ${errorText}`);
+                }
+            } catch (error) {
+                console.error('發送訊號失敗:', error);
+            }
+        }
+
+        async function getSignal() {
+            const API_URL = 'https://ylf2025.iottalk.tw/signal';
+            const TOKEN = 'fa1a4509915146fdb07ae71645b561cf';
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${TOKEN}`
+                    }
+                });
+                const data = await response.text();
+                return data;
+            } catch (error) {
+                console.error('獲取訊號失敗:', error);
+                return '-1';
+            }
+        }
+
+        function postSignal(){
+            if(window.webSocket.readyState == WebSocket.OPEN){
+                window.webSocket.send('set');
+            }
+        }
+
+        // Get 定時取得數值
+        setInterval(function() {
+            if(window.unityInstance){
+                if(window.webSocket.readyState == WebSocket.OPEN){
+                    window.webSocket.send('get');
+                }
+            }
+        }, 500);
+
+        setInterval(function() {
+            if(window.unityInstance){
+                if(window.webSocket == null){
+                    connectWebSocket();
+                }
+                if(window.webSocket.readyState != WebSocket.OPEN){
+                    connectWebSocket();
+                }
+            }
+        }, 2000);
+
+        // WebSocket连接函数
+        function connectWebSocket() {
+            const ws = new WebSocket('ws://ylf2025-iot-ws.glitch.me');
             
+            ws.onopen = function() {
+                console.log('WebSocket连接已建立');
+            };
+            
+            ws.onmessage = function(event) {
+                if(window.unityInstance){
+                    window.unityInstance.SendMessage('AccessIOT', 'ReceiveIOTData', event.data);
+                }
+            };
+            
+            ws.onerror = function(error) {
+                console.error('WebSocket错误:', error);
+            };
+            
+            ws.onclose = function() {
+                console.log('WebSocket连接已关闭');
+            };
+
+            // 将WebSocket实例存储在全局变量中，以便其他地方可以访问
+            window.webSocket = ws;
+        }
+
     </script>
 </body>
 </html>
