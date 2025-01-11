@@ -310,7 +310,7 @@
         }
 
         function postSignal(){
-            if(window.webSocket.readyState == WebSocket.OPEN){
+            if(window.webSocket != null && window.webSocket.readyState == WebSocket.OPEN){
                 window.webSocket.send('set');
             }
         }
@@ -318,7 +318,7 @@
         // Get 定時取得數值
         setInterval(function() {
             if(window.unityInstance){
-                if(window.webSocket.readyState == WebSocket.OPEN){
+                if(window.webSocket != null && window.webSocket.readyState == WebSocket.OPEN){
                     window.webSocket.send('get');
                 }
             }
@@ -337,7 +337,7 @@
 
         // WebSocket连接函数
         function connectWebSocket() {
-            const ws = new WebSocket('ws://ylf2025-iot-ws.glitch.me');
+            const ws = new WebSocket('wss://ylf2025-iot-ws.glitch.me');
             
             ws.onopen = function() {
                 console.log('WebSocket连接已建立');
