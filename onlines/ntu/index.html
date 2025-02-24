@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="zh-Hant">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity Web Player | NTU_RoomGL</title>
+    <title>台大&師大線上虛擬空間 | Unity Web Player</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
+      <canvas id="unity-canvas" width=800 height=600 tabindex="-1"></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -20,7 +20,7 @@
       <div id="unity-footer">
         <div id="unity-logo-title-footer"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">NTU_RoomGL</div>
+        <div id="unity-build-title">台大&師大線上虛擬空間</div>
       </div>
     </div>
     <script>
@@ -52,12 +52,13 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/NTU_RoomGLv2.loader.js";
+      var loaderUrl = buildUrl + "/NTU_RoomGLv3.loader.js";
       var config = {
         arguments: [],
-        dataUrl: buildUrl + "/NTU_RoomGLv2.data.unityweb",
-        frameworkUrl: buildUrl + "/NTU_RoomGLv2.framework.js.unityweb",
-        codeUrl: buildUrl + "/NTU_RoomGLv2.wasm.unityweb",
+        dataUrl: buildUrl + "/NTU_RoomGLv3.data.unityweb",
+        workerUrl: buildUrl + "/NTU_RoomGLv3.data.unityweb",
+        frameworkUrl: buildUrl + "/NTU_RoomGLv3.framework.js.unityweb",
+        codeUrl: buildUrl + "/NTU_RoomGLv3.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Artpower",
         productName: "NTU_RoomGL",
