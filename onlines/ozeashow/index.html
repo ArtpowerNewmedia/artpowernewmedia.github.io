@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>華航互動 - 三人成行</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      width: 100vw;
+    }
+    .base-container {
+      position: relative;
+      width: 100vw;
+      height: calc(100vw * 1920 / 1080);
+      max-height: 100vh;
+      max-width: calc(100vh * 1080 / 1920);
+      margin: 0 auto;
+      overflow: hidden;
+      background: #000;
+    }
+    .bg-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      user-select: none;
+      pointer-events: none;
+    }
+    /*objects-0*/
+    .objects-0 {
+      position: absolute;
+      top: 75%;
+      left: 50%;
+      z-index: 2;
+    }
+    .img-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      cursor: pointer;
+      outline: none;
+      transform: translate(-50%, -50%);
+    }
+    .img-btn img {
+      width: 200px;
+      height: auto;
+      display: block;
+    }
+    /*objects-3*/
+    .objects-3 {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      z-index: 2;
+    }
+    .shake-center {
+      position: absolute;
+    }
+    .shake-img {
+      position: absolute;
+      width: 300px;
+      height: auto;
+    }
+    .shake-img:nth-child(1) {
+      animation: size 1s infinite;
+      z-index: 1;
+    }
+    .shake-img:nth-child(2) {
+      animation: shake 1s infinite;
+      z-index: 2;
+    }
+    @keyframes size {
+      0% { transform: translate(-50%, -50%) scale(1);}
+      50% { transform: translate(-50%, -50%) scale(1.2);}
+      100% { transform: translate(-50%, -50%) scale(1);}
+    }
+    @keyframes shake {
+      0% { transform: translate(-50%, -50%) rotate(-15deg);}
+      50% { transform: translate(-50%, -50%) rotate(15deg);}
+      100% { transform: translate(-50%, -50%) rotate(-15deg);}
+    }
+    /*objects-4*/
+    .text-overlay {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      color: white;
+      text-shadow: 4px 4px 10px rgba(0,0,0,1);
+      white-space: nowrap;
+      z-index: 1;
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', 微軟正黑體, sans-serif;
+    }
+    .time-text { left: 50%; top: 25.5%; font-size: 36px; }
+    .co        { left: 18%; top: 52%; font-size: 36px; }
+    .o3        { left: 41%; top: 52%; font-size: 36px; }
+    .h2o       { left: 62%; top: 52%; font-size: 36px; }
+    .cloud     { left: 82%; top: 52%; font-size: 36px; }
+
+    /* 測試用 UI 樣式 */
+    #audioData {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 12px;
+      max-width: 300px;
+      white-space: pre-wrap;
+      display: none;
+      z-index: 1000;
+    }
+    #blowAction {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 12px;
+      max-width: 300px;
+      white-space: pre-wrap;
+      display: none;
+      z-index: 1000;
+    }
+    #accelerationData {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 12px;
+      max-width: 300px;
+      white-space: pre-wrap;
+      display: none;
+      z-index: 1000;
+    }
+    #shakeAction {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 12px;
+      max-width: 300px;
+      white-space: pre-wrap;
+      display: none;
+      z-index: 1000;
+    }
+
+    @media (max-aspect-ratio: 1080/1920) {
+      .base-container {
+        width: calc(100vh * 1080 / 1920);
+        height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="base-container">
+    <img src="Title.jpg" class="bg-img" id="main-bg" draggable="false" />
+
+    <!-- 背景0專屬物件 -->
+    <div class="objects-0" style="display:none;">
+      <button class="img-btn" id="connectBtn" onclick="connect()">
+        <img src="button.png" alt="按鈕" />
+      </button>
+    </div>
+
+    <!-- 背景3專屬物件 -->
+    <div class="objects-3" style="display:none;">
+      <div class="shake-center">
+        <img src="icon_Circle.png" class="shake-img" alt="光暈" />
+        <img src="icon_Mobile.png" class="shake-img" alt="手機" />
+      </div>
+    </div>
+
+    <!-- 背景4（result）專屬物件 -->
+    <div class="objects-4" style="display:none;">
+      <div class="text-overlay time-text" id="time-text">完成時間：25秒</div>
+      <div class="text-overlay co" id="co">7s</div>
+      <div class="text-overlay o3" id="o3">8s</div>
+      <div class="text-overlay h2o" id="h2o">6s</div>
+      <div class="text-overlay cloud" id="cloud">4s</div>
+    </div>
+  </div>
+
+  <!-- 測試用 UI -->
+  <div id="audioData"></div>
+  <div id="blowAction"></div>
+  <div id="accelerationData"></div>
+  <div id="shakeAction"></div>
+
+  <!-- 引入 socket.io 客戶端庫 -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+    // 检查URL参数
+    const urlParams = new URLSearchParams(window.location.search);
+    const isDebugMode = urlParams.get('debug') === 'true';
+    const serverUrl = "https://webflyclient-production.up.railway.app/";
+    
+    // 如果开启调试模式，显示调试界面
+    if (isDebugMode) {
+      document.getElementById('audioData').style.display = 'block';
+      document.getElementById('blowAction').style.display = 'block';
+      document.getElementById('accelerationData').style.display = 'block';
+      document.getElementById('shakeAction').style.display = 'block';
+    }
+
+    window.onload = function() {
+        changeBg(0);
+    }
+
+    // 連接到指定的伺服器
+    const socket = io(serverUrl);
+    const playerId = Math.floor(Math.random() * 1000);
+    let isConnected = false;
+    let isGameMode = false;
+    let lastX = 0;
+    let lastY = 0;
+    let lastZ = 0;
+    const SHAKE_THRESHOLD = 15; // 搖晃閾值
+    let lastShakeTime = 0;
+    const SHAKE_COOLDOWN = 100; // 搖晃冷卻時間（毫秒）
+    let isHitEnter = false;
+    let lockGame = false;
+    let audioContext = null;
+    let analyser = null;
+    let microphone = null;
+    let isBlowing = false;
+    const BLOW_FREQ_MIN = 100; // 吹气频率范围最小值（Hz）
+    const BLOW_FREQ_MAX = 1000; // 吹气频率范围最大值（Hz）
+    const BLOW_THRESHOLD = 0.3; // 频率强度阈值（0-1之间）
+    let lastBlowTime = 0;
+    const BLOW_COOLDOWN = 100; // 吹气冷却时间（毫秒）
+    let blowCount = 0; // 连续吹气计数
+    const BLOW_COUNT_THRESHOLD = 1; // 需要连续检测到的次数
+    let lastBlowIntensity = 0; // 上一次的吹气强度
+
+    // 添加頁面卸載事件監聽器
+    window.addEventListener('beforeunload', function() {
+      if (isConnected) {
+        socket.emit('playerLeave', { playerId });
+      }
+    });
+
+    // 添加連接狀態日誌
+    socket.on('connect', () => {
+      console.log('已連接到服務器:', serverUrl);
+    });
+
+    socket.on('disconnect', () => {
+      console.log('與服務器斷開連接');
+    });
+
+    socket.on('masterAction', (data) => {
+      console.log('收到主控端動作:', data);
+      
+      // 如果有時間數據，更新顯示
+      if (data.totalTime !== undefined) {
+        document.getElementById('time-text').textContent = `完成時間：${Math.round(data.totalTime)}秒`;
+        document.getElementById('co').textContent = `${data.time1.toFixed(1)}s`;
+        document.getElementById('o3').textContent = `${data.time2.toFixed(1)}s`;
+        document.getElementById('h2o').textContent = `${data.time3.toFixed(1)}s`;
+        document.getElementById('cloud').textContent = `${data.time4.toFixed(1)}s`;
+      }
+
+      switch(data.action) {
+        case 'OK':
+          if (!isHitEnter) return;
+          if (lockGame) return;
+          changeBg(1); // OK.jpg
+          isGameMode = false;
+          break;
+        case 'Full':
+          if (!isHitEnter) return;
+          if (isGameMode) return;
+          changeBg(2); // Full.jpg
+          isGameMode = false;
+          lockGame = true;
+          break;
+        case 'Start':
+          if (!isHitEnter) return;
+          if (lockGame) return;
+          changeBg(3); // Game.jpg
+          isGameMode = true;
+          break;
+        case 'End':
+          if (!isHitEnter) return;
+          if (lockGame) return;
+          changeBg(4); // Result.jpg
+          isGameMode = false;
+          lockGame = true;
+          isHitEnter = false;
+          break;
+      }
+    });
+
+    function connect() {
+      console.log('嘗試連接...');
+      isHitEnter = true;
+      socket.emit('playerJoin');
+      document.getElementById('connectBtn').disabled = true;
+      isConnected = true;
+      console.log('已發送連接請求');
+    }
+
+    function sendAction(action) {
+      if (isConnected && isGameMode) {
+        console.log('發送動作:', action);
+        socket.emit('playerAction', { playerId, action });
+      } else {
+        console.log('無法發送動作:', { isConnected, isGameMode });
+      }
+    }
+
+    // 切換背景圖函式
+    function changeBg(idx) {
+      const bgList = [
+        'Title.jpg',
+        'OK.jpg',
+        'Full.jpg',
+        'Game.jpg',
+        'Result.jpg'
+      ];
+      const bgImg = document.getElementById('main-bg');
+      if (bgImg && bgList[idx]) {
+        bgImg.src = bgList[idx];
+        // 物件管理
+        for (let i = 0; i <= 4; i++) {
+          const obj = document.querySelector('.objects-' + i);
+          if (obj) obj.style.display = (i === idx) ? '' : 'none';
+        }
+      }
+    }
+
+    // 檢測設備是否支持運動傳感器
+    function checkDeviceMotionSupport() {
+      console.log('開始檢測設備傳感器支持情況...');
+      console.log('DeviceMotionEvent:', !!window.DeviceMotionEvent);
+      console.log('DeviceOrientationEvent:', !!window.DeviceOrientationEvent);
+      console.log('window.DeviceMotionEvent.requestPermission:', typeof window.DeviceMotionEvent?.requestPermission);
+      
+      // 檢查是否在安全上下文中
+      console.log('是否在安全上下文中:', window.isSecureContext);
+      
+      if (window.DeviceMotionEvent || window.DeviceOrientationEvent) {
+        console.log('設備支持運動傳感器');
+        return true;
+      }
+      
+      console.log('設備可能不支持運動傳感器');
+      return false;
+    }
+
+    // 初始化運動傳感器
+    function initMotionSensor() {
+      console.log('開始初始化運動傳感器...');
+      
+      // 初始化麦克风
+      initMicrophone();
+      
+      if (checkDeviceMotionSupport()) {
+        console.log('嘗試初始化運動傳感器');
+        
+        // 先嘗試直接添加監聽器
+        try {
+          window.addEventListener('devicemotion', function(event) {
+            //console.log('收到運動數據:', {
+            //  x: event.accelerationIncludingGravity?.x,
+            //  y: event.accelerationIncludingGravity?.y,
+            //  z: event.accelerationIncludingGravity?.z
+            //});
+          });
+          console.log('成功添加運動傳感器監聽器');
+        } catch (error) {
+          console.error('添加運動傳感器監聽器失敗:', error);
+        }
+
+        // 如果是 iOS 設備，需要請求權限
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+          console.log('檢測到 iOS 設備，需要請求權限');
+          document.getElementById('connectBtn').onclick = async function() {
+            try {
+              const permission = await DeviceMotionEvent.requestPermission();
+              console.log('權限請求結果:', permission);
+              if (permission === 'granted') {
+                console.log('陀螺儀權限已獲取');
+                window.addEventListener('devicemotion', handleMotion);
+                connect();
+              } else {
+                console.log('陀螺儀權限被拒絕');
+                alert('需要陀螺儀權限才能進行遊戲');
+              }
+            } catch (error) {
+              console.error('請求陀螺儀權限時出錯:', error);
+            }
+          };
+        } else {
+          console.log('非 iOS 設備，直接添加監聽器');
+          window.addEventListener('devicemotion', handleMotion);
+        }
+      } else {
+        console.log('設備不支持運動傳感器');
+        alert('您的設備可能不支持運動傳感器，遊戲功能可能受限');
+      }
+    }
+
+    // 初始化麦克风
+    async function initMicrophone() {
+      try {
+        console.log('开始初始化麦克风...');
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        console.log('音频上下文创建成功:', audioContext.state);
+        
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 2048; // 增加FFT大小以获得更好的频率分辨率
+        console.log('音频分析器创建成功，FFT大小:', analyser.fftSize);
+        
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        console.log('获取到麦克风权限，音频流:', stream);
+        
+        microphone = audioContext.createMediaStreamSource(stream);
+        microphone.connect(analyser);
+        console.log('麦克风输入源创建并连接到分析器成功');
+        
+        console.log('麦克风初始化成功');
+        startBlowDetection();
+      } catch (error) {
+        console.error('麦克风初始化失败:', error);
+        console.error('错误详情:', {
+          name: error.name,
+          message: error.message,
+          stack: error.stack
+        });
+      }
+    }
+
+    // 开始检测吹气
+    function startBlowDetection() {
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+      console.log('开始吹气检测，缓冲区长度:', bufferLength);
+      
+      let debugCounter = 0;
+      
+      function checkBlow() {
+        if (!isGameMode) {
+          if (debugCounter % 100 === 0) {
+            console.log('游戏模式未启动，跳过吹气检测');
+          }
+          debugCounter++;
+          requestAnimationFrame(checkBlow);
+          return;
+        }
+        
+        analyser.getByteFrequencyData(dataArray);
+        
+        // 计算吹气频率范围内的平均强度
+        const freqStep = audioContext.sampleRate / (2 * bufferLength);
+        const startBin = Math.floor(BLOW_FREQ_MIN / freqStep);
+        const endBin = Math.floor(BLOW_FREQ_MAX / freqStep);
+        
+        let blowIntensity = 0;
+        for (let i = startBin; i <= endBin; i++) {
+          blowIntensity += dataArray[i];
+        }
+        blowIntensity = blowIntensity / (endBin - startBin) / 255; // 归一化到0-1范围
+        
+        const currentTime = new Date().getTime();
+        
+        // 每10帧记录一次数据
+        if (debugCounter % 10 === 0) {
+          const audioData = {
+            blowIntensity: blowIntensity.toFixed(4),
+            threshold: BLOW_THRESHOLD,
+            isBlowing: isBlowing,
+            blowCount: blowCount,
+            timeSinceLastBlow: currentTime - lastBlowTime,
+            cooldown: BLOW_COOLDOWN
+          };
+          document.getElementById('audioData').textContent = 
+            '音频数据:\n' + 
+            Object.entries(audioData)
+              .map(([key, value]) => `${key}: ${value}`)
+              .join('\n');
+        }
+        
+        // 检测吹气
+        if (blowIntensity > BLOW_THRESHOLD) {
+          blowCount++;
+          if (blowCount >= BLOW_COUNT_THRESHOLD && !isBlowing && (currentTime - lastBlowTime > BLOW_COOLDOWN)) {
+            const blowAction = {
+              intensity: blowIntensity.toFixed(4),
+              threshold: BLOW_THRESHOLD,
+              blowCount: blowCount,
+              timeSinceLastBlow: currentTime - lastBlowTime
+            };
+            document.getElementById('blowAction').textContent = 
+              '检测到吹气动作:\n' + 
+              Object.entries(blowAction)
+                .map(([key, value]) => `${key}: ${value}`)
+                .join('\n');
+            sendAction('blow');
+            isBlowing = true;
+            lastBlowTime = currentTime;
+          }
+        } else {
+          if (blowCount > 0) {
+            document.getElementById('blowAction').textContent = '吹气结束，重置状态';
+          }
+          blowCount = 0;
+          isBlowing = false;
+        }
+        
+        lastBlowIntensity = blowIntensity;
+        debugCounter++;
+        requestAnimationFrame(checkBlow);
+      }
+      
+      checkBlow();
+    }
+
+    // 在頁面加載完成後初始化
+    window.addEventListener('load', function() {
+      console.log('頁面加載完成，準備初始化...');
+      // 確保在用戶交互後再初始化傳感器
+      document.getElementById('connectBtn').onclick = function() {
+        console.log('用戶點擊連接按鈕，開始初始化傳感器...');
+        initMotionSensor();
+        connect();
+      };
+    });
+
+    function handleMotion(event) {
+      if (!isGameMode) {
+        return;
+      }
+
+      const currentTime = new Date().getTime();
+      if (currentTime - lastShakeTime < SHAKE_COOLDOWN) {
+        return;
+      }
+
+      const acceleration = event.accelerationIncludingGravity;
+      const x = acceleration.x;
+      const y = acceleration.y;
+      const z = acceleration.z;
+
+      const accelData = {
+        x: x?.toFixed(2) || 0,
+        y: y?.toFixed(2) || 0,
+        z: z?.toFixed(2) || 0
+      };
+      document.getElementById('accelerationData').textContent = 
+        '加速度數據:\n' + 
+        Object.entries(accelData)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join('\n');
+
+      if (lastX === 0 && lastY === 0 && lastZ === 0) {
+        console.log('初始化加速度數據');
+        lastX = x;
+        lastY = y;
+        lastZ = z;
+        return;
+      }
+
+      const deltaX = Math.abs(x - lastX);
+      const deltaY = Math.abs(y - lastY);
+      const deltaZ = Math.abs(z - lastZ);
+
+      // 計算總搖晃強度
+      const shakeIntensity = deltaX + deltaY + deltaZ;
+
+      if (shakeIntensity > SHAKE_THRESHOLD) {
+        const shakeData = {
+          intensity: shakeIntensity.toFixed(2),
+          threshold: SHAKE_THRESHOLD,
+          timeSinceLastShake: currentTime - lastShakeTime
+        };
+        document.getElementById('shakeAction').textContent = 
+          '檢測到搖晃動作:\n' + 
+          Object.entries(shakeData)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join('\n');
+        sendAction('shake');
+        lastShakeTime = currentTime;
+      }
+
+      lastX = x;
+      lastY = y;
+      lastZ = z;
+    }
+  </script>
+</body>
+</html> 
