@@ -87,6 +87,26 @@
       100% { transform: translate(-50%, -50%) rotate(-15deg);}
     }
     /*objects-4*/
+    .objects-4 {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      z-index: 2;
+    }
+    .glow-img {
+      position: absolute;
+      width: 300px;
+      height: auto;
+    }
+    .glow-img:nth-child(1) {
+      animation: size 1s infinite;
+      z-index: 1;
+    }
+    .glow-img:nth-child(2) {
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+    /*objects-5*/
     .text-overlay {
       position: absolute;
       transform: translate(-50%, -50%);
@@ -192,8 +212,16 @@
       </div>
     </div>
 
-    <!-- 背景4（result）專屬物件 -->
+    <!-- 背景4專屬物件 -->
     <div class="objects-4" style="display:none;">
+      <div class="shake-center">
+        <img src="icon_Circle.png" class="glow-img" alt="光暈" />
+        <img src="icon_Wind.png" class="glow-img" alt="手機" />
+      </div>
+    </div>
+
+    <!-- 背景5（result）專屬物件 -->
+    <div class="objects-5" style="display:none;">
       <div class="text-overlay time-text" id="time-text">完成時間：25秒</div>
       <div class="text-overlay co" id="co">7s</div>
       <div class="text-overlay o3" id="o3">8s</div>
@@ -228,7 +256,6 @@
         changeBg(0);
     }
 
-    // 連接到指定的伺服器
     const socket = io(serverUrl);
     const playerId = Math.floor(Math.random() * 1000);
     let isConnected = false;
@@ -247,7 +274,7 @@
     let isBlowing = false;
     const BLOW_FREQ_MIN = 100; // 吹气频率范围最小值（Hz）
     const BLOW_FREQ_MAX = 1000; // 吹气频率范围最大值（Hz）
-    const BLOW_THRESHOLD = 0.3; // 频率强度阈值（0-1之间）
+    const BLOW_THRESHOLD = 0.7; // 频率强度阈值（0-1之间）
     let lastBlowTime = 0;
     const BLOW_COOLDOWN = 100; // 吹气冷却时间（毫秒）
     let blowCount = 0; // 连续吹气计数
@@ -263,7 +290,7 @@
 
     // 添加連接狀態日誌
     socket.on('connect', () => {
-      console.log('已連接到服務器:', serverUrl);
+      console.log('已連接到服務器');
     });
 
     socket.on('disconnect', () => {
@@ -302,10 +329,16 @@
           changeBg(3); // Game.jpg
           isGameMode = true;
           break;
+        case 'Next':
+          if (!isHitEnter) return;
+          if (lockGame) return;
+          changeBg(4); // Game2.jpg
+          isGameMode = true;
+          break;
         case 'End':
           if (!isHitEnter) return;
           if (lockGame) return;
-          changeBg(4); // Result.jpg
+          changeBg(5); // Result.jpg
           isGameMode = false;
           lockGame = true;
           isHitEnter = false;
@@ -338,13 +371,14 @@
         'ok.jpg',
         'full.jpg',
         'game.jpg',
+        'game2.jpg',
         'result.jpg'
       ];
       const bgImg = document.getElementById('main-bg');
       if (bgImg && bgList[idx]) {
         bgImg.src = bgList[idx];
         // 物件管理
-        for (let i = 0; i <= 4; i++) {
+        for (let i = 0; i <= 5; i++) {
           const obj = document.querySelector('.objects-' + i);
           if (obj) obj.style.display = (i === idx) ? '' : 'none';
         }
@@ -373,10 +407,7 @@
     // 初始化運動傳感器
     function initMotionSensor() {
       console.log('開始初始化運動傳感器...');
-      
-      // 初始化麦克风
-      initMicrophone();
-      
+
       if (checkDeviceMotionSupport()) {
         console.log('嘗試初始化運動傳感器');
         
@@ -465,7 +496,7 @@
       let debugCounter = 0;
       
       function checkBlow() {
-        if (!isGameMode) {
+        if (!isGameMode && !isDebugMode) {
           if (debugCounter % 100 === 0) {
             console.log('游戏模式未启动，跳过吹气检测');
           }
@@ -544,12 +575,16 @@
     // 在頁面加載完成後初始化
     window.addEventListener('load', function() {
       console.log('頁面加載完成，準備初始化...');
-      console.log('開始初始化傳感器...');
+      console.log('開始初始化三軸傳感器...');
       initMotionSensor();
+      document.getElementById('connectBtn').addEventListener('click', function() {
+        //初始化麥克風
+        initMicrophone();
+      });
     });
 
     function handleMotion(event) {
-      if (!isGameMode) {
+      if (!isGameMode && !isDebugMode) {
         return;
       }
 
