@@ -179,7 +179,7 @@
 
     <!-- 背景0專屬物件 -->
     <div class="objects-0" style="display:none;">
-      <button class="img-btn" id="connectBtn" onclick="connect()">
+      <button class="img-btn" id="connectBtn">
         <img src="button.png" alt="按鈕" />
       </button>
     </div>
@@ -397,13 +397,14 @@
         // 如果是 iOS 設備，需要請求權限
         if (typeof DeviceMotionEvent.requestPermission === 'function') {
           console.log('檢測到 iOS 設備，需要請求權限');
-          document.getElementById('connectBtn').onclick = async function() {
+          document.getElementById('connectBtn').addEventListener('click', async function() {
             try {
               const permission = await DeviceMotionEvent.requestPermission();
               console.log('權限請求結果:', permission);
               if (permission === 'granted') {
                 console.log('陀螺儀權限已獲取');
                 window.addEventListener('devicemotion', handleMotion);
+                connect();
               } else {
                 console.log('陀螺儀權限被拒絕');
                 alert('需要陀螺儀權限才能進行遊戲');
@@ -411,12 +412,13 @@
             } catch (error) {
               console.error('請求陀螺儀權限時出錯:', error);
             }
-          };
+          });
         } else {
           console.log('非 iOS 設備，直接添加監聽器');
-          document.getElementById('connectBtn').onclick = function() {
+          document.getElementById('connectBtn').addEventListener('click', function() {
             window.addEventListener('devicemotion', handleMotion);
-          };
+            connect();
+          });
         }
       } else {
         console.log('設備不支持運動傳感器');
@@ -542,11 +544,8 @@
     // 在頁面加載完成後初始化
     window.addEventListener('load', function() {
       console.log('頁面加載完成，準備初始化...');
-      // 確保在用戶交互後再初始化傳感器
-      document.getElementById('connectBtn').onclick = function() {
-        console.log('用戶點擊連接按鈕，開始初始化傳感器...');
-        initMotionSensor();
-      };
+      console.log('開始初始化傳感器...');
+      initMotionSensor();
     });
 
     function handleMotion(event) {
