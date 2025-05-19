@@ -404,7 +404,6 @@
               if (permission === 'granted') {
                 console.log('陀螺儀權限已獲取');
                 window.addEventListener('devicemotion', handleMotion);
-                connect();
               } else {
                 console.log('陀螺儀權限被拒絕');
                 alert('需要陀螺儀權限才能進行遊戲');
@@ -415,7 +414,9 @@
           };
         } else {
           console.log('非 iOS 設備，直接添加監聽器');
-          window.addEventListener('devicemotion', handleMotion);
+          document.getElementById('connectBtn').onclick = function() {
+            window.addEventListener('devicemotion', handleMotion);
+          };
         }
       } else {
         console.log('設備不支持運動傳感器');
@@ -545,7 +546,6 @@
       document.getElementById('connectBtn').onclick = function() {
         console.log('用戶點擊連接按鈕，開始初始化傳感器...');
         initMotionSensor();
-        connect();
       };
     });
 
