@@ -2,29 +2,24 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>華航互動 - 三人成行</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
-      background: #000;
-      width: 100vw;
+      background: #d5f2fa;
+      overflow: hidden;
     }
     .base-container {
-      position: relative;
-      width: 100vw;
-      height: calc(100vw * 1920 / 1080);
-      max-height: 100vh;
-      max-width: calc(100vh * 1080 / 1920);
-      margin: 0 auto;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #d5f2fa;
       overflow: hidden;
-      background: #000;
     }
     .bg-img {
       position: absolute;
-      top: 0; left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -185,16 +180,15 @@
       z-index: 1000;
     }
 
-    @media (max-aspect-ratio: 1080/1920) {
+    /* @media (min-height: 1080px) {
       .base-container {
-        width: calc(100vh * 1080 / 1920);
-        height: 100vh;
+        height: 50%;
       }
-    }
+    } */
   </style>
 </head>
 <body>
-  <div class="base-container">
+  <div class="base-container" id="base-container">
     <img src="title.jpg" class="bg-img" id="main-bg" draggable="false" />
 
     <!-- 背景0專屬物件 -->
@@ -238,6 +232,7 @@
 
   <!-- 引入 socket.io 客戶端庫 -->
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <!-- <script src="/socket.io/socket.io.js"></script> -->
   <script>
     // 检查URL参数
     const urlParams = new URLSearchParams(window.location.search);
@@ -256,6 +251,7 @@
         changeBg(0);
     }
 
+    //const socket = io();
     const socket = io(serverUrl);
     const playerId = Math.floor(Math.random() * 1000);
     let isConnected = false;
@@ -574,7 +570,6 @@
 
     // 在頁面加載完成後初始化
     window.addEventListener('load', function() {
-      console.log('頁面加載完成，準備初始化...');
       console.log('開始初始化三軸傳感器...');
       initMotionSensor();
       document.getElementById('connectBtn').addEventListener('click', function() {
