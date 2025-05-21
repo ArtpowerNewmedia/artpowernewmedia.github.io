@@ -311,7 +311,7 @@
 
       switch(data.action) {
         case 'OK':
-          if(data.playerId === playerId) {
+          if(data.playerId == playerId) {
             changeBg(1); // OK.jpg
             //還有位置，連接遊戲
             isConnected = true;
