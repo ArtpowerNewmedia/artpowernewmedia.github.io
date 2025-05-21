@@ -234,12 +234,12 @@
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
   <!-- <script src="/socket.io/socket.io.js"></script> -->
   <script>
-    // 检查URL参数
+    // 檢查URL參數
     const urlParams = new URLSearchParams(window.location.search);
     const isDebugMode = urlParams.get('debug') === 'true';
     const serverUrl = "https://webflyclient-production.up.railway.app/";
     
-    // 如果开启调试模式，显示调试界面
+    // 如果開啟調試模式，顯示調試界面
     if (isDebugMode) {
       document.getElementById('audioData').style.display = 'block';
       document.getElementById('blowAction').style.display = 'block';
@@ -269,14 +269,14 @@
     let analyser = null;
     let microphone = null;
     let isBlowing = false;
-    const BLOW_FREQ_MIN = 100; // 吹气频率范围最小值（Hz）
-    const BLOW_FREQ_MAX = 1000; // 吹气频率范围最大值（Hz）
-    const BLOW_THRESHOLD = 0.7; // 频率强度阈值（0-1之间）
+    const BLOW_FREQ_MIN = 100; // 吹氣頻率範圍最小值（Hz）
+    const BLOW_FREQ_MAX = 1000; // 吹氣頻率範圍最大值（Hz）
+    const BLOW_THRESHOLD = 0.65; // 頻率強度閾值（0-1之間）
     let lastBlowTime = 0;
-    const BLOW_COOLDOWN = 100; // 吹气冷却时间（毫秒）
-    let blowCount = 0; // 连续吹气计数
-    const BLOW_COUNT_THRESHOLD = 1; // 需要连续检测到的次数
-    let lastBlowIntensity = 0; // 上一次的吹气强度
+    const BLOW_COOLDOWN = 100; // 吹氣冷卻時間（毫秒）
+    let blowCount = 0; // 連續吹氣計數
+    const BLOW_COUNT_THRESHOLD = 1; // 需要連續檢測到的次數
+    let lastBlowIntensity = 0; // 上一次的吹氣強度
 
     // 添加頁面卸載事件監聽器
     window.addEventListener('beforeunload', function() {
@@ -459,29 +459,29 @@
       }
     }
 
-    // 初始化麦克风
+    // 初始化麥克風
     async function initMicrophone() {
       try {
-        console.log('开始初始化麦克风...');
+        console.log('開始初始化麥克風...');
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        console.log('音频上下文创建成功:', audioContext.state);
+        console.log('音頻上下文創建成功:', audioContext.state);
         
         analyser = audioContext.createAnalyser();
-        analyser.fftSize = 2048; // 增加FFT大小以获得更好的频率分辨率
-        console.log('音频分析器创建成功，FFT大小:', analyser.fftSize);
+        analyser.fftSize = 2048; // 增加FFT大小以獲得更好的頻率分辨率
+        console.log('音頻分析器創建成功，FFT大小:', analyser.fftSize);
         
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        console.log('获取到麦克风权限，音频流:', stream);
+        console.log('獲取到麥克風權限，音頻流:', stream);
         
         microphone = audioContext.createMediaStreamSource(stream);
         microphone.connect(analyser);
-        console.log('麦克风输入源创建并连接到分析器成功');
+        console.log('麥克風輸入源創建並連接到分析器成功');
         
-        console.log('麦克风初始化成功');
+        console.log('麥克風初始化成功');
         startBlowDetection();
       } catch (error) {
-        console.error('麦克风初始化失败:', error);
-        console.error('错误详情:', {
+        console.error('麥克風初始化失敗:', error);
+        console.error('錯誤詳情:', {
           name: error.name,
           message: error.message,
           stack: error.stack
@@ -489,18 +489,18 @@
       }
     }
 
-    // 开始检测吹气
+    // 開始檢測吹氣
     function startBlowDetection() {
       const bufferLength = analyser.frequencyBinCount;
       const dataArray = new Uint8Array(bufferLength);
-      console.log('开始吹气检测，缓冲区长度:', bufferLength);
+      console.log('開始吹氣檢測，緩沖區長度:', bufferLength);
       
       let debugCounter = 0;
       
       function checkBlow() {
         if (!isGameMode && !isDebugMode) {
           if (debugCounter % 100 === 0) {
-            console.log('游戏模式未启动，跳过吹气检测');
+            console.log('遊戲模式未啟動，跳過吹氣檢測');
           }
           debugCounter++;
           requestAnimationFrame(checkBlow);
@@ -509,7 +509,7 @@
         
         analyser.getByteFrequencyData(dataArray);
         
-        // 计算吹气频率范围内的平均强度
+        // 計算吹氣頻率範圍內的平均強度
         const freqStep = audioContext.sampleRate / (2 * bufferLength);
         const startBin = Math.floor(BLOW_FREQ_MIN / freqStep);
         const endBin = Math.floor(BLOW_FREQ_MAX / freqStep);
@@ -518,11 +518,11 @@
         for (let i = startBin; i <= endBin; i++) {
           blowIntensity += dataArray[i];
         }
-        blowIntensity = blowIntensity / (endBin - startBin) / 255; // 归一化到0-1范围
+        blowIntensity = blowIntensity / (endBin - startBin) / 255; // 歸一化到0-1範圍
         
         const currentTime = new Date().getTime();
         
-        // 每10帧记录一次数据
+        // 每10幀記錄一次數據
         if (debugCounter % 10 === 0) {
           const audioData = {
             blowIntensity: blowIntensity.toFixed(4),
@@ -533,13 +533,13 @@
             cooldown: BLOW_COOLDOWN
           };
           document.getElementById('audioData').textContent = 
-            '音频数据:\n' + 
+            '音頻數據:\n' + 
             Object.entries(audioData)
               .map(([key, value]) => `${key}: ${value}`)
               .join('\n');
         }
         
-        // 检测吹气
+        // 檢測吹氣
         if (blowIntensity > BLOW_THRESHOLD) {
           blowCount++;
           if (blowCount >= BLOW_COUNT_THRESHOLD && !isBlowing && (currentTime - lastBlowTime > BLOW_COOLDOWN)) {
@@ -550,7 +550,7 @@
               timeSinceLastBlow: currentTime - lastBlowTime
             };
             document.getElementById('blowAction').textContent = 
-              '检测到吹气动作:\n' + 
+              '檢測到吹氣動作:\n' + 
               Object.entries(blowAction)
                 .map(([key, value]) => `${key}: ${value}`)
                 .join('\n');
@@ -560,7 +560,7 @@
           }
         } else {
           if (blowCount > 0) {
-            document.getElementById('blowAction').textContent = '吹气结束，重置状态';
+            document.getElementById('blowAction').textContent = '吹氣結束，重置狀態';
           }
           blowCount = 0;
           isBlowing = false;
