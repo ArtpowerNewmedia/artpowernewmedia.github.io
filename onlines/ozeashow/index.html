@@ -295,6 +295,9 @@
     });
 
     socket.on('masterAction', (data) => {
+      if (!isHitEnter) return;
+      if (lockGame) return;
+
       console.log('收到主控端動作:', data);
       
       // 如果有時間數據，更新顯示
@@ -308,37 +311,38 @@
 
       switch(data.action) {
         case 'OK':
-          if (!isHitEnter) return;
-          if (lockGame) return;
-          changeBg(1); // OK.jpg
-          isGameMode = false;
+          if(data.playerId === playerId) {
+            changeBg(1); // OK.jpg
+            //還有位置，連接遊戲
+            isConnected = true;
+
+            isGameMode = false;
+          }
           break;
         case 'Full':
-          if (!isHitEnter) return;
-          if (isGameMode) return;
           changeBg(2); // Full.jpg
-          isGameMode = false;
+          //遊戲已滿人，只能重新整理網頁
           lockGame = true;
+
+          isGameMode = false;
           break;
         case 'Start':
-          if (!isHitEnter) return;
-          if (lockGame) return;
           changeBg(3); // Game.jpg
+
           isGameMode = true;
           break;
         case 'Next':
-          if (!isHitEnter) return;
-          if (lockGame) return;
           changeBg(4); // Game2.jpg
+
           isGameMode = true;
           break;
         case 'End':
-          if (!isHitEnter) return;
-          if (lockGame) return;
           changeBg(5); // Result.jpg
+
           isGameMode = false;
+
+          //遊戲結束，鎖定遊戲
           lockGame = true;
-          isHitEnter = false;
           gameFinish = true;
           break;
       }
@@ -347,9 +351,8 @@
     function connect() {
       console.log('嘗試連接...');
       isHitEnter = true;
-      socket.emit('playerJoin');
       document.getElementById('connectBtn').disabled = true;
-      isConnected = true;
+      socket.emit('playerJoin', { playerId });
       console.log('已發送連接請求');
     }
 
