@@ -320,6 +320,7 @@
           }
           break;
         case 'Full':
+          if(isConnected) return;
           changeBg(2); // Full.jpg
           //遊戲已滿人，只能重新整理網頁
           lockGame = true;
