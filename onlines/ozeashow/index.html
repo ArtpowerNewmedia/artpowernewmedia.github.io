@@ -280,7 +280,7 @@
 
     // 添加頁面卸載事件監聽器
     window.addEventListener('beforeunload', function() {
-      if (isConnected) {
+      if (isConnected && !lockGame) {
         socket.emit('playerLeave', { playerId });
       }
     });
