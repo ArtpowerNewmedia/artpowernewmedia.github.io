@@ -264,6 +264,7 @@
     const SHAKE_COOLDOWN = 100; // 搖晃冷卻時間（毫秒）
     let isHitEnter = false;
     let lockGame = false;
+    let gameFinish = false;
     let audioContext = null;
     let analyser = null;
     let microphone = null;
@@ -297,7 +298,7 @@
       console.log('收到主控端動作:', data);
       
       // 如果有時間數據，更新顯示
-      if (data.totalTime !== undefined) {
+      if (data.totalTime !== undefined && !gameFinish) {
         document.getElementById('time-text').textContent = `完成時間：${Math.round(data.totalTime)}秒`;
         document.getElementById('co').textContent = `${data.time1.toFixed(1)}s`;
         document.getElementById('o3').textContent = `${data.time2.toFixed(1)}s`;
@@ -338,6 +339,7 @@
           isGameMode = false;
           lockGame = true;
           isHitEnter = false;
+          gameFinish = true;
           break;
       }
     });
