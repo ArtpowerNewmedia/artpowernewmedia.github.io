@@ -408,7 +408,7 @@
                 
                 // 如果是權限錯誤，提供替代方案
                 if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
-                    alert('相機權限被拒絕。\n\n解決方案：\n1. 重新整理頁面並允許權限\n2. 或使用 ngrok 提供的 HTTPS 網址\n3. 或點擊網址列左側的鎖頭圖示，允許相機權限');
+                    alert('相機權限被拒絕。\n\n解決方案：\n1. 重新整理頁面並允許權限\n2. 不要透過通訊軟體(Line、FB)開啟連結\n3. 若是電腦版，點擊網址列左側的鎖頭圖示，允許相機權限');
                     return;
                 }
                 
