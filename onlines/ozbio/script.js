@@ -209,7 +209,7 @@ function submitCamera() {
     // 繪製當前視訊畫面到 canvas
     ctx.drawImage(video, 0, 0);
 
-    captureData = canvas.toDataURL('image/png');
+    captureData = canvas.toDataURL('image/jpeg');
     
     // 顯示截圖的 canvas
     canvas.classList.remove('hidden');
@@ -275,7 +275,7 @@ socket.on('masterAction', (data) => {
         } else if (typeof data.imageData === 'string') {
             // 如果是字串，可能是 base64 格式
             console.log('檢測到字串格式，可能是 base64');
-            const imageUrl = `data:image/png;base64,${data.imageData}`;
+            const imageUrl = `data:image/jpeg;base64,${data.imageData}`;
             document.getElementById('result-image').src = imageUrl;
             return;
         } else {
@@ -310,7 +310,7 @@ socket.on('masterAction', (data) => {
             base64String = btoa(binaryString);
         }
         
-        const imageUrl = `data:image/png;base64,${base64String}`;
+        const imageUrl = `data:image/jpeg;base64,${base64String}`;
         
         // 顯示照片
         document.getElementById('result-image').src = imageUrl;
