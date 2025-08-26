@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="dist/output.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="version_detect.js"></script>
+    <script src="wrapper_resize.js"></script>
+    <script src="script.js"></script>
+    <title>草山探險家-集章大作戰</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="main-container home">
+            <div id="page-home" class="page-container" data-page="home">
+                <button class="oz-btn w-[38%] left-[10%] top-[78%]" onclick="enter_chinese()"><img src="ui/btn_chinese.png" alt="chinese"></button>
+                <button class="oz-btn w-[38%] left-[52%] top-[78%]" onclick="enter_english()"><img src="ui/btn_english.png" alt="english"></button>
+            </div>
+            <div id="page-howto" class="page-container hidden" data-page="howto">
+                <button class="oz-btn w-[38%] left-[31%] top-[78%]" onclick="enter_game()"><img src="ui/chinese/btn_game_start.png" alt="game_start"></button>
+            </div>
+            <div id="page-menu" class="page-container hidden" data-page="menu">
+                <button id="next_btn" class="oz-btn w-[38%] left-[31%] top-[78%]" onclick="next_question()"><img src="ui/chinese/btn_next.png" alt="game_next"></button>
+                <button id="congrats_btn" class="oz-btn w-[70%] left-[15%] top-[77%] hidden" onclick="next_question()"><img src="ui/congrats.png" alt="congrats"></button>
+            </div>
+            <div id="page-finished" class="page-container hidden" data-page="finished">
+                <button id="redeem_btn" class="oz-btn w-[38%] left-[31%] top-[77%]" onclick="btn_redeem()"><img src="ui/chinese/redeem.png" alt="game_start"></button>
+            </div>
+            <div id="page-q1" class="page-container hidden" data-page="q1">
+                <!-- <button id="test_btn" class="oz-btn w-[38%] left-[31%] top-[80%]" onclick="btn_test()"><img src="ui/chinese/btn_next.png" alt="test"></button> -->
+                <button class="oz-btn w-[70%] left-[15%] top-[31%]" onclick="btn_answerA()"><img src="ui/chinese/quest/01/01_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[70%] left-[15%] top-[40%]" onclick="btn_answerB()"><img src="ui/chinese/quest/01/01_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[70%] left-[15%] top-[49%]" onclick="btn_answerC()"><img src="ui/chinese/quest/01/01_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q2" class="page-container hidden" data-page="q2">
+                <button class="oz-btn w-[62%] left-[19%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/02/02_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[62%] left-[19%] top-[50%]" onclick="btn_answerB()"><img src="ui/chinese/quest/02/02_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[62%] left-[19%] top-[70%]" onclick="btn_answerC()"><img src="ui/chinese/quest/02/02_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q3" class="page-container hidden" data-page="q3">
+                <button class="oz-btn w-[74%] left-[13%] top-[55%]" onclick="btn_answerA()"><img src="ui/chinese/quest/03/03_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[64%]" onclick="btn_answerB()"><img src="ui/chinese/quest/03/03_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[73%]" onclick="btn_answerC()"><img src="ui/chinese/quest/03/03_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q4" class="page-container hidden" data-page="q4">
+                <button class="oz-btn w-[74%] left-[13%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/04/04_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerB()"><img src="ui/chinese/quest/04/04_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerC()"><img src="ui/chinese/quest/04/04_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q5" class="page-container hidden" data-page="q5">
+                <button class="oz-btn w-[74%] left-[13%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/05/05_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerB()"><img src="ui/chinese/quest/05/05_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerC()"><img src="ui/chinese/quest/05/05_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q6" class="page-container hidden" data-page="q6">
+                <button class="oz-btn w-[74%] left-[13%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/06/06_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerB()"><img src="ui/chinese/quest/06/06_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerC()"><img src="ui/chinese/quest/06/06_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q7" class="page-container hidden" data-page="q7">
+                <button class="oz-btn w-[64%] left-[18%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/07/07_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[64%] left-[18%] top-[50%]" onclick="btn_answerB()"><img src="ui/chinese/quest/07/07_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[64%] left-[18%] top-[70%]" onclick="btn_answerC()"><img src="ui/chinese/quest/07/07_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q8" class="page-container hidden" data-page="q8">
+                <button class="oz-btn w-[74%] left-[13%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/08/08_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerB()"><img src="ui/chinese/quest/08/08_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerC()"><img src="ui/chinese/quest/08/08_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q9" class="page-container hidden" data-page="q9">
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerA()"><img src="ui/chinese/quest/09/09_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerB()"><img src="ui/chinese/quest/09/09_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[60%]" onclick="btn_answerC()"><img src="ui/chinese/quest/09/09_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q10" class="page-container hidden" data-page="q10">
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerA()"><img src="ui/chinese/quest/10/10_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerB()"><img src="ui/chinese/quest/10/10_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[60%]" onclick="btn_answerC()"><img src="ui/chinese/quest/10/10_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q11" class="page-container hidden" data-page="q11">
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerA()"><img src="ui/chinese/quest/11/11_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerB()"><img src="ui/chinese/quest/11/11_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[66%]" onclick="btn_answerC()"><img src="ui/chinese/quest/11/11_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q12" class="page-container hidden" data-page="q12">
+                <button class="oz-btn w-[74%] left-[13%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/12/12_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerB()"><img src="ui/chinese/quest/12/12_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerC()"><img src="ui/chinese/quest/12/12_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q13" class="page-container hidden" data-page="q13">
+                <button class="oz-btn w-[74%] left-[13%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/13/13_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerB()"><img src="ui/chinese/quest/13/13_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerC()"><img src="ui/chinese/quest/13/13_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q14" class="page-container hidden" data-page="q14">
+                <button class="oz-btn w-[74%] left-[13%] top-[35%]" onclick="btn_answerA()"><img src="ui/chinese/quest/14/14_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[45%]" onclick="btn_answerB()"><img src="ui/chinese/quest/14/14_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[58%]" onclick="btn_answerC()"><img src="ui/chinese/quest/14/14_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q15" class="page-container hidden" data-page="q15">
+                <button class="oz-btn w-[74%] left-[13%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/15/15_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerB()"><img src="ui/chinese/quest/15/15_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerC()"><img src="ui/chinese/quest/15/15_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q16" class="page-container hidden" data-page="q16">
+                <button class="oz-btn w-[74%] left-[13%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/16/16_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerB()"><img src="ui/chinese/quest/16/16_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerC()"><img src="ui/chinese/quest/16/16_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q17" class="page-container hidden" data-page="q17">
+                <button class="oz-btn w-[74%] left-[13%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/17/17_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerB()"><img src="ui/chinese/quest/17/17_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerC()"><img src="ui/chinese/quest/17/17_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q18" class="page-container hidden" data-page="q18">
+                <button class="oz-btn w-[74%] left-[13%] top-[35%]" onclick="btn_answerA()"><img src="ui/chinese/quest/18/18_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[44%]" onclick="btn_answerB()"><img src="ui/chinese/quest/18/18_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[55%]" onclick="btn_answerC()"><img src="ui/chinese/quest/18/18_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q19" class="page-container hidden" data-page="q19">
+                <button class="oz-btn w-[74%] left-[13%] top-[40%]" onclick="btn_answerA()"><img src="ui/chinese/quest/19/19_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[50%]" onclick="btn_answerB()"><img src="ui/chinese/quest/19/19_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[60%]" onclick="btn_answerC()"><img src="ui/chinese/quest/19/19_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q20" class="page-container hidden" data-page="q20">
+                <button class="oz-btn w-[74%] left-[13%] top-[35%]" onclick="btn_answerA()"><img src="ui/chinese/quest/20/20_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[45%]" onclick="btn_answerB()"><img src="ui/chinese/quest/20/20_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[55%]" onclick="btn_answerC()"><img src="ui/chinese/quest/20/20_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q21" class="page-container hidden" data-page="q21">
+                <button class="oz-btn w-[74%] left-[13%] top-[35%]" onclick="btn_answerA()"><img src="ui/chinese/quest/21/21_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[48%]" onclick="btn_answerB()"><img src="ui/chinese/quest/21/21_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[74%] left-[13%] top-[58%]" onclick="btn_answerC()"><img src="ui/chinese/quest/21/21_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q22" class="page-container hidden" data-page="q22">
+                <button class="oz-btn w-[64%] left-[18%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/22/22_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[64%] left-[18%] top-[50%]" onclick="btn_answerB()"><img src="ui/chinese/quest/22/22_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[64%] left-[18%] top-[70%]" onclick="btn_answerC()"><img src="ui/chinese/quest/22/22_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q23" class="page-container hidden" data-page="q23">
+                <button class="oz-btn w-[64%] left-[18%] top-[32%]" onclick="btn_answerA()"><img src="ui/chinese/quest/23/23_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[64%] left-[18%] top-[52%]" onclick="btn_answerB()"><img src="ui/chinese/quest/23/23_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[64%] left-[18%] top-[72%]" onclick="btn_answerC()"><img src="ui/chinese/quest/23/23_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q24" class="page-container hidden" data-page="q24">
+                <button class="oz-btn w-[64%] left-[18%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/24/24_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[64%] left-[18%] top-[50%]" onclick="btn_answerB()"><img src="ui/chinese/quest/24/24_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[64%] left-[18%] top-[70%]" onclick="btn_answerC()"><img src="ui/chinese/quest/24/24_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-q25" class="page-container hidden" data-page="q25">
+                <button class="oz-btn w-[64%] left-[18%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/25/25_A.png" alt="answerA"></button>
+                <button class="oz-btn w-[64%] left-[18%] top-[50%]" onclick="btn_answerB()"><img src="ui/chinese/quest/25/25_B.png" alt="answerB"></button>
+                <button class="oz-btn w-[64%] left-[18%] top-[70%]" onclick="btn_answerC()"><img src="ui/chinese/quest/25/25_C.png" alt="answerC"></button>
+            </div>
+            <div id="page-answer" class="page-container hidden">
+                <button class="oz-btn w-[12%] left-[72%] top-[83%]" onclick="btn_continue()"><img src="ui/continue.png" alt="continue"></button>
+                <button class="oz-btn w-[12%] left-[72%] top-[83%]" onclick="btn_continue()"><img src="ui/continue.png" alt="continue"></button>
+                <button class="oz-btn w-[12%] left-[72%] top-[83%]" onclick="btn_continue()"><img src="ui/continue.png" alt="continue"></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

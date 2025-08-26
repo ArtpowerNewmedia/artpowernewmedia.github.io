@@ -1,0 +1,87 @@
+/* stylelint-disable at-rule-no-unknown */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
+
+:root {
+    /* 畫布寬高比 */
+    --canvas-width-height-ratio: 9/16;
+}
+
+html, body {
+    margin: 0; /* 確保 body 無縫佔滿整個視窗，這是重點 */
+    height: 100%; /* 確保 body 佔滿整個視窗，這是重點 */
+    font-family: 'Microsoft JhengHei', Arial, sans-serif;
+    background-color: #000;
+    overflow: hidden;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 縮放畫布控制器 */
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 畫布，主要顯示單元 */
+.main-container {
+    position: absolute;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    transform-origin: center center;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.main-container.home {
+    background-image: url('ui/home.jpg');
+}
+
+/* 內容配置器 */
+.page-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+}
+
+.oz-btn {
+    position: absolute;
+    background-color:transparent; /* 背景顏色 */
+    border: none; /* 按鈕的邊框 */
+    cursor: pointer; /* 滑鼠移動到按鈕上時的游標 */
+    transition: filter 0.3s ease; /* 按鈕的過渡效果 */
+    padding: 0px; /* 舊版瀏覽器沒設定會有邊距 */
+}
+.oz-btn:hover {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.oz-btn:active {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    transform: translateY(1px);
+}
+
+/* 舊版瀏覽器只能這樣不能CDN tailwind ，除非npm安裝*/
+.oz-btn.chinese {
+    width: 38%;
+    left: 10%;
+    top: 78%;
+}
+.oz-btn.english {
+    width: 38%;
+    left: 52%;
+    top: 78%;
+}
+
+
