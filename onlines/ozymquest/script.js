@@ -7,6 +7,7 @@ const AppState = {
   currentAnswer: null,
   currentQuestion: 1,
   isAnswering: false,
+  questionOffset : 0,
 };
 
 // ========================================
@@ -320,9 +321,7 @@ function showAnswerIndicator(buttonElement, answer) {
 }
 
 function enter_game() {
-    AppState.currentQuestion = 1;
-    let random = Math.floor(Math.random() * 5) * 5;
-    goto_page('page-q' + (AppState.currentQuestion + random));
+    goto_page('page-q' + (AppState.currentQuestion + AppState.questionOffset ));
 }
 function btn_continue() {
     document.getElementById('lock_' + AppState.currentQuestion).classList.add('hidden');
@@ -335,12 +334,14 @@ function btn_continue() {
         document.getElementById('lockfail_' + AppState.currentQuestion).classList.remove('hidden');
     }
     AppState.currentQuestion++;
+    AppState.questionOffset  = Math.floor(Math.random() * 5) * 5;
+    preload_next_page_background('q' + (AppState.currentQuestion + AppState.questionOffset ));
+    preload_next_page_background('a' + (AppState.currentQuestion + AppState.questionOffset ));
     goto_page('page-menu');
 }
 function next_question() {
     if (AppState.currentQuestion <= 5) {
-        let random = Math.floor(Math.random() * 5) * 5;
-        goto_page('page-q' + (AppState.currentQuestion + random));
+        goto_page('page-q' + (AppState.currentQuestion + AppState.questionOffset ));
     } else {
         goto_page('page-finished');
     }
@@ -363,6 +364,26 @@ function btn_redeem() {
     }
 }
 
+function preload_next_page_background(bg_key) {
+    if(!PAGE_BACKGROUNDS.hasOwnProperty(bg_key)) return;
+    
+    const langPath = LANGUAGE_PATHS[AppState.language];
+    const pageName = PAGE_BACKGROUNDS[bg_key];
+    const imagePath = langPath + pageName;
+    const images = new Image();
+    
+    // 確認 imagePath 是有效路徑
+    images.onload = function() {
+        console.log('背景圖片預載成功:', imagePath);
+    };
+    
+    images.onerror = function() {
+        console.error('背景圖片預載失敗，路徑無效:', imagePath);
+    };
+
+    images.src = imagePath;
+}
+
 // ========================================
 // 事件處理
 // ========================================
@@ -370,6 +391,14 @@ function btn_redeem() {
 window.onload = function() {
     const homePage = document.getElementById('page-home');
     updateCurrentDiv(homePage);
+    preload_next_page_background('howto');
+    preload_next_page_background('menu');
+    preload_next_page_background('finished');
+
+    AppState.currentQuestion = 1;
+    AppState.questionOffset  = Math.floor(Math.random() * 5) * 5;
+    preload_next_page_background('q' + (AppState.currentQuestion + AppState.questionOffset ));
+    preload_next_page_background('a' + (AppState.currentQuestion + AppState.questionOffset ));
 
     // 測試跳頁頁面
     // AppState.currentQuestion = 1;
