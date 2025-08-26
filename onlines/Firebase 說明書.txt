@@ -1,0 +1,39 @@
+創一個資料夾，在資料夾裡輸入
+
+npm install -g firebase-tools
+
+這樣就創好上傳環境
+
+●第一次使用，需要輸入firebase login
+登入google帳號，當然你要先上firebase創好專案，設定專案付費方式or限額免費
+
+接著輸入firebase init
+會有一段問答
+
+Are you ready to proceed? Yes
+Which Firebase features do you want to set up for this directory? Press Space to select features, 
+then Enter to confirm your choices.
+空白鍵選 Hosting，這是靜態網頁的意思，(要動態去railway)，然後按enter
+
+Please select an option: Use an existing project
+選擇你預先網頁登入創好的project
+
+Select a default Firebase project for this directory: kkbar-2025 (kkbar-2025)
+同上
+
+What do you want to use as your public directory? public
+預設會上傳public 資料夾裡的所有東西
+
+Configure as a single-page app (rewrite all urls to /index.html)? Yes
+就不給其他子項目連結
+
+Set up automatic builds and deploys with GitHub? No
+不要用github，我們從這邊deploy反而比較方便
+
+---------------------
+
+以上設定OK，把要上傳的都丟到/public裡之後輸入
+firebase deploy
+
+網頁就上傳好了
+Firebase滿快的，不愧是Google

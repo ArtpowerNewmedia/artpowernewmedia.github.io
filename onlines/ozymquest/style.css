@@ -13,7 +13,8 @@ html, body {
     margin: 0; /* 確保 body 無縫佔滿整個視窗，這是重點 */
     height: 100%; /* 確保 body 佔滿整個視窗，這是重點 */
     font-family: 'Microsoft JhengHei', Arial, sans-serif;
-    background-color: #000;
+    background-color: #80c14d;
+    /* background-color: #e0f2fc; */
     overflow: hidden;
 }
 
