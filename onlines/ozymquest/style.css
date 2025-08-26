@@ -84,4 +84,37 @@ img {
     top: 78%;
 }
 
+.answer_indicator {
+    position: absolute;
+    width: 20%;
+    z-index: 1000;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+}
 
+/* 閃爍動畫類別 */
+.answer_indicator.blink {
+    animation: blink-effect 0.6s ease-in-out;
+}
+
+/* 閃爍動畫關鍵幀 - 閃爍2下 */
+@keyframes blink-effect {
+    0% { opacity: 1; }
+    25% { opacity: 0; }
+    50% { opacity: 1; }
+    75% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.shine-self {
+    animation: shine-effect 1.5s ease-in-out;
+}
+
+@keyframes shine-effect {
+    0%, 16.67%, 33.33%, 50%, 66.67%, 83.33%, 100% {
+        opacity: 1;
+    }
+    8.33%, 25%, 41.67%, 58.33%, 75%, 91.67% {
+        opacity: 0.3;
+    }
+}

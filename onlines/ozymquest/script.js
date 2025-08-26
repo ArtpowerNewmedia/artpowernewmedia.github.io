@@ -6,6 +6,7 @@ const AppState = {
   currentDiv: null,
   currentAnswer: null,
   currentQuestion: 1,
+  isAnswering: false,
 };
 
 // ========================================
@@ -72,6 +73,34 @@ const PAGE_BACKGROUNDS = {
     a25: 'quest/25/25A.jpg',
 };
 
+const QUESTION_ANSWER = {
+    1: 'B',
+    2: 'A',
+    3: 'A',
+    4: 'A',
+    5: 'B',
+    6: 'C',
+    7: 'A',
+    8: 'B',
+    9: 'C',
+    10: 'C',
+    11: 'B',
+    12: 'C',
+    13: 'B',
+    14: 'A',
+    15: 'B',
+    16: 'A',
+    17: 'A',
+    18: 'B',
+    19: 'C',
+    20: 'A',
+    21: 'B',
+    22: 'C',
+    23: 'A',
+    24: 'B',
+    25: 'C',
+};
+
 // ========================================
 // 狀態更新函數
 // ========================================
@@ -82,7 +111,7 @@ const PAGE_BACKGROUNDS = {
  */
 function updateLanguage(lang) {
     AppState.language = lang;
-    console.log('語言已切換為:', lang);
+    console.log('語言變數已更新為:', lang);
 }
 
 /**
@@ -148,6 +177,10 @@ function on_page_show() {
             btn_next.classList.add('hidden');
             let btn_congrats = document.getElementById('congrats_btn');
             btn_congrats.classList.remove('hidden');
+
+            setTimeout(() => {
+                goto_page('page-finished');
+            }, 2500);
         }
     }
 }
@@ -214,28 +247,93 @@ function btn_test() {
     }
 }
 
-function btn_answerA() {
-    AppState.currentAnswer = 'A';
-    document.getElementById('page-answer').dataset.page = 'a' + AppState.currentQuestion;
-    goto_page('page-answer');
+function btn_answer(answer, buttonElement) {
+    if (AppState.isAnswering) return; // 防止重複點擊
+    console.log('玩家回答了:', answer);
+    AppState.isAnswering = true;
+    AppState.currentAnswer = answer;
     
+    // 在按鈕前方顯示 O 或 X 圖片
+    showAnswerIndicator(buttonElement, answer);
+    
+    document.getElementById('page-answer').dataset.page = 'a' + AppState.currentQuestion;
+    setTimeout(() => {
+        goto_page('page-answer');
+        AppState.isAnswering = false; // 重置狀態
+    }, 1000);
 }
+
+function btn_answerA() {
+    // 獲取被點擊的按鈕元素
+    const buttonElement = event.target.closest('.oz-btn');
+    btn_answer('A', buttonElement);
+}
+
 function btn_answerB() {
-    AppState.currentAnswer = 'B';
-    document.getElementById('page-answer').dataset.page = 'a' + AppState.currentQuestion;
-    goto_page('page-answer');
+    // 獲取被點擊的按鈕元素
+    const buttonElement = event.target.closest('.oz-btn');
+    btn_answer('B', buttonElement);
 }
+
 function btn_answerC() {
-    AppState.currentAnswer = 'C';
-    document.getElementById('page-answer').dataset.page = 'a' + AppState.currentQuestion;
-    goto_page('page-answer');
+    // 獲取被點擊的按鈕元素
+    const buttonElement = event.target.closest('.oz-btn');
+    btn_answer('C', buttonElement);
 }
+
+/**
+ * 在按鈕前方顯示答案指示器（O 或 X）
+ * @param {HTMLElement} buttonElement - 被點擊的按鈕元素
+ * @param {string} answer - 玩家的答案
+ */
+function showAnswerIndicator(buttonElement, answer) {
+    if (!buttonElement) return;
+    
+    // 檢查答案是否正確
+    const isCorrect = answer === QUESTION_ANSWER[AppState.currentQuestion];
+    const imageSrc = isCorrect ? 'ui/o.png' : 'ui/x.png';
+    
+    // 創建 O 或 X 圖片元素
+    const indicator_img = document.getElementById('answer_indicator_img');
+    indicator_img.src = imageSrc;
+    const indicator = document.getElementById('answer_indicator');
+    indicator.classList.remove('hidden');
+    let targetDiv = document.getElementById(AppState.currentDiv.id);
+    if(targetDiv) targetDiv.appendChild(indicator);
+    indicator.classList.add('blink');
+    
+    // 獲取按鈕的位置
+    const buttonRect = buttonElement.getBoundingClientRect();
+    const containerRect = buttonElement.closest('.page-container').getBoundingClientRect();
+    
+    // 計算 O/X 圖片的位置（在按鈕左側）
+    const left = buttonRect.left - containerRect.left;
+    const top = buttonRect.top - containerRect.top + (buttonRect.height / 2); // 按鈕垂直中心
+    
+    indicator.style.left = left + 'px';
+    indicator.style.top = top + 'px';
+    
+    // 動畫結束後移除閃爍類別
+    setTimeout(() => {
+        indicator.classList.remove('blink');
+    }, 600);
+}
+
 function enter_game() {
     AppState.currentQuestion = 1;
     let random = Math.floor(Math.random() * 5) * 5;
     goto_page('page-q' + (AppState.currentQuestion + random));
 }
 function btn_continue() {
+    document.getElementById('lock_' + AppState.currentQuestion).classList.add('hidden');
+
+    if(AppState.currentAnswer == QUESTION_ANSWER[AppState.currentQuestion]) {
+        document.getElementById('stamp_' + AppState.currentQuestion).src = 'ui/stamp_0' + AppState.currentQuestion + '_unlocked.png';
+        document.getElementById('unlocker_' + AppState.currentQuestion).classList.remove('hidden');
+    } else {
+        document.getElementById('stamp_' + AppState.currentQuestion).src = 'ui/stamp_0' + AppState.currentQuestion + '_failed.png';
+        document.getElementById('lockfail_' + AppState.currentQuestion).classList.remove('hidden');
+    }
     AppState.currentQuestion++;
     goto_page('page-menu');
 }
@@ -248,8 +346,21 @@ function next_question() {
     }
 }
 function btn_redeem() {
-    let btn_redeem = document.getElementById('redeem_btn');
-    btn_redeem.classList.add('hidden');
+    // 初始化點擊計數器（如果不存在）
+    if (!AppState.redeemClickCount) {
+        AppState.redeemClickCount = 0;
+    }
+    
+    // 增加點擊次數
+    AppState.redeemClickCount++;
+    
+    // 檢查是否達到5次點擊
+    if (AppState.redeemClickCount >= 5) {
+        document.getElementById('redeem_btn').classList.add('hidden');
+        document.getElementById('redeemed').classList.remove('hidden');
+        // 重置計數器
+        AppState.redeemClickCount = 0;
+    }
 }
 
 // ========================================
@@ -261,6 +372,9 @@ window.onload = function() {
     updateCurrentDiv(homePage);
 
     // 測試跳頁頁面
-    // AppState.currentQuestion = 5;
-    // goto_page('page-q5');
+    // AppState.currentQuestion = 1;
+    // AppState.language = 'en';
+    // updateImagePaths(AppState.language);
+    // goto_page('page-q' + AppState.currentQuestion);
+    // goto_page('page-q1');
 };
