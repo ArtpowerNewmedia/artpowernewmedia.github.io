@@ -13,7 +13,8 @@ const AppState = {
     isAnswering: false,       // 是否正在回答問題
     questionOffset: 0,        // 問題偏移量
     preloadedCount: 0,        // 預載入的圖片數量
-    redeemClickCount: 0       // 兌換按鈕點擊次數
+    redeemClickCount: 0,      // 兌換按鈕點擊次數
+    correctCount: 0           // 正確回答的次數
 };
 
 // ========================================
@@ -76,7 +77,7 @@ function updateLanguage(lang) {
  * 更新當前DOM元素狀態
  * @param {HTMLElement} div - DOM元素
  */
-function updateCurrentDiv(div) {
+function setCurrentDiv(div) {
     AppState.currentDiv = div;
 }
 
@@ -129,6 +130,33 @@ function updateBackgrounds() {
 function on_page_show() {
     updateBackgrounds();
 
+    if (AppState.currentDiv.id.startsWith('page-q')) {
+        const buttons = getPageButtons(AppState.currentDiv);
+        if (buttons) {
+            const btnRect = Array.from(buttons).map(btn => btn.getBoundingClientRect());
+            const divRect = AppState.currentDiv.getBoundingClientRect();
+            const btnTop = Array.from(btnRect).map(rect => (rect.top - divRect.top));
+            const btnImg = Array.from(buttons).map(btn => btn.querySelector('img'));
+
+            console.log('●按鈕的高度' + btnImg[0].height);
+
+            buttons.forEach((btn, index) => {
+                btn.style.opacity = 0;
+            });
+
+            setTimeout(() => {
+                for (let i = 0; i < buttons.length; i++) {
+                    buttons[i].style.opacity = 1;
+                }
+                const buttonSpacing = 3; // 固定間距（百分比）
+                buttons[0].style.top = (btnTop[0]/divRect.height) * 100 + '%';
+                buttons[1].style.top = (((btnTop[0] + btnImg[0].height)/divRect.height) * 100 + buttonSpacing) + '%';
+                buttons[2].style.top = (((btnTop[0] + btnImg[0].height + btnImg[1].height)/divRect.height) * 100 + buttonSpacing * 2) + '%';
+            }, 10);
+        }
+        console.log('這題的正確答案是: ' + QUESTION_ANSWER[(AppState.currentQuestion + AppState.questionOffset)]);
+    }
+
     if (AppState.currentDiv.dataset.page === 'howto') {
         preload_next_page_background('menu', () => { AppState.preloadedCount++; });
         preload_next_page_background('finished', () => { AppState.preloadedCount++; });
@@ -140,13 +168,18 @@ function on_page_show() {
         if (AppState.currentQuestion > 5) {
             const btn_next = document.getElementById('next_btn');
             btn_next.classList.add('hidden');
-            
-            const btn_congrats = document.getElementById('congrats_btn');
-            btn_congrats.classList.remove('hidden');
 
-            setTimeout(() => {
-                goto_page('page-finished');
-            }, 2500);
+            if (AppState.correctCount < 5) {
+                const btn_mission = document.getElementById('mission_btn');
+                btn_mission.classList.remove('hidden');
+            } else {
+                const btn_congrats = document.getElementById('congrats_btn');
+                btn_congrats.classList.remove('hidden');
+    
+                setTimeout(() => {
+                    goto_page('page-finished');
+                }, 2500);
+            }
         }
     }
 }
@@ -175,13 +208,22 @@ function goto_page(page) {
         // 顯示目標頁面
         targetDiv.classList.remove('hidden');
         targetDiv.style.display = 'block';
-        updateCurrentDiv(targetDiv);
+        setCurrentDiv(targetDiv);
         
         on_page_show();
         console.log(`成功切換到頁面: ${page}`);
     } catch (error) {
         console.error('頁面切換失敗:', error);
     }
+}
+
+// 獲取頁面按鈕的輔助函數
+function getPageButtons(pageElement) {
+    const buttons = pageElement.querySelectorAll('.oz-btn');
+    if (buttons.length >= 3) {
+        return buttons;
+    }
+    return null;
 }
 
 // ========================================
@@ -288,11 +330,17 @@ function showAnswerIndicator(buttonElement, answer) {
     
     const indicator = document.getElementById('answer_indicator');
     indicator.classList.remove('hidden');
+    const selector = document.getElementById('answer_selector');
+    selector.classList.remove('hidden');
     
     const targetDiv = document.getElementById(AppState.currentDiv.id);
-    if (targetDiv) targetDiv.appendChild(indicator);
+    if (targetDiv){
+        targetDiv.appendChild(indicator);
+        targetDiv.appendChild(selector);
+    }
     
     indicator.classList.add('blink');
+    selector.classList.add('jump');
     
     // 獲取按鈕的位置
     const buttonRect = buttonElement.getBoundingClientRect();
@@ -300,14 +348,20 @@ function showAnswerIndicator(buttonElement, answer) {
     
     // 計算 O/X 圖片的位置（在按鈕左側）
     const left = buttonRect.left - containerRect.left;
+    const left_selector = left + (buttonRect.width * 0.85);
     const top = buttonRect.top - containerRect.top + (buttonRect.height / 2);
+    const top_selector = buttonRect.top - containerRect.top + buttonRect.height;
     
     indicator.style.left = left + 'px';
     indicator.style.top = top + 'px';
+
+    selector.style.left = left_selector + 'px';
+    selector.style.top = top_selector + 'px';
     
     // 動畫結束後移除閃爍類別
     setTimeout(() => {
         indicator.classList.remove('blink');
+        selector.classList.remove('jump');
     }, 600);
 }
 
@@ -327,6 +381,7 @@ function btn_continue() {
     if (AppState.currentAnswer === QUESTION_ANSWER[(AppState.currentQuestion + AppState.questionOffset)]) {
         document.getElementById('stamp_' + AppState.currentQuestion).src = 'ui/stamp_0' + AppState.currentQuestion + '_unlocked.png';
         document.getElementById('unlocker_' + AppState.currentQuestion).classList.remove('hidden');
+        AppState.correctCount++;
     } else {
         document.getElementById('stamp_' + AppState.currentQuestion).src = 'ui/stamp_0' + AppState.currentQuestion + '_failed.png';
         document.getElementById('lockfail_' + AppState.currentQuestion).classList.remove('hidden');
@@ -425,7 +480,7 @@ async function wait_for_loaded(callback) {
  */
 window.onload = function() {
     const homePage = document.getElementById('page-home');
-    updateCurrentDiv(homePage);
+    setCurrentDiv(homePage);
     
     AppState.currentQuestion = 1;
     AppState.questionOffset = Math.floor(Math.random() * 5) * 5;
@@ -449,7 +504,7 @@ window.onload = function() {
 
     // 測試跳頁頁面
     // AppState.currentQuestion = 1;
-    // AppState.language = 'en';
+    // AppState.language = 'zh';
     // updateImagePaths(AppState.language);
     // goto_page('page-q' + AppState.currentQuestion);
     // goto_page('page-q1');

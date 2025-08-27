@@ -47,10 +47,11 @@
                 <div id="lockfail_5" class="absolute w-[14%] left-[43%] top-[61%] hidden"><img src="ui/chinese/lock_failed.png" alt="lockfail_05"></div>
 
                 <button id="next_btn" class="oz-btn w-[38%] left-[31%] top-[78%]" onclick="next_question()"><img src="ui/chinese/btn_next.png" alt="game_next"></button>
-                <button id="congrats_btn" class="oz-btn shine-self w-[70%] left-[15%] top-[80%] pointer-events-none hidden" onclick="next_question()"><img src="ui/congrats.png" alt="congrats"></button>
+                <button id="congrats_btn" class="oz-btn shine-self w-[70%] left-[15%] top-[80%] pointer-events-none hidden"><img src="ui/congrats.png" alt="congrats"></button>
+                <button id="mission_btn" class="oz-btn w-[70%] left-[15%] top-[80%] pointer-events-none hidden"><img src="ui/chinese/mission_failed.png" alt="mission"></button>
             </div>
             <div id="page-finished" class="page-container hidden" data-page="finished">
-                <button id="redeem_btn" class="oz-btn w-[38%] left-[31%] top-[77%]" onclick="btn_redeem()"><img src="ui/chinese/redeem.png" alt="game_start"></button>
+                <button id="redeem_btn" class="oz-btn w-[38%] left-[31%] top-[77%]" onclick="btn_redeem()"><img src="ui/chinese/redeem.png" alt="redeem_it"></button>
                 <div id="redeemed" class="absolute w-[38%] left-[31%] top-[77%] hidden"><img src="ui/chinese/redeemed.png" alt="redeemed"></div>
             </div>
             <div id="page-q1" class="page-container hidden" data-page="q1">
@@ -59,6 +60,7 @@
                 <button class="oz-btn w-[70%] left-[15%] top-[40%]" onclick="btn_answerB()"><img src="ui/chinese/quest/01/01_B.png" alt="answerB"></button>
                 <button class="oz-btn w-[70%] left-[15%] top-[49%]" onclick="btn_answerC()"><img src="ui/chinese/quest/01/01_C.png" alt="answerC"></button>
                 <div id="answer_indicator" class="answer_indicator hidden"><img id="answer_indicator_img" src="ui/o.png" alt="answer_indicator"></div>
+                <div id="answer_selector" class="answer_selector hidden"><img id="answer_selector_img" src="ui/finger.png" alt="answer_selector"></div>
             </div>
             <div id="page-q2" class="page-container hidden" data-page="q2">
                 <button class="oz-btn w-[62%] left-[19%] top-[30%]" onclick="btn_answerA()"><img src="ui/chinese/quest/02/02_A.png" alt="answerA"></button>
@@ -181,8 +183,6 @@
                 <button class="oz-btn w-[64%] left-[18%] top-[70%]" onclick="btn_answerC()"><img src="ui/chinese/quest/25/25_C.png" alt="answerC"></button>
             </div>
             <div id="page-answer" class="page-container hidden">
-                <button class="oz-btn w-[12%] left-[72%] top-[83%]" onclick="btn_continue()"><img src="ui/continue.png" alt="continue"></button>
-                <button class="oz-btn w-[12%] left-[72%] top-[83%]" onclick="btn_continue()"><img src="ui/continue.png" alt="continue"></button>
                 <button class="oz-btn w-[12%] left-[72%] top-[83%]" onclick="btn_continue()"><img src="ui/continue.png" alt="continue"></button>
             </div>
         </div>
