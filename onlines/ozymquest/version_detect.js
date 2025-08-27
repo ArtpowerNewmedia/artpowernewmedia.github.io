@@ -4,10 +4,10 @@ function checkBrowserCompatibility() {
     var missingFeatures = [];
     
     // 檢測 CSS 變數支援
-    if (!CSS.supports('--custom-property', 'value')) {
-        isCompatible = false;
-        missingFeatures.push('CSS 變數');
-    }
+    // if (!CSS.supports('--custom-property', 'value')) {
+    //     isCompatible = false;
+    //     missingFeatures.push('CSS 變數');
+    // }
     
     // 檢測 Flexbox 支援
     if (!CSS.supports('display', 'flex')) {
