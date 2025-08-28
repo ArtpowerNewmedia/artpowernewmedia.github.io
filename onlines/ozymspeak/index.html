@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>互動導覽</title>
+        <link rel="stylesheet" href="dist/output.css">
+        <link rel="stylesheet" href="style.css">
+        <script src="version_detect.js"></script>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div id="page-0" class="main-container hidden">
+            <img class="background" src="00/00.jpg" alt="background">
+            <button class="oz-btn w-[34%] left-[33%] top-[43%]" onclick="window.location.href='https://euphonious-salmiakki-9784e0.netlify.app/'"><img src="00/btn_zh.png" alt="play_zh"></button>
+            <button class="oz-btn w-[34%] left-[33%] top-[54%]" onclick="window.location.href='https://courageous-sfogliatella-968649.netlify.app/ '"><img src="00/btn_en.png" alt="play_en"></button>
+        </div>
+        <div id="page-1" class="main-container hidden">
+            <img class="background" src="01/01.jpg" alt="background">
+            <button class="oz-btn w-[29%] left-[15%] top-[27%]" onclick="toggleAudio('01/1zh')"><img src="01/audio_zh.png" alt="play_zh"></button>
+            <button class="oz-btn w-[29%] left-[55%] top-[27%]" onclick="toggleAudio('01/1en')"><img src="01/audio_en.png" alt="play_en"></button>
+        </div>
+        <div id="page-2" class="main-container hidden">
+            <img class="background" src="02/02.jpg" alt="background">
+            <button class="oz-btn w-[29%] left-[15%] top-[32%]" onclick="toggleAudio('02/2zh')"><img src="02/audio_zh.png" alt="play_zh"></button>
+            <button class="oz-btn w-[29%] left-[55%] top-[32%]" onclick="toggleAudio('02/2en')"><img src="02/audio_en.png" alt="play_en"></button>
+        </div>
+        <div id="page-3" class="main-container hidden">
+            <img class="background" src="03/03.jpg" alt="background">
+            <button class="oz-btn w-[29%] left-[15%] top-[28%]" onclick="toggleAudio('03/3zh')"><img src="03/audio_zh.png" alt="play_zh"></button>
+            <button class="oz-btn w-[29%] left-[55%] top-[28%]" onclick="toggleAudio('03/3en')"><img src="03/audio_en.png" alt="play_en"></button>
+        </div>
+        <div id="page-4" class="main-container hidden">
+            <img class="background" src="04/04.jpg" alt="background">
+            <button class="oz-btn w-[29%] left-[15%] top-[32.2%]" onclick="toggleAudio('04/4zh')"><img src="04/audio_zh.png" alt="play_zh"></button>
+            <button class="oz-btn w-[29%] left-[55%] top-[32.2%]" onclick="toggleAudio('04/4en')"><img src="04/audio_en.png" alt="play_en"></button>
+        </div>
+        <div id="page-5" class="main-container hidden">
+            <img class="background" src="05/05.jpg" alt="background">
+            <button class="oz-btn w-[29%] left-[15%] top-[29.5%]" onclick="toggleAudio('05/5zh')"><img src="05/audio_zh.png" alt="play_zh"></button>
+            <button class="oz-btn w-[29%] left-[55%] top-[29.5%]" onclick="toggleAudio('05/5en')"><img src="05/audio_en.png" alt="play_en"></button>
+        </div>
+        <div id="page-6" class="main-container hidden">
+            <img class="sub-background background" src="06/06_1.jpg" alt="background">
+            <img class="sub-background noshow" src="06/06_2.jpg" alt="background">
+            <img class="sub-background noshow" src="06/06_3.jpg" alt="background">
+            <div id="sub-1" class="sub-container hidden" data-background="06/06_1.jpg">
+                <button class="oz-btn w-[29%] left-[15%] top-[12%]" onclick="toggleAudio('06/61zh')"><img src="06/audio_zh.png" alt="play_zh"></button>
+                <button class="oz-btn w-[29%] left-[55%] top-[12%]" onclick="toggleAudio('06/61en')"><img src="06/audio_en.png" alt="play_en"></button>
+                <button class="oz-btn w-[18%] left-[70%] top-[92%]" onclick="nextSubPage()"><img src="06/next.png" alt="btn_next"></button>
+                <button class="oz-btn w-[18%] left-[41%] top-[92%] pointer-events-none"><img src="06/p1.png"></button>
+            </div>
+            <div id="sub-2" class="sub-container hidden" data-background="06/06_2.jpg">
+                <button class="oz-btn w-[29%] left-[15%] top-[22.5%]" onclick="toggleAudio('06/62zh')"><img src="06/audio_zh.png" alt="play_zh"></button>
+                <button class="oz-btn w-[29%] left-[55%] top-[22.5%]" onclick="toggleAudio('06/62en')"><img src="06/audio_en.png" alt="play_en"></button>
+                <button class="oz-btn w-[18%] left-[12%] top-[88%]" onclick="backSubPage()"><img src="06/back.png" alt="btn_back"></button>
+                <button class="oz-btn w-[18%] left-[70%] top-[88%]" onclick="nextSubPage()"><img src="06/next.png" alt="btn_next"></button>
+                <button class="oz-btn w-[18%] left-[41%] top-[88%] pointer-events-none"><img src="06/p2.png"></button>
+            </div>
+            <div id="sub-3" class="sub-container hidden" data-background="06/06_3.jpg">
+                <button class="oz-btn w-[29%] left-[15%] top-[22.5%]" onclick="toggleAudio('06/63zh')"><img src="06/audio_zh.png" alt="play_zh"></button>
+                <button class="oz-btn w-[29%] left-[55%] top-[22.5%]" onclick="toggleAudio('06/63en')"><img src="06/audio_en.png" alt="play_en"></button>
+                <button class="oz-btn w-[18%] left-[12%] top-[88%]" onclick="backSubPage()"><img src="06/back.png" alt="btn_back"></button>
+                <button class="oz-btn w-[18%] left-[41%] top-[88%] pointer-events-none"><img src="06/p3.png"></button>
+            </div>
+        </div>
+        <div id="page-7" class="main-container hidden">
+            <img class="background" src="07/07.jpg" alt="background">
+            <button class="oz-btn w-[29%] left-[15%] top-[9.5%]" onclick="toggleAudio('07/7zh')"><img src="07/audio_zh.png" alt="play_zh"></button>
+            <button class="oz-btn w-[29%] left-[55%] top-[9.5%]" onclick="toggleAudio('07/7en')"><img src="07/audio_en.png" alt="play_en"></button>
+        </div>
+        <div id="page-8" class="main-container hidden">
+            <img class="background" src="08/08.jpg" alt="background">
+            <button class="oz-btn w-[29%] left-[15%] top-[8.5%]" onclick="toggleAudio('08/8zh')"><img src="08/audio_zh.png" alt="play_zh"></button>
+            <button class="oz-btn w-[29%] left-[55%] top-[8.5%]" onclick="toggleAudio('08/8en')"><img src="08/audio_en.png" alt="play_en"></button>
+        </div>
+    </body>
+</html>
