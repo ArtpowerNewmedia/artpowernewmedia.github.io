@@ -47,5 +47,26 @@ function resizeCoverOverflow() {
     content.style.opacity = 1;
 }
 
-window.addEventListener('resize', resizeCoverOverflow);
-window.addEventListener('load', resizeCoverOverflow);
+function resizeCoverScale() {
+    var content = document.querySelector('.main-container');
+
+    // 讀取css版面比例
+    var aspectRatio = 9/16; // 直接寫入數值
+    
+    var mobileWidth = window.innerWidth;
+    var mobileHeight = window.innerHeight;
+    
+    // 計算 cover 效果：確保內容完全顯示在視窗內
+    var contentWidth, contentHeight;
+    
+    contentWidth = Math.max(mobileWidth, mobileHeight * aspectRatio) * 1.05;
+    contentHeight = Math.max(mobileHeight, mobileWidth / aspectRatio) * 1.05;
+    
+    // 設定 content 的尺寸
+    content.style.width = contentWidth + 'px';
+    content.style.height = contentHeight + 'px';
+    content.style.opacity = 1;
+}
+
+window.addEventListener('resize', resizeCoverScale);
+window.addEventListener('load', resizeCoverScale);

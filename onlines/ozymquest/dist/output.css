@@ -752,6 +752,14 @@ video {
   top: 83%;
 }
 
+.left-\[66\%\] {
+  left: 66%;
+}
+
+.top-\[82\%\] {
+  top: 82%;
+}
+
 .block {
   display: block;
 }
@@ -810,6 +818,10 @@ video {
 
 .w-\[74\%\] {
   width: 74%;
+}
+
+.w-\[22\%\] {
+  width: 22%;
 }
 
 .resize {
