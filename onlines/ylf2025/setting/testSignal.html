@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>月津港 API 測試</title>
+</head>
+<body>
+    <div>
+        <h2>月津港 API 測試</h2>
+        
+        <!-- GET 請求區域 -->
+        <div>
+            <button onclick="getSignal()">獲取訊號</button>
+            <p>當前訊號: <span id="signalValue">-</span></p>
+        </div>
+
+        <!-- POST 請求區域 -->
+        <div>
+            <input type="number" id="signalInput" placeholder="輸入整數">
+            <button onclick="postSignal()">發送訊號</button>
+            <p id="postResult"></p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://ylf2025.iottalk.tw/signal';
+        const TOKEN = 'fa1a4509915146fdb07ae71645b561cf';
+
+        // GET 請求函數
+        async function getSignal() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${TOKEN}`
+                    }
+                });
+                const data = await response.text();
+                document.getElementById('signalValue').textContent = data;
+            } catch (error) {
+                console.error('獲取訊號失敗:', error);
+                document.getElementById('signalValue').textContent = '獲取失敗';
+            }
+        }
+
+        // POST 請求函數
+        async function postSignal() {
+            const signalValue = document.getElementById('signalInput').value;
+            
+            if (!Number.isInteger(Number(signalValue))) {
+                document.getElementById('postResult').textContent = '請輸入有效的整數';
+                return;
+            }
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${TOKEN}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(parseInt(signalValue))
+                });
+
+                if (response.ok) {
+                    document.getElementById('postResult').textContent = '發送成功';
+                } else {
+                    const errorText = await response.text();
+                    document.getElementById('postResult').textContent = `發送失敗: ${errorText}`;
+                }
+            } catch (error) {
+                console.error('發送訊號失敗:', error);
+                document.getElementById('postResult').textContent = '發送失敗';
+            }
+        }
+    </script>
+</body>
+</html>
