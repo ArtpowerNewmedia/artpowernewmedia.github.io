@@ -15,8 +15,77 @@
     <meta name="twitter:description" content="傳說中金門高粱酒的風味秘密，就藏在心中山公園某處！開啟手機鏡頭，循著光影找出正確的製酒關鍵元素吧。">
     <meta property="og:image" content="https://artpowernewmedia.github.io/redirection/kkbar2026/kkbar.jpg">
     <script>
-        document.location.href="https://argame-kkbar-2026.artpowernewmedia.workers.dev/";
-        //document.location.href="https://argame-kkbar-2026.netlify.app/";
+        // 目標網址（AR 遊戲）
+        var TARGET_URL = "https://argame-kkbar-2026.artpowernewmedia.workers.dev/";
+        //var TARGET_URL = "https://argame-kkbar-2026.netlify.app/";
+
+        // ===== 統計表單一：開啟網頁（作業系統、瀏覽器）=====
+        // 寫在入口頁而非 AR 頁：只有真正掃碼進來的人會經過這裡，
+        // AR 頁被瀏覽器分頁殘留、重新整理都不會誤記。
+        var OPEN_FORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLSf805OQkebqnARYXC0wf3sIkWrjWtbulTscUJIKxe0Wm2gUAQ/formResponse";
+        var OPEN_FORM_OS = "entry.1247667984";
+        var OPEN_FORM_BROWSER = "entry.1723551362";
+
+        function detectOs(ua, platform) {
+            if (/windows phone/i.test(ua)) return "Windows Phone";
+            if (/windows|win32|win64/i.test(ua) || /^win/i.test(platform)) return "Windows";
+            if (/android/i.test(ua)) return "Android";
+            if (/iphone|ipad|ipod/i.test(ua)) return "iOS";
+            // iPadOS 13+ 會偽裝成桌面 Safari（platform 為 MacIntel 但有觸控點）
+            if (/macintosh|mac os x/i.test(ua)) {
+                return (navigator.maxTouchPoints > 1) ? "iPadOS" : "macOS";
+            }
+            if (/cros/i.test(ua)) return "ChromeOS";
+            if (/linux/i.test(ua)) return "Linux";
+            return platform || "Unknown";
+        }
+
+        function detectBrowser(ua) {
+            // 先判斷 App 內建瀏覽器（AR 相容性常有問題，值得單獨記錄）
+            if (/line\//i.test(ua)) return "LINE";
+            if (/fban|fbav|fb_iab/i.test(ua)) return "Facebook";
+            if (/instagram/i.test(ua)) return "Instagram";
+            if (/micromessenger/i.test(ua)) return "WeChat";
+
+            // 一般瀏覽器（先判斷夾帶關鍵字的衍生瀏覽器，再判斷主流）
+            if (/edg(a|ios|)\//i.test(ua)) return "Edge";
+            if (/opr\/|opera/i.test(ua)) return "Opera";
+            if (/samsungbrowser/i.test(ua)) return "Samsung Internet";
+            if (/firefox|fxios/i.test(ua)) return "Firefox";
+            if (/crios/i.test(ua)) return "Chrome";
+            if (/chrome|chromium/i.test(ua)) return "Chrome";
+            if (/safari/i.test(ua)) return "Safari";
+            return "Unknown";
+        }
+
+        function trackOpen() {
+            try {
+                var ua = navigator.userAgent || "";
+                var platform = navigator.platform || "";
+                var body = new URLSearchParams();
+                body.append(OPEN_FORM_OS, detectOs(ua, platform));
+                body.append(OPEN_FORM_BROWSER, detectBrowser(ua));
+
+                // sendBeacon：瀏覽器保證在頁面離開後仍會送完，不會被轉址中斷。
+                if (navigator.sendBeacon) {
+                    navigator.sendBeacon(OPEN_FORM_ACTION, body);
+                    return;
+                }
+                // 舊瀏覽器退路：keepalive fetch（同樣能在離開頁面後送完）。
+                fetch(OPEN_FORM_ACTION, {
+                    method: "POST",
+                    mode: "no-cors",
+                    keepalive: true,
+                    headers: {"Content-Type": "application/x-www-form-urlencoded"},
+                    body: body.toString()
+                });
+            } catch (err) {
+                // 統計失敗不影響轉址
+            }
+        }
+
+        trackOpen();
+        document.location.href = TARGET_URL;
     </script>
 </head>
 <body>
